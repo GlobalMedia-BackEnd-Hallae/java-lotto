@@ -10,8 +10,8 @@ public class WinningNumbers implements LottoNumbers {
 
     public WinningNumbers(List<String> userInputNumbers) {
         Set<Integer> numbers = convert(userInputNumbers);
-        lengthValidate(numbers);
         overlapValidate(userInputNumbers,numbers);
+        lengthValidate(numbers);
         rangeValidate(numbers);
         lottoNumbers = numbers;
     }
@@ -23,7 +23,7 @@ public class WinningNumbers implements LottoNumbers {
     }
 
     private void typeValidate(List<String> userInputNumbers) {
-        if (userInputNumbers.stream().allMatch(number -> number.matches("^[0-9]*$"))) {
+        if (!userInputNumbers.stream().allMatch(number -> number.matches("^[0-9]*$"))) {
             throw new IllegalArgumentException("[error] is not number");
         }
     }
