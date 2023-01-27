@@ -1,4 +1,4 @@
-package gmbs;
+package gmbs.model;
 
 import java.util.*;
 

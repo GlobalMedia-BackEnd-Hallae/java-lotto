@@ -1,4 +1,4 @@
-package gmbs;
+package gmbs.model;
 
 import java.util.List;
 import java.util.Set;
@@ -16,10 +16,11 @@ public class WinningNumbers implements LottoNumbers {
         lottoNumbers = numbers;
     }
 
-    private void lengthValidate(Set<Integer> userInputNumbers) {
-        if (userInputNumbers.size() != VALID_LENGTH) {
-            throw new IllegalArgumentException("[error] invalid length");
-        }
+    private Set<Integer> convert(List<String> userInputNumbers) {
+        typeValidate(userInputNumbers);
+        return userInputNumbers.stream()
+                .map(Integer::parseInt)
+                .collect(Collectors.toSet());
     }
 
     private void typeValidate(List<String> userInputNumbers) {
@@ -34,11 +35,10 @@ public class WinningNumbers implements LottoNumbers {
         }
     }
 
-    private Set<Integer> convert(List<String> userInputNumbers) {
-        typeValidate(userInputNumbers);
-        return userInputNumbers.stream()
-                .map(Integer::parseInt)
-                .collect(Collectors.toSet());
+    private void lengthValidate(Set<Integer> userInputNumbers) {
+        if (userInputNumbers.size() != VALID_LENGTH) {
+            throw new IllegalArgumentException("[error] invalid length");
+        }
     }
 
     private void rangeValidate(Set<Integer> numbers) {
