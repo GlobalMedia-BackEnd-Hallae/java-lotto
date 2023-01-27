@@ -1,10 +1,11 @@
 package gmbs.model;
 
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
 
 public class Lotto {
 
-    private final Set<Integer> numbers;
+    private final List<Integer> numbers;
 
     public Lotto(NumberGenerator numbers) {
         this.numbers = numbers.getNumbers();
@@ -15,14 +16,7 @@ public class Lotto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         final Lotto lotto = (Lotto) o;
-        return equalsSet(numbers, lotto.numbers);
-    }
-
-    private boolean equalsSet(Set<Integer> set1, Set<Integer> set2) {
-        return set1 != null
-                && set2 != null
-                && set1.size() == set2.size()
-                && set1.containsAll(set2);
+        return numbers.equals(lotto.numbers);
     }
 
     @Override
@@ -30,7 +24,7 @@ public class Lotto {
         return Objects.hash(numbers);
     }
 
-    public Set<Integer> getNumber() {
+    public List<Integer> getNumber() {
         return numbers;
     }
 }

@@ -1,11 +1,11 @@
 package gmbs.model;
 
-import java.util.Set;
+import java.util.List;
 
 public interface NumberGenerator {
 
     int MAX = 45;
     int MIN = 1;
 
-    Set<Integer> getNumbers();
+    List<Integer> getNumbers();
 }
