@@ -6,7 +6,7 @@ public class Lotto {
 
     private final Set<Integer> numbers;
 
-    public Lotto(LottoNumbers numbers) {
+    public Lotto(NumberGenerator numbers) {
         this.numbers = numbers.getNumbers();
     }
 

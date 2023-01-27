@@ -42,14 +42,14 @@ class WinningNumbersTest {
 
     static Stream<Arguments> overlap() {
         return Stream.of(
-                Arguments.of(List.of("1", "1", "3", "4", "5", "6", "7", "8")),
-                Arguments.of(List.of("1", "1", "3", "4", "5", "6", "7", "8", "9")),
-                Arguments.of(List.of("1", "1", "3", "4", "5", "6"))
+                Arguments.of(List.of("1", "1", "3", "4", "5", "6")),
+                Arguments.of(List.of("1", "1", "3", "4", "5", "6", "7")),
+                Arguments.of(List.of("1", "1", "3", "4"))
         );
     }
 
     @ParameterizedTest
-    @DisplayName("입력된 정수가 8개가 아니면 예외 발생")
+    @DisplayName("입력된 정수가 6개가 아니면 예외 발생")
     @MethodSource("invalidLength")
     void exceptionByInvalidLength(List<String> userInput, boolean isInvalidLength) {
         if (isInvalidLength) {
@@ -62,9 +62,9 @@ class WinningNumbersTest {
 
     static Stream<Arguments> invalidLength() {
         return Stream.of(
-                Arguments.of(List.of("1", "2", "3", "4", "5", "6", "7", "8", "9"), true),
                 Arguments.of(List.of("1", "2", "3", "4", "5", "6", "7"), true),
-                Arguments.of(List.of("1", "2", "3", "4", "5", "6", "7", "8"), false)
+                Arguments.of(List.of("1", "2", "3", "4", "5"), true),
+                Arguments.of(List.of("1", "2", "3", "4", "5", "6"), false)
         );
     }
 
@@ -82,9 +82,9 @@ class WinningNumbersTest {
 
     static Stream<Arguments> invalidRange() {
         return Stream.of(
-                Arguments.of(List.of(Integer.toString(MIN), "2", "3", "4", "5", "6", "7", Integer.toString(MAX)), false),
-                Arguments.of(List.of(Integer.toString(MIN - 1), "1", "3", "4", "5", "6", "7", "8"), true),
-                Arguments.of(List.of("1", "2", "3", "4", "5", "6", "7", Integer.toString(MAX + 1)), true)
+                Arguments.of(List.of(Integer.toString(MIN), "2", "3", "4", "5", Integer.toString(MAX)), false),
+                Arguments.of(List.of(Integer.toString(MIN - 1), "1", "3", "4", "5", "6"), true),
+                Arguments.of(List.of("1", "2", "3", "4", "5", Integer.toString(MAX + 1)), true)
 
         );
     }
