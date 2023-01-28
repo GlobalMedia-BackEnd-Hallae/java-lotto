@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class LottoTicketsTest {
 
     private static final int[] GENERATED_RANDOM_NUMBERS = new int[] {1, 2, 3, 4, 5, 6};
-    private static final int BUY_QUANTITY = 1;
+    private static final Long BUY_QUANTITY = 1L;
     private static final int INIT_INDEX = 0;
 
     private int index = 0;
@@ -36,7 +36,7 @@ class LottoTicketsTest {
 
         // then
         assertAll(
-                () -> assertThat(matchResults).hasSize(BUY_QUANTITY),
+                () -> assertThat(matchResults).hasSize(BUY_QUANTITY.intValue()),
                 () -> {
                     for (MatchResultDto matchResult : matchResults) {
                         assertThat(matchResult.getMatchCount()).isEqualTo(expectMatchCount);
@@ -71,7 +71,7 @@ class LottoTicketsTest {
 
         // then
         assertAll(
-                () -> assertThat(lottoTicketsValues).hasSize(BUY_QUANTITY),
+                () -> assertThat(lottoTicketsValues).hasSize(BUY_QUANTITY.intValue()),
                 () -> {
                     for (LottoTicket lottoTicketsValue : lottoTicketsValues) {
                         assertThat(lottoTicketsValue.getLottoNumbers()).isEqualTo(expectLottoNumber);
@@ -99,7 +99,7 @@ class LottoTicketsTest {
         LottoTickets lottoTickets = new LottoTickets(randomNumber, BUY_QUANTITY);
 
         // when
-        int quantity = lottoTickets.getQuantity();
+        Long quantity = lottoTickets.getQuantity();
 
         // then
         assertThat(quantity).isEqualTo(BUY_QUANTITY);

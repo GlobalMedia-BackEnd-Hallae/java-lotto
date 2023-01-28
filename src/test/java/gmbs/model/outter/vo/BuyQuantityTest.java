@@ -3,11 +3,7 @@ package gmbs.model.outter.vo;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
-
-import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
@@ -66,12 +62,12 @@ class BuyQuantityTest {
     @ValueSource(strings = {"1000", "5000", "10000"})
     void getValue(String amount) {
         // given
-        final int buyAmount = Integer.parseInt(amount);
-        final int minAmount = Integer.parseInt(MIN_AMOUNT);
+        final Long buyAmount = Long.parseLong(amount);
+        final Long minAmount = Long.parseLong(MIN_AMOUNT);
         buyQuantity = BuyQuantity.from(amount);
 
         // when
-        int actual = buyQuantity.getValue();
+        Long actual = buyQuantity.getValue();
 
         // then
         assertThat(actual).isEqualTo(buyAmount / minAmount);
