@@ -27,19 +27,6 @@ public class LottoController {
         display.profitRatioDisplay(tickets.profitRatio(1000, userInputWinningNumbers.getNumbers(), bonus.getBonus()));
     }
 
-    private WinningNumbers requestWinningNumbers() {
-        WinningNumbers numbers;
-        while (true) {
-            try {
-                numbers = new WinningNumbers(List.of(userInput.scan().split(",")));
-                break;
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        return numbers;
-    }
-
     private UserMoney reqeustUserMoney() {
         UserMoney money;
         while (true) {
@@ -53,6 +40,23 @@ public class LottoController {
         return money;
     }
 
+    private Tickets createTickets(UserMoney money) {
+        return new Tickets(new TicketGenerator().generate(money.getTicketCount()));
+    }
+
+    private WinningNumbers requestWinningNumbers() {
+        WinningNumbers numbers;
+        while (true) {
+            try {
+                numbers = new WinningNumbers(List.of(userInput.scan().split(",")));
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return numbers;
+    }
+
     private BonusNumber requestBonusNumber(WinningNumbers winningNumbers) {
         BonusNumber bonus;
         while (true) {
@@ -64,10 +68,6 @@ public class LottoController {
             }
         }
         return bonus;
-    }
-
-    private Tickets createTickets(UserMoney money) {
-        return new Tickets(new TicketGenerator().generate(money.getTicketCount()));
     }
 
     private Map<Integer, Map<String, Integer>> getStats(Map<Prize, Integer> stats) {
