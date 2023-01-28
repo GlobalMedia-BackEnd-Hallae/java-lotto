@@ -7,12 +7,12 @@ public class LottoNumber {
     private static final int MIN = 1;
     private final int value;
 
-    LottoNumber(int number) {
+    public LottoNumber(int number) {
         rangeValidate(number);
         value = number;
     }
 
-    LottoNumber(String number) {
+    public LottoNumber(String number) {
         typeValidate(number);
         int converted = Integer.parseInt(number);
         rangeValidate(converted);
