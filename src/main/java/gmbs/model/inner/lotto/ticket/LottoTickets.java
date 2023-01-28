@@ -33,8 +33,8 @@ public class LottoTickets {
     public List<MatchResultDto> aggregateMatchResults(NumberDto numberDto) {
         return values.stream()
                 .map(lottoTicket -> MatchResultDto.of(
-                        lottoTicket.hasBonus(numberDto.getBonusNumber()),
-                        lottoTicket.calculateMatchCountByWinNumbers(numberDto.getWinNumbers())
+                        lottoTicket.calculateMatchCountByWinNumbers(numberDto.getWinNumbers()),
+                        lottoTicket.hasBonus(numberDto.getBonusNumber())
                 ))
                 .collect(Collectors.toUnmodifiableList());
     }
