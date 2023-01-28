@@ -33,22 +33,24 @@ class TicketTest {
     @ParameterizedTest
     @DisplayName("로또 당첨 금액을 확인한다")
     @MethodSource("prizeCheckData")
-    void testCheckPrize(Ticket ticket, List<Integer> winningNumbers, int bonus, Prize expected) {
+    void testCheckPrize(Ticket ticket, List<LottoNumber> winningNumbers, LottoNumber bonus, Prize expected) {
         Prize actual = ticket.checkPrize(winningNumbers, bonus);
 
         assertThat(actual).isEqualTo(expected);
     }
 
     static Stream<Arguments> prizeCheckData() {
-        int bonus = 27;
-        int notBonus = 26;
-        Ticket ticket = new Ticket(() -> List.of(1, 2, 3, 4, 5, 6, 7, bonus));
-        List<Integer> match6 = List.of(1, 2, 3, 4, 5, 6);
-        List<Integer> match5 = List.of(1, 2, 3, 4, 5, 16);
-        List<Integer> match4 = List.of(1, 2, 3, 4, 15, 16);
-        List<Integer> match3 = List.of(1, 2, 3, 14, 15, 16);
-        List<Integer> match2 = List.of(1, 2, 13, 14, 15, 16);
-        List<Integer> noMatch = List.of(11, 12, 13, 14, 15, 16);
+        int bonusValue = 27;
+        int notBonusValue = 26;
+        LottoNumber bonus = new LottoNumber(bonusValue);
+        LottoNumber notBonus = new LottoNumber(notBonusValue);
+        Ticket ticket = new Ticket(() -> List.of(1, 2, 3, 4, 5, 6, 7, bonusValue));
+        List<LottoNumber> match6 = new WinningNumbers(List.of("1", "2", "3", "4", "5", "6")).getNumbers();
+        List<LottoNumber> match5 = new WinningNumbers(List.of("1", "2", "3", "4", "5", "16")).getNumbers();
+        List<LottoNumber> match4 = new WinningNumbers(List.of("1", "2", "3", "4", "15", "16")).getNumbers();
+        List<LottoNumber> match3 = new WinningNumbers(List.of("1", "2", "3", "14", "15", "16")).getNumbers();
+        List<LottoNumber> match2 = new WinningNumbers(List.of("1", "2", "13", "14", "15", "16")).getNumbers();
+        List<LottoNumber> noMatch = new WinningNumbers(List.of("11", "12", "13", "14", "15", "16")).getNumbers();
 
         return Stream.of(
                 Arguments.of(ticket, match6, bonus, Prize.FIRST),

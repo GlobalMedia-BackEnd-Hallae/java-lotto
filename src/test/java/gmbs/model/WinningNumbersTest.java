@@ -8,7 +8,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static org.assertj.core.api.AssertionsForClassTypes.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 class WinningNumbersTest {
 
@@ -88,5 +89,4 @@ class WinningNumbersTest {
 
         );
     }
-
 }

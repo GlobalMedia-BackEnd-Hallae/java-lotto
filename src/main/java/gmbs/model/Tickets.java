@@ -18,12 +18,17 @@ public class Tickets {
         return lottoTickets;
     }
 
-    public Ticket getNthTickets(int index) {
-        return lottoTickets.get(index);
+    public Map<Prize, Integer> checkMatches(WinningNumbers winningNumbers, LottoNumber bonusNumber) {
+        Map<Prize, Integer> prizeCounts = createPrizeCounts();
+        for (Ticket ticket : lottoTickets) {
+            ticket.checkPrize(winningNumbers.getNumbers(), bonusNumber);
+            prizeCounts.compute(ticket.checkPrize(winningNumbers.getNumbers(), bonusNumber), (key, value) -> value + 1);
+        }
+        return prizeCounts;
     }
 
-    public Map<Prize, Integer> checkMatches(WinningNumbers winningNumbers, int bonusNumber) {
-        Map<Prize, Integer> prizeCounts = Stream.of(
+    private Map<Prize, Integer> createPrizeCounts() {
+        return Stream.of(
                 new AbstractMap.SimpleEntry<>(Prize.FIRST, 0),
                 new AbstractMap.SimpleEntry<>(Prize.SECOND, 0),
                 new AbstractMap.SimpleEntry<>(Prize.THIRD, 0),
@@ -31,10 +36,5 @@ public class Tickets {
                 new AbstractMap.SimpleEntry<>(Prize.FIFTH, 0),
                 new AbstractMap.SimpleEntry<>(Prize.LOSER, 0)
         ).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-        for (Ticket ticket : lottoTickets) {
-            ticket.checkPrize(winningNumbers.getNumbers(), bonusNumber);
-            prizeCounts.compute(ticket.checkPrize(winningNumbers.getNumbers(), bonusNumber), (key, value) -> value + 1);
-        }
-        return prizeCounts;
     }
 }

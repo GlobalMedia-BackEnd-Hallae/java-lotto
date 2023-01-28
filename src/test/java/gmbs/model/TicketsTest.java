@@ -10,10 +10,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class TicketsTest {
     private final WinningNumbers winningNumbers = new WinningNumbers(List.of("1", "2", "3", "4", "5", "6"));
-    private final int bonus = 45;
+    private static final int bonusValue = 45;
+    private final LottoNumber bonus = new LottoNumber(bonusValue);
     private final Ticket firstPrize = new Ticket(() -> List.of(1, 2, 3, 4, 5, 6, 7, 8));
-    private final Ticket secondPrize1 = new Ticket(() -> List.of(1, 2, 3, 4, 5, 16, 17, bonus));
-    private final Ticket secondPrize2 = new Ticket(() -> List.of(1, 2, 3, 4, 15, 6, 17, bonus));
+    private final Ticket secondPrize1 = new Ticket(() -> List.of(1, 2, 3, 4, 5, 16, 17, bonusValue));
+    private final Ticket secondPrize2 = new Ticket(() -> List.of(1, 2, 3, 4, 15, 6, 17, bonusValue));
     private final Ticket thirdPrize = new Ticket(() -> List.of(1, 2, 3, 4, 5, 16, 17, 18));
     private final Ticket fourthPrize = new Ticket(() -> List.of(1, 2, 3, 4, 15, 16, 17, 18));
     private final Ticket fifthPrize = new Ticket(() -> List.of(1, 2, 3, 14, 15, 16, 17, 18));

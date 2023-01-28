@@ -2,18 +2,22 @@ package gmbs.model;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Ticket {
 
-    private final List<Integer> numbers;
+    private final List<LottoNumber> numbers;
 
     public Ticket(NumberGenerator generator) {
-        this.numbers = generator.getNumbers();
+        this.numbers = generator.getNumbers()
+                .stream()
+                .map(LottoNumber::new)
+                .collect(Collectors.toUnmodifiableList());
     }
 
-    private int checkMatches(List<Integer> numbers) {
+    private int checkMatches(List<LottoNumber> numbers) {
         int matchCount = 0;
-        for (int number : numbers) {
+        for (LottoNumber number : numbers) {
             if (this.numbers.contains(number)) {
                 matchCount++;
             }
@@ -21,11 +25,11 @@ public class Ticket {
         return matchCount;
     }
 
-    private boolean hasValue(int value) {
+    private boolean hasValue(LottoNumber value) {
         return numbers.contains(value);
     }
 
-    public Prize checkPrize(List<Integer> winningNumbers, int bonusNumber) {
+    public Prize checkPrize(List<LottoNumber> winningNumbers, LottoNumber bonusNumber) {
         int match = checkMatches(winningNumbers);
         boolean hasBonus = hasValue(bonusNumber);
         if (match == 6) {
@@ -46,7 +50,7 @@ public class Ticket {
         return Prize.LOSER;
     }
 
-    public List<Integer> getNumbers() {
+    public List<LottoNumber> getNumbers() {
         return numbers;
     }
 
