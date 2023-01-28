@@ -7,8 +7,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class MatchResultDtoTest {
 
-    private static final boolean HAS_BONUS = true;
     private static final int MATCH_COUNT = 5;
+    private static final boolean HAS_BONUS = true;
 
     private MatchResultDto matchResultDto;
 
@@ -16,7 +16,7 @@ class MatchResultDtoTest {
     @Test
     void staticFactoryMethodCreateSuccess() {
         // when
-        matchResultDto = MatchResultDto.of(HAS_BONUS, MATCH_COUNT);
+        matchResultDto = MatchResultDto.of(MATCH_COUNT, HAS_BONUS);
 
         // then
         assertThat(matchResultDto.getClass()).isEqualTo(MatchResultDto.class);
@@ -26,7 +26,7 @@ class MatchResultDtoTest {
     @Test
     void getMatchCount() {
         // given
-        matchResultDto = MatchResultDto.of(HAS_BONUS, MATCH_COUNT);
+        matchResultDto = MatchResultDto.of(MATCH_COUNT, HAS_BONUS);
 
         // when
         int actual = matchResultDto.getMatchCount();
@@ -39,7 +39,7 @@ class MatchResultDtoTest {
     @Test
     void getHasBonus() {
         // given
-        matchResultDto = MatchResultDto.of(HAS_BONUS, MATCH_COUNT);
+        matchResultDto = MatchResultDto.of(MATCH_COUNT, HAS_BONUS);
 
         // when
         boolean actual = matchResultDto.getHasBonus();
