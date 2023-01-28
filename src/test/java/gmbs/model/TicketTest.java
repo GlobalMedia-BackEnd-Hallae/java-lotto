@@ -55,10 +55,11 @@ class TicketTest {
                 Arguments.of(ticket, match6, notBonus, Prize.FIRST),
                 Arguments.of(ticket, match5, bonus, Prize.SECOND),
                 Arguments.of(ticket, match5, notBonus, Prize.THIRD),
+                Arguments.of(ticket, match4, bonus, Prize.FOURTH),
                 Arguments.of(ticket, match4, notBonus, Prize.FOURTH),
-                Arguments.of(ticket, match3, bonus, Prize.FOURTH),
+                Arguments.of(ticket, match3, bonus, Prize.FIFTH),
                 Arguments.of(ticket, match3, notBonus, Prize.FIFTH),
-                Arguments.of(ticket, match2, bonus, Prize.FIFTH),
+                Arguments.of(ticket, match2, bonus, Prize.LOSER),
                 Arguments.of(ticket, match2, notBonus, Prize.LOSER),
                 Arguments.of(ticket, noMatch, notBonus, Prize.LOSER),
                 Arguments.of(ticket, noMatch, bonus, Prize.LOSER)

@@ -34,13 +34,13 @@ public class Ticket {
         if (match == 5 && hasBonus) {
             return Prize.SECOND;
         }
-        if (match == 5 || (match == 4 && hasBonus)) {
+        if (match == 5) {
             return Prize.THIRD;
         }
-        if (match == 4 || (match == 3 && hasBonus)) {
+        if (match == 4) {
             return Prize.FOURTH;
         }
-        if (match == 3 || (match == 2 && hasBonus)) {
+        if (match == 3) {
             return Prize.FIFTH;
         }
         return Prize.LOSER;
