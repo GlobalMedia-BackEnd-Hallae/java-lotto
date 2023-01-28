@@ -27,4 +27,8 @@ public class UserMoney {
     public int getTicketCount() {
         return money / DEFAULT_TICKET_PRICE;
     }
+
+    public int getDefaultTicketPrice() {
+        return DEFAULT_TICKET_PRICE;
+    }
 }

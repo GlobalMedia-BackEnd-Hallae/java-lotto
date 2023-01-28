@@ -24,7 +24,7 @@ public class LottoController {
         display.bonusNumberDisplay();
         BonusNumber bonus = requestBonusNumber(userInputWinningNumbers);
         display.matchesDisplay(getStats(tickets.checkMatches(userInputWinningNumbers.getNumbers(), bonus.getBonus())));
-        display.profitRatioDisplay(tickets.profitRatio(1000, userInputWinningNumbers.getNumbers(), bonus.getBonus()));
+        display.profitRatioDisplay(tickets.profitRatio(money.getDefaultTicketPrice(), userInputWinningNumbers.getNumbers(), bonus.getBonus()));
     }
 
     private UserMoney reqeustUserMoney() {
