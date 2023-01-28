@@ -11,20 +11,27 @@ public class Tickets {
     private final List<Ticket> lottoTickets;
 
     public Tickets(List<Ticket> generatedTickets) {
-        lottoTickets = generatedTickets;
+        lottoTickets = generatedTickets.stream()
+                .collect(Collectors.toUnmodifiableList());
     }
 
-    public List<Ticket> getTickets() {
-        return lottoTickets;
-    }
-
-    public Map<Prize, Integer> checkMatches(WinningNumbers winningNumbers, LottoNumber bonusNumber) {
+    public Map<Prize, Integer> checkMatches(List<LottoNumber> winningNumbers, LottoNumber bonusNumber) {
         Map<Prize, Integer> prizeCounts = createPrizeCounts();
         for (Ticket ticket : lottoTickets) {
-            ticket.checkPrize(winningNumbers.getNumbers(), bonusNumber);
-            prizeCounts.compute(ticket.checkPrize(winningNumbers.getNumbers(), bonusNumber), (key, value) -> value + 1);
+            ticket.checkPrize(winningNumbers, bonusNumber);
+            prizeCounts.compute(ticket.checkPrize(winningNumbers, bonusNumber), (key, value) -> value + 1);
         }
         return prizeCounts;
+    }
+
+    public float profitRatio(int ticketPrice, List<LottoNumber> winningNumbers, LottoNumber bonusNumber) {
+        Map<Prize, Integer> profits = checkMatches(winningNumbers, bonusNumber);
+        float moneyEarned = 0;
+        int moneyPaid = lottoTickets.size() * ticketPrice;
+        for (Map.Entry<Prize, Integer> matchCount : profits.entrySet()) {
+            moneyEarned += matchCount.getKey().money() * matchCount.getValue();
+        }
+        return moneyEarned / moneyPaid;
     }
 
     private Map<Prize, Integer> createPrizeCounts() {
@@ -36,5 +43,9 @@ public class Tickets {
                 new AbstractMap.SimpleEntry<>(Prize.FIFTH, 0),
                 new AbstractMap.SimpleEntry<>(Prize.LOSER, 0)
         ).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
+
+    public List<Ticket> getTickets() {
+        return lottoTickets;
     }
 }
