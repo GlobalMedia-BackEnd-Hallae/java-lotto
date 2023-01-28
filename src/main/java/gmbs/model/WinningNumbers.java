@@ -3,15 +3,17 @@ package gmbs.model;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class WinningNumbers implements NumberGenerator {
+public class WinningNumbers {
 
+    int MAX = 45;
+    int MIN = 1;
     private static final int VALID_LENGTH = 6;
 
     private final List<Integer> lottoNumbers;
 
     public WinningNumbers(List<String> userInputNumbers) {
         List<Integer> numbers = convert(userInputNumbers);
-        overlapValidate(userInputNumbers,numbers);
+        overlapValidate(userInputNumbers, numbers);
         lengthValidate(numbers);
         rangeValidate(numbers);
         lottoNumbers = numbers;
@@ -48,7 +50,6 @@ public class WinningNumbers implements NumberGenerator {
         }
     }
 
-    @Override
     public List<Integer> getNumbers() {
         return lottoNumbers;
     }
