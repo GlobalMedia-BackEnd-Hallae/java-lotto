@@ -17,12 +17,12 @@ class LottoResultTest {
 
     private static final Long BUY_QUANTITY = 1L;
     private static final double MIN_LOTTO_PRICE = 1000;
-    private static final List<MatchResultDto> FIRST_RANK_MATCH_DTO = List.of(MatchResultDto.of(false, 6));
-    private static final List<MatchResultDto> SECOND_RANK_MATCH_DTO = List.of(MatchResultDto.of(true, 5));
-    private static final List<MatchResultDto> THIRD_RANK_MATCH_DTO = List.of(MatchResultDto.of(false, 5));
-    private static final List<MatchResultDto> FOURTH_RANK_MATCH_DTO = List.of(MatchResultDto.of(false, 4));
-    private static final List<MatchResultDto> FIFTH_RANK_MATCH_DTO = List.of(MatchResultDto.of(false, 3));
-    private static final List<MatchResultDto> NONE_RANK_MATCH_DTO = List.of(MatchResultDto.of(false, 0));
+    private static final List<MatchResultDto> FIRST_RANK_MATCH_DTO = List.of(MatchResultDto.of(6, false));
+    private static final List<MatchResultDto> SECOND_RANK_MATCH_DTO = List.of(MatchResultDto.of(5, true));
+    private static final List<MatchResultDto> THIRD_RANK_MATCH_DTO = List.of(MatchResultDto.of(5, false));
+    private static final List<MatchResultDto> FOURTH_RANK_MATCH_DTO = List.of(MatchResultDto.of(4, false));
+    private static final List<MatchResultDto> FIFTH_RANK_MATCH_DTO = List.of(MatchResultDto.of(3, false));
+    private static final List<MatchResultDto> NONE_RANK_MATCH_DTO = List.of(MatchResultDto.of(0, false));
 
     private LottoResult lottoResult;
 
