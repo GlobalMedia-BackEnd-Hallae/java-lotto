@@ -12,13 +12,14 @@ public class LottoTicket {
         this.lottoNumbers = lottoNumberGenerator.generate();
     }
 
-    public boolean hasBonus(int bonusNumber) {
-        return lottoNumbers.contains(bonusNumber);
+    public int calculateMatchCountByWinNumbers(List<Integer> winNumbers) {
+        List<Integer> deepCopyLottoNumbers = new ArrayList<>(lottoNumbers);
+        deepCopyLottoNumbers.retainAll(winNumbers);
+        return deepCopyLottoNumbers.size();
     }
 
-    public int calculateMatchCountByWinNumbers(List<Integer> winNumbers) {
-        lottoNumbers.retainAll(winNumbers);
-        return lottoNumbers.size();
+    public boolean hasBonus(int bonusNumber) {
+        return lottoNumbers.contains(bonusNumber);
     }
 
     public List<Integer> getLottoNumbers() {
