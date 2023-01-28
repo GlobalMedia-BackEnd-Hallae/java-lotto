@@ -14,6 +14,7 @@ public class LottoNumber {
 
     public LottoNumber(String number) {
         typeValidate(number);
+        noInputValidate(number);
         int converted = Integer.parseInt(number);
         rangeValidate(converted);
         value = converted;
@@ -28,6 +29,12 @@ public class LottoNumber {
     private void rangeValidate(int number) {
         if (number < MIN || number > MAX) {
             throw new IllegalArgumentException("[error] invalid number range");
+        }
+    }
+
+    private void noInputValidate(String number) {
+        if (number.equals("")) {
+            throw new IllegalArgumentException(("[error] no input"));
         }
     }
 

@@ -57,6 +57,14 @@ class LottoNumberTest {
     }
 
     @Test
+    @DisplayName("문자열이 없으면 예외를 발생시킨다")
+    void exceptionThrownByNoInput() {
+        assertThatThrownBy(() -> new LottoNumber(""))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("[error] no input");
+    }
+
+    @Test
     @DisplayName("숫자가 아니면 예외를 발생시킨다")
     void exceptionThrownByInvalidExpression() {
         assertThatThrownBy(() -> new LottoNumber("a"))
