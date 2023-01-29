@@ -72,6 +72,7 @@ public class LottoController {
             OutputView.printException(e);
             return getWinningNumbers(lottoNumbers, getBonusNumber());
         }
+
     }
 
     private WinningResult getWinningResult(LottoTicket lottoTicket, WinningNumbers winningNumbers) {
