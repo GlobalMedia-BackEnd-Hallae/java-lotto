@@ -5,23 +5,16 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.assertj.core.api.Assertions.assertThat;
 
 class BuyQuantityTest {
 
-    private static final String NOT_NUMBER = "StringAmount";
-    private static final String EXCLAMATION_MARK = "!@#$%^";
     private static final String MIN_AMOUNT = "1000";
-    private static final String UNDER_THAN_MIN_AMOUNT = "999";
-    private static final String REMAINDER_IS_NOT_ZERO_AMOUNT = "1001";
-
-    private BuyQuantity buyQuantity;
 
     @DisplayName("구입 금액이 숫자가 아니라면 예외를 발생시킨다")
     @ParameterizedTest
-    @ValueSource(strings = {NOT_NUMBER, EXCLAMATION_MARK})
+    @ValueSource(strings = {"StringAmount", "!@#$%^"})
     void throwErrorAmountIsNotNumber(String amount) {
         // when, then
         assertThatThrownBy(() -> BuyQuantity.from(amount))
@@ -33,7 +26,7 @@ class BuyQuantityTest {
     @Test
     void throwErrorIfAmountIsUnderThanMinAmount() {
         // when, then
-        assertThatThrownBy(() -> BuyQuantity.from(UNDER_THAN_MIN_AMOUNT))
+        assertThatThrownBy(() -> BuyQuantity.from("999"))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] 구입 금액은 최소 1000원 이상이어야 합니다");
     }
@@ -42,19 +35,16 @@ class BuyQuantityTest {
     @Test
     void throwErrorIfRemainderIsNotZero() {
         // when, then
-        assertThatThrownBy(() -> BuyQuantity.from(REMAINDER_IS_NOT_ZERO_AMOUNT))
+        assertThatThrownBy(() -> BuyQuantity.from("1001"))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] 구입 금액이 1000으로 나누어 떨어지지 않습니다");
     }
 
-    @DisplayName("구입 금액을 입력 받아 BuyQuantity 객체를 생성한다")
+    @DisplayName("구입 금액을 입력 받아 BuyQuantity 객체 생성에 성공한다")
     @Test
-    void staticFactoryMethodCreateSuccess() {
-        // when
-        BuyQuantity buyQuantity = BuyQuantity.from(MIN_AMOUNT);
-
-        // then
-        assertThat(buyQuantity.getClass()).isEqualTo(BuyQuantity.class);
+    void createBuyQuantitySuccess() {
+        // when, then
+        assertThatCode(() -> BuyQuantity.from(MIN_AMOUNT)).doesNotThrowAnyException();
     }
 
     @DisplayName("구매 수량을 가져온다")
@@ -64,7 +54,7 @@ class BuyQuantityTest {
         // given
         final Long buyAmount = Long.parseLong(amount);
         final Long minAmount = Long.parseLong(MIN_AMOUNT);
-        buyQuantity = BuyQuantity.from(amount);
+        BuyQuantity buyQuantity = BuyQuantity.from(amount);
 
         // when
         Long actual = buyQuantity.getValue();
@@ -77,7 +67,7 @@ class BuyQuantityTest {
     @Test
     void equals() {
         // given
-        buyQuantity = BuyQuantity.from(MIN_AMOUNT);
+        BuyQuantity buyQuantity = BuyQuantity.from(MIN_AMOUNT);
         BuyQuantity another = BuyQuantity.from(MIN_AMOUNT);
 
         // when
