@@ -18,6 +18,7 @@ class WinningResultTest {
         lottoNumbersList.add(Ranking.FIFTH);
         lottoNumbersList.add(Ranking.FOURTH);
 
+
         // when
 
         // then
