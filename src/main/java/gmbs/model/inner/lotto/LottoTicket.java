@@ -1,6 +1,4 @@
-package gmbs.model.inner.lotto.ticket;
-
-import gmbs.model.inner.lotto.number.LottoNumberGenerator;
+package gmbs.model.inner.lotto;
 
 import java.util.*;
 
@@ -13,9 +11,9 @@ public class LottoTicket {
     }
 
     public int calculateMatchCountByWinNumbers(List<Integer> winNumbers) {
-        List<Integer> deepCopyLottoNumbers = new ArrayList<>(lottoNumbers);
-        deepCopyLottoNumbers.retainAll(winNumbers);
-        return deepCopyLottoNumbers.size();
+        List<Integer> tempLottoNumbers = new ArrayList<>(lottoNumbers);
+        tempLottoNumbers.retainAll(winNumbers);
+        return tempLottoNumbers.size();
     }
 
     public boolean hasBonus(int bonusNumber) {
