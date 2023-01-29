@@ -1,17 +1,19 @@
 package gmbs.view.output;
 
 import gmbs.model.inner.lotto.result.LottoResult;
-import gmbs.model.inner.lotto.ticket.LottoTickets;
+import gmbs.model.inner.lotto.LottoTicket;
+
+import java.util.List;
 
 public class OutputConsoleImpl implements OutputConsole {
 
     private static final String LINE_BREAK = "\n";
 
     @Override
-    public void printAutoLottoTickets(LottoTickets lottoTickets) {
+    public void printAutoLottoTickets(List<LottoTicket> lottoTickets, Long buyQuantity) {
         StringBuilder ticketResult = new StringBuilder();
-        ticketResult.append(lottoTickets.getQuantity()).append("개를 구매했습니다").append(LINE_BREAK);
-        lottoTickets.getValues().forEach(lottoTicket -> ticketResult
+        ticketResult.append(buyQuantity).append("개를 구매했습니다").append(LINE_BREAK);
+        lottoTickets.forEach(lottoTicket -> ticketResult
                 .append(lottoTicket.getLottoNumbers())
                 .append(LINE_BREAK)
         );
