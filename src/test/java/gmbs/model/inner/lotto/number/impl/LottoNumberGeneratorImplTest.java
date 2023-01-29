@@ -14,8 +14,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class LottoNumberGeneratorImplTest {
 
     private static final int MAX_LOTTO_SIZE = 6;
-    private static final int[] CONTAIN_DUPLICATE_NUMBERS = new int[] {1, 1, 2, 3, 4, 5, 6};
-    private static final int[] NON_DUPLICATE_NUMBERS = new int[] {1, 2, 3, 4, 5, 6};
 
     private int index = 0;
 
@@ -35,8 +33,8 @@ class LottoNumberGeneratorImplTest {
 
     private static Stream<Arguments> providerRandomNumbers() {
         return Stream.of(
-                Arguments.of((Object) CONTAIN_DUPLICATE_NUMBERS, MAX_LOTTO_SIZE),
-                Arguments.of((Object) NON_DUPLICATE_NUMBERS, MAX_LOTTO_SIZE)
+                Arguments.of(new int[] {1, 1, 2, 3, 4, 5, 6}, MAX_LOTTO_SIZE),
+                Arguments.of(new int[] {1, 2, 3, 4, 5, 6}, MAX_LOTTO_SIZE)
         );
     }
 }
