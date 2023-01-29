@@ -1,18 +1,20 @@
 package gmbs.model.outter.vo;
 
+import gmbs.util.LottoNumberValidator;
+
 import java.util.Objects;
 
-public class BonusNumberValidator extends LottoNumberValidator {
+public class BonusNumber extends LottoNumberValidator {
 
     private final int value;
 
-    private BonusNumberValidator(final int number) {
+    private BonusNumber(final int number) {
         validateNumberRangeIn(number);
         this.value = number;
     }
 
-    public static BonusNumberValidator from(final int number) {
-        return new BonusNumberValidator(number);
+    public static BonusNumber from(final int number) {
+        return new BonusNumber(number);
     }
 
     public int getValue() {
@@ -23,7 +25,7 @@ public class BonusNumberValidator extends LottoNumberValidator {
     public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BonusNumberValidator that = (BonusNumberValidator) o;
+        BonusNumber that = (BonusNumber) o;
         return value == that.value;
     }
 

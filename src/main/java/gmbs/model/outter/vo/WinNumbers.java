@@ -1,12 +1,12 @@
 package gmbs.model.outter.vo;
 
+import gmbs.util.LottoNumberValidator;
+
 import java.util.*;
 
-public class WinNumbers {
+public class WinNumbers extends LottoNumberValidator {
 
     private static final int MAX_WIN_NUMBER_SIZE = 6;
-    private static final int MIN_WIN_NUMBER = 1;
-    private static final int MAX_WIN_NUMBER = 45;
     private static final int FIRST_INDEX = 0;
     private static final int LAST_INDEX = 5;
 
@@ -15,7 +15,7 @@ public class WinNumbers {
     private WinNumbers(final List<Integer> numbers) {
         validateSize(numbers);
         validateDuplicate(numbers);
-        validateNumberRangeIn(numbers);
+        validateNumbersRangeIn(numbers);
         this.values = numbers;
     }
 
@@ -36,12 +36,9 @@ public class WinNumbers {
         }
     }
 
-    private void validateNumberRangeIn(List<Integer> numbers) {
-        Integer minWinNumber = numbers.get(FIRST_INDEX);
-        Integer maxWinNumber = numbers.get(LAST_INDEX);
-        if (minWinNumber < MIN_WIN_NUMBER || maxWinNumber > MAX_WIN_NUMBER) {
-            throw new IllegalArgumentException("[ERROR] 당첨 번호는 1~45 사이의 숫자여야 합니다");
-        }
+    private void validateNumbersRangeIn(List<Integer> numbers) {
+        validateNumberRangeIn(numbers.get(FIRST_INDEX));
+        validateNumberRangeIn(numbers.get(LAST_INDEX));
     }
 
     public List<Integer> getValues() {
