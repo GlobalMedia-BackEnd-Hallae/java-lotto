@@ -1,7 +1,7 @@
 package gmbs.controller;
 
-import gmbs.model.inner.lotto.number.impl.LottoNumber;
-import gmbs.model.inner.lotto.ticket.LottoTickets;
+import gmbs.model.inner.lotto.number.impl.LottoNumberGeneratorImpl;
+import gmbs.model.inner.lotto.number.impl.RandomNumberGeneratorImpl;
 import gmbs.model.outter.LottoMachine;
 import gmbs.model.dto.NumberDto;
 import gmbs.model.outter.vo.BonusNumber;
@@ -21,13 +21,16 @@ public class LottoController {
     }
 
     public void run() {
-        LottoMachine lottoMachine = new LottoMachine(BuyQuantity.from(inputConsole.readBuyAmount()).getValue());
-        LottoTickets lottoTickets = lottoMachine.issueLottoTickets(new LottoNumber());
-        outputConsole.printAutoLottoTickets(lottoTickets);
+        LottoMachine lottoMachine = new LottoMachine(
+                BuyQuantity.from(inputConsole.readBuyAmount()).getValue(),
+                new LottoNumberGeneratorImpl(new RandomNumberGeneratorImpl())
+        );
+        outputConsole.printAutoLottoTickets(lottoMachine.getLottoTickets(), lottoMachine.getBuyQuantity());
 
         NumberDto numberDto = NumberDto.of(
                 WinNumbers.from(inputConsole.readWinNumbers()).getValues(),
-                BonusNumber.from(inputConsole.readBonusNumber()).getValue());
-        outputConsole.printWinningStatistics(lottoMachine.runReadLotto(lottoTickets, numberDto));
+                BonusNumber.from(inputConsole.readBonusNumber()).getValue()
+        );
+        outputConsole.printWinningStatistics(lottoMachine.runReadLotto(numberDto));
     }
 }
