@@ -8,7 +8,7 @@ import static gmbs.model.inner.lotto.result.BonusAllowance.*;
 
 public enum Rank {
 
-    FIRST(6, 2_000_000_000L, ALL, "6개 일치"),
+    FIRST(6, 2_000_000_000L, ONLY_FALSE, "6개 일치"),
     SECOND(5, 30_000_000L, ONLY_TRUE, "5개 일치, 보너스 볼 일치"),
     THIRD(5, 1_500_000L, ONLY_FALSE, "5개 일치"),
     FOURTH(4, 50_000L, ALL, "4개 일치"),
