@@ -1,52 +1,56 @@
 package gmbs.model.outter;
 
 import gmbs.model.dto.NumberDto;
+import gmbs.model.inner.lotto.LottoTicket;
+import gmbs.model.inner.lotto.number.LottoNumberGenerator;
 import gmbs.model.inner.lotto.result.LottoResult;
-import gmbs.model.inner.lotto.number.impl.LottoNumber;
-import gmbs.model.inner.lotto.number.RandomNumber;
-import gmbs.model.inner.lotto.ticket.LottoTickets;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class LottoMachineTest {
 
     private static final Long BUY_QUANTITY = 1L;
-    private static final int BONUS_NUMBER = 7;
-    private static final List<Integer> WIN_NUMBERS = List.of(1, 2, 3, 4, 5, 6);
-    private static final RandomNumber RANDOM_NUMBER = new LottoNumber();
+    private static final List<Integer> GENERATE_RANDOM_NUMBER = List.of(1, 2, 3, 4, 5, 6);
 
     private LottoMachine lottoMachine;
-    private LottoTickets lottoTickets;
 
     @BeforeEach
     void setUp() {
-        lottoMachine = new LottoMachine(BUY_QUANTITY);
+        LottoNumberGenerator lottoNumberGenerator = () -> GENERATE_RANDOM_NUMBER;
+        lottoMachine = new LottoMachine(BUY_QUANTITY, lottoNumberGenerator);
     }
 
-    @DisplayName("randomNumber 와 구입 수량을 받아 LottoTickets 객체를 생성한다")
+    @DisplayName("발급된 LottoTicket 리스트를 가져온다")
     @Test
-    void issueLottoTickets() {
+    void getLottoTickets() {
         // when
-        lottoTickets = lottoMachine.issueLottoTickets(RANDOM_NUMBER);
+        List<LottoTicket> lottoTickets = lottoMachine.getLottoTickets();
 
         // then
-        assertThat(lottoTickets.getClass()).isEqualTo(LottoTickets.class);
+        assertAll(
+                () -> assertThat(lottoTickets).hasSize(BUY_QUANTITY.intValue()),
+                () -> {
+                    for (LottoTicket lottoTicket : lottoTickets) {
+                        assertThat(lottoTicket.getLottoNumbers()).isEqualTo(GENERATE_RANDOM_NUMBER);
+                    }
+                }
+        );
     }
 
-    @DisplayName("lottoTickets 와 NumberDto 를 받아 LottoResult 객체를 생성한다")
+    @DisplayName("NumberDto 를 받아 LottoResult 객체를 생성한다")
     @Test
     void runReadLotto() {
         // given
-        lottoTickets = lottoMachine.issueLottoTickets(RANDOM_NUMBER);
-        NumberDto numberDto = NumberDto.of(WIN_NUMBERS, BONUS_NUMBER);
+        NumberDto numberDto = NumberDto.of(List.of(1, 2, 3, 4, 5, 6), 7);
 
         // when
-        LottoResult lottoResult = lottoMachine.runReadLotto(lottoTickets, numberDto);
+        LottoResult lottoResult = lottoMachine.runReadLotto(numberDto);
 
         // then
         assertThat(lottoResult.getClass()).isEqualTo(LottoResult.class);
