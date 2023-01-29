@@ -4,7 +4,7 @@ import gmbs.model.inner.dto.MatchResultDto;
 import gmbs.model.inner.lotto.number.LottoNumberGenerator;
 import gmbs.model.inner.lotto.result.LottoResult;
 import gmbs.model.inner.lotto.LottoTicket;
-import gmbs.model.dto.NumberDto;
+import gmbs.model.dto.LottoNumberDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,15 +28,15 @@ public class LottoMachine {
         return issuedLottoTickets;
     }
 
-    public LottoResult runReadLotto(NumberDto numberDto) {
-        return LottoResult.from(aggregateMatchResults(numberDto), buyQuantity);
+    public LottoResult runReadLotto(LottoNumberDto lottoNumberDto) {
+        return LottoResult.from(aggregateMatchResults(lottoNumberDto), buyQuantity);
     }
 
-    private List<MatchResultDto> aggregateMatchResults(NumberDto numberDto) {
+    private List<MatchResultDto> aggregateMatchResults(LottoNumberDto lottoNumberDto) {
         return lottoTickets.stream()
                 .map(lottoTicket -> MatchResultDto.of(
-                        lottoTicket.calculateMatchCountByWinNumbers(numberDto.getWinNumbers()),
-                        lottoTicket.hasBonus(numberDto.getBonusNumber())
+                        lottoTicket.calculateMatchCountByWinNumbers(lottoNumberDto.getWinNumbers()),
+                        lottoTicket.hasBonus(lottoNumberDto.getBonusNumber())
                 ))
                 .collect(Collectors.toUnmodifiableList());
     }

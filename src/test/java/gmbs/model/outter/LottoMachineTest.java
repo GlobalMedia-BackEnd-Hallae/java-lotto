@@ -1,6 +1,6 @@
 package gmbs.model.outter;
 
-import gmbs.model.dto.NumberDto;
+import gmbs.model.dto.LottoNumberDto;
 import gmbs.model.inner.lotto.LottoTicket;
 import gmbs.model.inner.lotto.number.LottoNumberGenerator;
 import gmbs.model.inner.lotto.result.LottoResult;
@@ -47,10 +47,10 @@ class LottoMachineTest {
     @Test
     void runReadLotto() {
         // given
-        NumberDto numberDto = NumberDto.of(List.of(1, 2, 3, 4, 5, 6), 7);
+        LottoNumberDto lottoNumberDto = LottoNumberDto.of(List.of(1, 2, 3, 4, 5, 6), 7);
 
         // when
-        LottoResult lottoResult = lottoMachine.runReadLotto(numberDto);
+        LottoResult lottoResult = lottoMachine.runReadLotto(lottoNumberDto);
 
         // then
         assertThat(lottoResult.getClass()).isEqualTo(LottoResult.class);

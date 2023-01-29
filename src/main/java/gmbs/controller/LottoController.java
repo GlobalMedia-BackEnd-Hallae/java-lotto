@@ -3,7 +3,7 @@ package gmbs.controller;
 import gmbs.model.inner.lotto.number.impl.LottoNumberGeneratorImpl;
 import gmbs.model.inner.lotto.number.impl.RandomNumberGeneratorImpl;
 import gmbs.model.outter.LottoMachine;
-import gmbs.model.dto.NumberDto;
+import gmbs.model.dto.LottoNumberDto;
 import gmbs.model.outter.vo.BonusNumber;
 import gmbs.model.outter.vo.BuyQuantity;
 import gmbs.model.outter.vo.WinNumbers;
@@ -27,10 +27,10 @@ public class LottoController {
         );
         outputConsole.printAutoLottoTickets(lottoMachine.getLottoTickets(), lottoMachine.getBuyQuantity());
 
-        NumberDto numberDto = NumberDto.of(
+        LottoNumberDto lottoNumberDto = LottoNumberDto.of(
                 WinNumbers.from(inputConsole.readWinNumbers()).getValues(),
                 BonusNumber.from(inputConsole.readBonusNumber()).getValue()
         );
-        outputConsole.printWinningStatistics(lottoMachine.runReadLotto(numberDto));
+        outputConsole.printWinningStatistics(lottoMachine.runReadLotto(lottoNumberDto));
     }
 }
