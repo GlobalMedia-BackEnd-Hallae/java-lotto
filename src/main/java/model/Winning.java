@@ -8,10 +8,10 @@ public enum Winning {
     FIRST(6, 2000000000, "6개 일치 (2,000,000,000원)");
 
     private final int count;
-    private final int prize;
+    private final long prize;
     private final String description;
 
-    Winning(int count, int prize, String description) {
+    Winning(int count, long prize, String description) {
         this.count = count;
         this.prize = prize;
         this.description = description;
@@ -21,7 +21,7 @@ public enum Winning {
         return count;
     }
 
-    public int getPrize() {
+    public long getPrize() {
         return prize;
     }
 
