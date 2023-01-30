@@ -19,13 +19,13 @@ public class LotteryGame {
     private final ResultOutput resultOutput = new ResultOutput();
 
     public void lotteryGame() {
-        Money money = getMoney();
-        int number = money.getMoney() / MIN_MONEY_VALUE;
-        List<Lotto> lotto = lottoCreation.createLotto(number);
+        final Money money = getMoney();
+        final int number = money.getMoney() / MIN_MONEY_VALUE;
+        final List<Lotto> lotto = lottoCreation.createLotto(number);
         lottoOutput.outputLotto(number, lotto);
-        Lotto winningNumber = getWinningNumber();
+        final Lotto winningNumber = getWinningNumber();
         getBonusNumber(winningNumber);
-        List<Integer> winningResult = lotteryDrawing.drawLottery(winningNumber, lotto);
+        final List<Integer> winningResult = lotteryDrawing.drawLottery(winningNumber, lotto);
         resultOutput.outputResult(winningResult, new EarningsRateCalculator(money, winningResult));
     }
 
