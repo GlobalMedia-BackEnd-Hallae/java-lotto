@@ -4,8 +4,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class WinningNumbers {
-    private static final int VALID_LENGTH = 6;
+public class WinningNumbers implements NumberGenerator {
 
     private final List<LottoNumber> lottoNumbers;
 
@@ -29,11 +28,12 @@ public class WinningNumbers {
     }
 
     private void lengthValidate(Set<LottoNumber> userInputNumbers) {
-        if (userInputNumbers.size() != VALID_LENGTH) {
+        if (userInputNumbers.size() != LOTTO_LENGTH) {
             throw new IllegalArgumentException("[error] invalid length");
         }
     }
 
+    @Override
     public List<LottoNumber> getNumbers() {
         return lottoNumbers;
     }

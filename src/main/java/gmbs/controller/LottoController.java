@@ -21,10 +21,11 @@ public class LottoController {
         display.ticketDisplay(getTicketsData(tickets));
         display.winningNumberDisplay();
         WinningNumbers userInputWinningNumbers = requestWinningNumbers();
+        Ticket winningNumbers = new Ticket(userInputWinningNumbers);
         display.bonusNumberDisplay();
         BonusNumber bonus = requestBonusNumber(userInputWinningNumbers);
-        display.matchesDisplay(getStats(tickets.checkMatches(userInputWinningNumbers.getNumbers(), bonus.getBonus())));
-        display.profitRatioDisplay(tickets.profitRatio(money.getDefaultTicketPrice(), userInputWinningNumbers.getNumbers(), bonus.getBonus()));
+        display.matchesDisplay(getStats(tickets.checkMatches(winningNumbers, bonus.getBonus())));
+        display.profitRatioDisplay(tickets.profitRatio(money.getDefaultTicketPrice(), winningNumbers, bonus.getBonus()));
     }
 
     private UserMoney reqeustUserMoney() {

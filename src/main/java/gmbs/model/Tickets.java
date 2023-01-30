@@ -15,7 +15,7 @@ public class Tickets {
                 .collect(Collectors.toUnmodifiableList());
     }
 
-    public Map<Prize, Integer> checkMatches(List<LottoNumber> winningNumbers, LottoNumber bonusNumber) {
+    public Map<Prize, Integer> checkMatches(Ticket winningNumbers, LottoNumber bonusNumber) {
         Map<Prize, Integer> prizeCounts = createPrizeCounts();
         for (Ticket ticket : lottoTickets) {
             ticket.checkPrize(winningNumbers, bonusNumber);
@@ -24,7 +24,7 @@ public class Tickets {
         return prizeCounts;
     }
 
-    public float profitRatio(int ticketPrice, List<LottoNumber> winningNumbers, LottoNumber bonusNumber) {
+    public float profitRatio(int ticketPrice, Ticket winningNumbers, LottoNumber bonusNumber) {
         Map<Prize, Integer> profits = checkMatches(winningNumbers, bonusNumber);
         float moneyEarned = 0;
         int moneyPaid = lottoTickets.size() * ticketPrice;

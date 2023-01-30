@@ -8,5 +8,5 @@ public interface NumberGenerator {
     int MAX = 45;
     int MIN = 1;
 
-    List<Integer> getNumbers();
+    List<LottoNumber> getNumbers();
 }
