@@ -9,7 +9,7 @@ public class EarningsRateCalculator {
     private final String earningsRate;
 
     public EarningsRateCalculator(Money money, List<Integer> winningResult) {
-        final List<Long> prize = prizeOfWinning();
+        final List<Long> prize = getWinningPrize();
         long prizeSum = 0;
 
         for (int index = 0; index < prize.size(); index++) {
@@ -23,7 +23,7 @@ public class EarningsRateCalculator {
         return this.earningsRate;
     }
 
-    private List<Long> prizeOfWinning() {
+    private List<Long> getWinningPrize() {
         return Stream.of(Winning.values())
                 .map(m -> m.getPrize())
                 .collect(Collectors.toList());
