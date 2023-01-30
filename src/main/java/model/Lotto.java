@@ -37,7 +37,7 @@ public class Lotto {
     }
 
     private boolean checkOverlap(List<Integer> lottery) {
-        HashSet<Integer> overlapChecker = new HashSet<>(lottery);
+        final HashSet<Integer> overlapChecker = new HashSet<>(lottery);
         return overlapChecker.size() != LOTTO_COUNT;
     }
 
