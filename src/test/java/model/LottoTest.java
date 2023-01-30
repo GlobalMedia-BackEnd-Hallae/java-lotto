@@ -91,4 +91,16 @@ class LottoTest {
         assertThatThrownBy(() -> lotto.addBonusNumber(biggerBonusNumber))
                 .isInstanceOf(IllegalArgumentException.class);
     }
+
+    @Test
+    @DisplayName("중복된 보너스 번호를 전달받을 때 오류를 발생시킬 수 있다.")
+    void canCheckBonusNumberOverlap() {
+        // given
+        final Lotto lotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6));
+        final int bonusNumber = 6;
+
+        // when, then
+        assertThatThrownBy(() -> lotto.addBonusNumber(bonusNumber))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
 }
