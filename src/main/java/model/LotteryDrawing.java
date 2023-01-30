@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 
 public class LotteryDrawing {
 
-    private static final int MATCH_FIVE_NUMBERS = 5;
+    private static final int THIRD_PLACE_NUMBER = 2;
     private static final int FAIL_TO_WIN = 5;
 
     // 당첨 번호와 로또들 비교
@@ -17,8 +17,8 @@ public class LotteryDrawing {
 
         for (Lotto lotto : createdLotto) {
             int count = compareAllLotto(winningNumbers, lotto);
-            count += checkSecondOrThirdPlace(winningNumbers.getBonusNumber(), lotto, count);
             int index = setIndex(count, winningInformation);
+            index += checkSecondOrThirdPlace(winningNumbers.getBonusNumber(), lotto, index);
             winningResult.set(index, winningResult.get(index) + 1);
         }
 
@@ -54,15 +54,15 @@ public class LotteryDrawing {
     }
 
     // 2, 3등을 가리기 위해 보너스 번호와 로또 번호 비교, 공백 제외 8줄
-    private int checkSecondOrThirdPlace(int bonusNumber, Lotto lotto, int count) {
-        if (count != MATCH_FIVE_NUMBERS) {
+    private int checkSecondOrThirdPlace(int bonusNumber, Lotto lotto, int index) {
+        if (index != THIRD_PLACE_NUMBER) {
             return 0;
         }
 
         int check = 0;
 
         for (int lottoNumber : lotto.getLotto()) {
-            check += compareNumber(bonusNumber, lottoNumber);
+            check = Math.max(check, compareNumber(bonusNumber, lottoNumber));
         }
 
         return check;
@@ -81,7 +81,7 @@ public class LotteryDrawing {
         int index = FAIL_TO_WIN;
 
         for (int order = 0; order < winningInformation.size(); order++) {
-            index = compareCount(winningInformation.get(order), count, order);
+            index = Math.min(index, compareCount(winningInformation.get(order), count, order));
         }
 
         return index;
