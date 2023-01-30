@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 
 public class ResultOutput {
 
-    private static final String START_COMMENT = "당첨 통계\n---\n";
+    private static final String START_COMMENT = "\n당첨 통계\n---\n";
     private static final String CONNECTION = " - ";
     private static final String COUNT_AND_ENTER = "개\n";
 
@@ -27,7 +27,7 @@ public class ResultOutput {
         }
 
         System.out.print(stringBuilder);
-        System.out.println("총 수익률은 " + earningsRateCalculator.getEarningsRate() + "입니다.");
+        System.out.println("총 수익률은 " + earningsRateCalculator.getEarningsRate() + "%입니다.");
     }
 
     private List<String> getWinningDescription() {
