@@ -5,35 +5,37 @@ import java.util.Objects;
 public class LottoNumber {
     private static final int MAX = 45;
     private static final int MIN = 1;
+    private static final String INTEGER_REGEX = "^[0-9]*$";
     private final int value;
 
     public LottoNumber(int number) {
-        rangeValidate(number);
+        validateRange(number);
         value = number;
     }
 
     public LottoNumber(String number) {
-        typeValidate(number);
-        noInputValidate(number);
+        validateType(number);
+        validateNoInput(number);
         int converted = Integer.parseInt(number);
-        rangeValidate(converted);
+        validateRange(converted);
         value = converted;
     }
 
-    private void typeValidate(String number) {
-        if (!number.matches("^[0-9]*$")) {
+    private void validateType(String number) {
+        if (!number.matches(INTEGER_REGEX)) {
             throw new IllegalArgumentException("[error] is not number");
         }
     }
 
-    private void rangeValidate(int number) {
+    private void validateRange(int number) {
         if (number < MIN || number > MAX) {
             throw new IllegalArgumentException("[error] invalid number range");
         }
     }
 
-    private void noInputValidate(String number) {
-        if (number.equals("")) {
+    private void validateNoInput(String number) {
+
+        if (number.isEmpty()) {
             throw new IllegalArgumentException(("[error] no input"));
         }
     }

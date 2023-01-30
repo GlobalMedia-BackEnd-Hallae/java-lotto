@@ -13,9 +13,9 @@ import static org.assertj.core.api.AssertionsForClassTypes.*;
 class LottoNumberTest {
 
     @ParameterizedTest
-    @DisplayName("1~45 사이의 수가 아니면 예외를 발생시킨다")
-    @MethodSource("rangeExceptionData")
-    void exceptionThrownByInvalidRange(int given, boolean expectedExceptionThrown) {
+    @DisplayName("입력이 정수 일때1~45 사이의 수가 아니면 예외를 발생시킨다")
+    @MethodSource("rangeExceptionIntegerData")
+    void exceptionThrownByInvalidRangeInteger(int given, boolean expectedExceptionThrown) {
         if (expectedExceptionThrown) {
             assertThatThrownBy(() -> new LottoNumber(given))
                     .isInstanceOf(IllegalArgumentException.class)
@@ -25,7 +25,7 @@ class LottoNumberTest {
         }
     }
 
-    static Stream<Arguments> rangeExceptionData() {
+    static Stream<Arguments> rangeExceptionIntegerData() {
         return Stream.of(
                 Arguments.of(0, true),
                 Arguments.of(1, false),
@@ -36,8 +36,8 @@ class LottoNumberTest {
 
     @ParameterizedTest
     @DisplayName("1~45 사이의 수가 아니면 예외를 발생시킨다")
-    @MethodSource("rangeExceptionData2")
-    void exceptionThrownByInvalidRange2(String given, boolean expectedExceptionThrown) {
+    @MethodSource("rangeExceptionStringData")
+    void exceptionThrownByInvalidRangeString(String given, boolean expectedExceptionThrown) {
         if (expectedExceptionThrown) {
             assertThatThrownBy(() -> new LottoNumber(given))
                     .isInstanceOf(IllegalArgumentException.class)
@@ -47,7 +47,7 @@ class LottoNumberTest {
         }
     }
 
-    static Stream<Arguments> rangeExceptionData2() {
+    static Stream<Arguments> rangeExceptionStringData() {
         return Stream.of(
                 Arguments.of("0", true),
                 Arguments.of("1", false),
@@ -73,7 +73,7 @@ class LottoNumberTest {
     }
 
     @Test
-    @DisplayName("equals 오버라이딩 확인한다")
+    @DisplayName("필드값이 같으면 같은 같은 객체인지 확인한다")
     void testEquals() {
         LottoNumber num = new LottoNumber(1);
         LottoNumber num2 = new LottoNumber(1);
@@ -82,7 +82,7 @@ class LottoNumberTest {
     }
 
     @Test
-    @DisplayName("hashCode 오버라이딩 확인한다")
+    @DisplayName("필드값이 같으면 같은 hashcode를 반환하는지 확인한다")
     void testHashCode() {
         LottoNumber num = new LottoNumber(1);
         LottoNumber num2 = new LottoNumber(1);
