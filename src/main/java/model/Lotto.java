@@ -18,11 +18,10 @@ public class Lotto {
         }
 
         this.lottery = lottery;
-        this.bonusNumber = 0;
     }
 
     public void addBonusNumber(int bonusNumber) {
-        if (checkRange(bonusNumber)) {
+        if (checkRange(bonusNumber) || checkOverlap(bonusNumber)) {
             throw new IllegalArgumentException();
         }
 
@@ -46,11 +45,29 @@ public class Lotto {
         return lottery.get(0) < LOTTO_MIN_VALUE || lottery.get(5) > LOTTO_MAX_VALUE;
     }
 
-    private boolean checkRange(int bonusNumber) {
-        return bonusNumber < LOTTO_MIN_VALUE || bonusNumber > LOTTO_MAX_VALUE;
-    }
-
     private boolean checkCount(List<Integer> lottery) {
         return lottery.size() != LOTTO_COUNT;
+    }
+
+    private boolean checkOverlap(int bonusNumber) {
+        int check = 0;
+
+        for (int number : this.lottery) {
+            check = Math.max(check, compareNumber(number, bonusNumber));
+        }
+
+        return check == 1;
+    }
+
+    private int compareNumber(int number, int bonusNumber) {
+        if (number == bonusNumber) {
+            return 1;
+        }
+
+        return 0;
+    }
+
+    private boolean checkRange(int bonusNumber) {
+        return bonusNumber < LOTTO_MIN_VALUE || bonusNumber > LOTTO_MAX_VALUE;
     }
 }
