@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 class LottoAmountTest {
     @ParameterizedTest
     @ValueSource(ints = {0, 1100, -1})
-    @DisplayName("올바르지 않은 금액")
+    @DisplayName("구매 단위 테스트, 최소 1000 이상, 1000단위로 구매")
     void failed(int input) {
         assertThatThrownBy(() -> new LottoAmount(input))
                 .isInstanceOf(IllegalArgumentException.class);
