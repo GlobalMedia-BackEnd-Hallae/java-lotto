@@ -49,4 +49,8 @@ public class Output {
     public void profitRatioDisplay(float profitRatio) {
         System.out.println(format.format(profitRatio * 100) + "% 수익");
     }
+
+    public void exceptionDisplay(Exception e) {
+        System.out.println(e.getMessage());
+    }
 }

@@ -36,7 +36,7 @@ public class LottoController {
                 money = new UserMoney(userInput.scan());
                 break;
             } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
+                display.exceptionDisplay(e);
             }
         }
         return money;
@@ -53,7 +53,7 @@ public class LottoController {
                 numbers = new WinningNumbers(List.of(userInput.scan().split(",")));
                 break;
             } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
+                display.exceptionDisplay(e);
             }
         }
         return numbers;
@@ -66,7 +66,7 @@ public class LottoController {
                 bonus = new BonusNumber(winningNumbers, new LottoNumber(userInput.scan()));
                 break;
             } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
+                display.exceptionDisplay(e);
             }
         }
         return bonus;
