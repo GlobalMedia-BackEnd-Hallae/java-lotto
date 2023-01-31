@@ -9,12 +9,13 @@ import static java.util.stream.Collectors.collectingAndThen;
 import static java.util.stream.Collectors.toList;
 
 public class InputView {
-    private static final String INPUT_LOTTO_AMOUNT = "구입금액을 입력해 주세요.";
-    private static final String INPUT_BONUS_NUMBER = "보너스 볼을 입력해 주세요.";
-    private static final String TYPE_ERROR = "[ERROR] 숫자만 입력 가능합니다.";
     private static final String BLANK = " ";
     private static final String EMPTY_STRING = "";
     private static final String DELIMITER = ",";
+
+    private static final String INPUT_LOTTO_AMOUNT = "구입금액을 입력해 주세요.";
+    private static final String INPUT_BONUS_NUMBER = "보너스 볼을 입력해 주세요.";
+    private static final String TYPE_ERROR = "[ERROR] 숫자만 입력 가능합니다.";
 
     private static final Scanner SCANNER = new Scanner(System.in);
 

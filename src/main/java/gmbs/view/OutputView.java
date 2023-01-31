@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 public class OutputView {
     public static final String DELIMITER = ", ";
+
     public static final String JOIN_LIST_FORMAT = "[%s]";
     public static final String CORRECT_COUNT_FORMAT = "%d개 일치";
     public static final String CORRECT_BONUS_BALL = ", 보너스 볼 일치";
