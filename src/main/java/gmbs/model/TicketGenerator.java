@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 public class TicketGenerator {
+
     public List<Ticket> generate(int ticketCount) {
         RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator();
         Set<Ticket> tickets = new HashSet<>();

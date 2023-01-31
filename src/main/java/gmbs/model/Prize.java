@@ -3,6 +3,7 @@ package gmbs.model;
 import java.util.Arrays;
 
 public enum Prize {
+
     FIRST(2000000000, 1, 6, false),
     SECOND(30000000, 2, 5, true),
     THIRD(1500000, 3, 5, false),
