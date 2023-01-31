@@ -24,7 +24,7 @@ class UserInputLottoGeneratorTest {
                 .hasMessage("[error] is not number");
     }
 
-    static Stream<Arguments> invalidExpressions() {
+    private static Stream<Arguments> invalidExpressions() {
         return Stream.of(
                 Arguments.of(List.of("1", "a", "3", "4")),
                 Arguments.of(List.of("1", "2f", "3", "4")),
@@ -41,7 +41,7 @@ class UserInputLottoGeneratorTest {
                 .hasMessage("[error] has overlap");
     }
 
-    static Stream<Arguments> overlap() {
+    private static Stream<Arguments> overlap() {
         return Stream.of(
                 Arguments.of(List.of("1", "1", "3", "4", "5", "6")),
                 Arguments.of(List.of("1", "1", "3", "4", "5", "6", "7")),
@@ -57,7 +57,7 @@ class UserInputLottoGeneratorTest {
                 .hasMessage("[error] invalid length");
     }
 
-    static Stream<Arguments> invalidLength() {
+    private static Stream<Arguments> invalidLength() {
         return Stream.of(
                 Arguments.of(List.of("1", "2", "3", "4", "5", "6", "7")),
                 Arguments.of(List.of("1", "2", "3", "4", "5"))
@@ -72,7 +72,7 @@ class UserInputLottoGeneratorTest {
                 .hasMessage("[error] invalid number range");
     }
 
-    static Stream<Arguments> invalidRange() {
+    private static Stream<Arguments> invalidRange() {
         return Stream.of(
                 Arguments.of(List.of(Integer.toString(MIN - 1), "1", "3", "4", "5", "6")),
                 Arguments.of(List.of("1", "2", "3", "4", "5", Integer.toString(MAX + 1)))

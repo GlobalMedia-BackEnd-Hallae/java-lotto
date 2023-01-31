@@ -30,7 +30,7 @@ class UserMoneyTest {
 
     @Test
     @DisplayName("살 수 있는 로또 티켓 수를 반환한다")
-    void testGetTicketCount() {
+    void getTicketCount() {
         UserMoney money = new UserMoney("14000");
         int expected = 14;
         assertThat(money.getTicketCount()).isEqualTo(expected);

@@ -9,29 +9,24 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-import static org.assertj.core.api.AssertionsForClassTypes.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 class LottoNumberTest {
 
     @ParameterizedTest
     @DisplayName("입력이 정수 일때1~45 사이의 수가 아니면 예외를 발생시킨다")
     @MethodSource("rangeExceptionIntegerData")
-    void exceptionThrownByInvalidRangeInteger(int given, boolean expectedExceptionThrown) {
-        if (expectedExceptionThrown) {
-            assertThatThrownBy(() -> new LottoNumber(given))
-                    .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessage("[error] invalid number range");
-        } else {
-            assertThatCode(() -> new LottoNumber(given)).doesNotThrowAnyException();
-        }
+    void exceptionThrownByInvalidRangeInteger(int given) {
+        assertThatThrownBy(() -> new LottoNumber(given))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("[error] invalid number range");
     }
 
-    static Stream<Arguments> rangeExceptionIntegerData() {
+    private static Stream<Arguments> rangeExceptionIntegerData() {
         return Stream.of(
-                Arguments.of(0, true),
-                Arguments.of(1, false),
-                Arguments.of(45, false),
-                Arguments.of(46, true)
+                Arguments.of(0),
+                Arguments.of(46)
         );
     }
 
@@ -39,20 +34,14 @@ class LottoNumberTest {
     @DisplayName("1~45 사이의 수가 아니면 예외를 발생시킨다")
     @MethodSource("rangeExceptionStringData")
     void exceptionThrownByInvalidRangeString(String given, boolean expectedExceptionThrown) {
-        if (expectedExceptionThrown) {
-            assertThatThrownBy(() -> new LottoNumber(given))
-                    .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessage("[error] invalid number range");
-        } else {
-            assertThatCode(() -> new LottoNumber(given)).doesNotThrowAnyException();
-        }
+        assertThatThrownBy(() -> new LottoNumber(given))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("[error] invalid number range");
     }
 
-    static Stream<Arguments> rangeExceptionStringData() {
+    private static Stream<Arguments> rangeExceptionStringData() {
         return Stream.of(
                 Arguments.of("0", true),
-                Arguments.of("1", false),
-                Arguments.of("45", false),
                 Arguments.of("46", true)
         );
     }

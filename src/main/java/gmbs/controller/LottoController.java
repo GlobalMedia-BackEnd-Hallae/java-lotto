@@ -11,7 +11,6 @@ import gmbs.model.vo.LottoNumber;
 import gmbs.view.Input;
 import gmbs.view.Output;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,8 +29,9 @@ public class LottoController {
         Ticket winningNumbers = new Ticket(userInputUserInputLottoGenerator);
         display.bonusNumberDisplay();
         LottoNumber bonus = requestBonusNumber(winningNumbers);
-        display.matchesDisplay(getStats(tickets.checkMatches(winningNumbers, bonus)));
-        display.profitRatioDisplay(tickets.profitRatio(money.getDefaultTicketPrice(), winningNumbers, bonus));
+        showStats(tickets.checkMatches(winningNumbers, bonus));
+        float profitRatio = tickets.profitRatio(money.getDefaultTicketPrice(), winningNumbers, bonus);
+        display.profitRatioDisplay(profitRatio);
     }
 
     private UserMoney reqeustUserMoney() {
@@ -82,13 +82,18 @@ public class LottoController {
         return bonus.getLottoNumber();
     }
 
-    private Map<Integer, Map<String, Integer>> getStats(Map<Prize, Integer> stats) {
-        Map<Integer, Map<String, Integer>> winningStats = new HashMap<>();
+    private void showStats(Map<Prize, Integer> stats) {
         stats.keySet().remove(Prize.LOSER);
         for (Map.Entry<Prize, Integer> winningStat : stats.entrySet()) {
             Prize prize = winningStat.getKey();
-            winningStats.put(prize.place(), Map.of("price", prize.money(), "matches", prize.matches(), "count", winningStat.getValue()));
+            display.statDisplay(Map.of("price", prize.money(), "matches", prize.matches(), "count", winningStat.getValue(), "requireBonus", convertBonus(prize.requireBonus())));
         }
-        return winningStats;
+    }
+
+    private int convertBonus(boolean requireBonus) {
+        if (requireBonus) {
+            return 1;
+        }
+        return 0;
     }
 }

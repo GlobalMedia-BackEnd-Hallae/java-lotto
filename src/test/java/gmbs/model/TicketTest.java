@@ -23,7 +23,7 @@ class TicketTest {
 
     @Test
     @DisplayName("숫자가 같으면 같은 객체인지 확인한다")
-    void testEquals() {
+    void equals() {
         Ticket origin = new Ticket(() -> createLottoNumbers(List.of(1, 2, 3, 4, 5, 6)));
         Ticket duplicate = new Ticket(() -> createLottoNumbers(List.of(1, 2, 3, 4, 5, 6)));
         Ticket another = new Ticket(() -> createLottoNumbers(List.of(1, 2, 3, 4, 5, 17)));
@@ -34,7 +34,7 @@ class TicketTest {
 
     @Test
     @DisplayName("필드값이 같으면 같은 haschCode를 반환하는지 확인한다")
-    void testHashCode() {
+    void hashCodeCheck() {
         Ticket origin = new Ticket(() -> createLottoNumbers(List.of(1, 2, 3, 4, 5, 6)));
         Ticket duplicate = new Ticket(() -> createLottoNumbers(List.of(1, 2, 3, 4, 5, 6)));
         Ticket another = new Ticket(() -> createLottoNumbers(List.of(1, 2, 3, 4, 5, 17)));
@@ -46,7 +46,7 @@ class TicketTest {
     @ParameterizedTest
     @DisplayName("로또 당첨 금액을 확인한다")
     @MethodSource("prizeCheckData")
-    void testCheckPrize(Ticket ticket, Ticket winningNumbers, LottoNumber bonus, Prize expected) {
+    void checkPrize(Ticket ticket, Ticket winningNumbers, LottoNumber bonus, Prize expected) {
         Prize actual = ticket.checkPrize(winningNumbers, bonus);
 
         assertThat(actual).isEqualTo(expected);

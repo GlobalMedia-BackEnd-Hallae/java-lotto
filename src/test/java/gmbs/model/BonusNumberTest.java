@@ -20,6 +20,5 @@ class BonusNumberTest {
         assertThatThrownBy(() -> new BonusNumber(winningNumbers, invalidBonusNumber))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[error] number already allocated");
-
     }
 }
