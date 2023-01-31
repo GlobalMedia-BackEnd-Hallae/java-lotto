@@ -1,6 +1,7 @@
 package gmbs.controller;
 
 import gmbs.model.*;
+import gmbs.model.vo.LottoNumber;
 import gmbs.view.Input;
 import gmbs.view.Output;
 

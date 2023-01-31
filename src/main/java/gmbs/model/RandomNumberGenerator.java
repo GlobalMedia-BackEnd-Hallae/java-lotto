@@ -1,5 +1,7 @@
 package gmbs.model;
 
+import gmbs.model.vo.LottoNumber;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;

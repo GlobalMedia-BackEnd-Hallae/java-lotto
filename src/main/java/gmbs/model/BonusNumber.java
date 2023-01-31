@@ -1,5 +1,7 @@
 package gmbs.model;
 
+import gmbs.model.vo.LottoNumber;
+
 public class BonusNumber {
     private final LottoNumber bonus;
 

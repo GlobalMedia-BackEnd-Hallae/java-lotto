@@ -1,4 +1,4 @@
-package gmbs.model;
+package gmbs.model.vo;
 
 import java.util.Objects;
 

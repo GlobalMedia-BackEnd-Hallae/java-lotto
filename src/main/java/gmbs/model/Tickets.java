@@ -1,5 +1,7 @@
 package gmbs.model;
 
+import gmbs.model.vo.LottoNumber;
+
 import java.util.AbstractMap;
 import java.util.List;
 import java.util.Map;
