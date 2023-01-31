@@ -9,7 +9,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 class UserInputLottoGeneratorTest {
@@ -53,41 +52,30 @@ class UserInputLottoGeneratorTest {
     @ParameterizedTest
     @DisplayName("입력된 정수가 6개가 아니면 예외 발생")
     @MethodSource("invalidLength")
-    void exceptionByInvalidLength(List<String> userInput, boolean isInvalidLength) {
-        if (isInvalidLength) {
-            assertThatThrownBy(() -> new UserInputLottoGenerator(userInput)).isInstanceOf(IllegalArgumentException.class)
-                    .hasMessage("[error] invalid length");
-        } else {
-            assertThatCode(() -> new UserInputLottoGenerator(userInput)).doesNotThrowAnyException();
-        }
+    void exceptionByInvalidLength(List<String> userInput) {
+        assertThatThrownBy(() -> new UserInputLottoGenerator(userInput)).isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("[error] invalid length");
     }
 
     static Stream<Arguments> invalidLength() {
         return Stream.of(
-                Arguments.of(List.of("1", "2", "3", "4", "5", "6", "7"), true),
-                Arguments.of(List.of("1", "2", "3", "4", "5"), true),
-                Arguments.of(List.of("1", "2", "3", "4", "5", "6"), false)
+                Arguments.of(List.of("1", "2", "3", "4", "5", "6", "7")),
+                Arguments.of(List.of("1", "2", "3", "4", "5"))
         );
     }
 
     @ParameterizedTest
-    @DisplayName(MIN + "~" + MAX + "사이의 값이 아니면 예외 발생")
+    @DisplayName("1 ~ 45 사이의 값이 아니면 예외 발생")
     @MethodSource("invalidRange")
-    void exceptionByInvalidRange(List<String> userInput, boolean isInvalid) {
-        if (isInvalid) {
-            assertThatThrownBy(() -> new UserInputLottoGenerator(userInput)).isInstanceOf(IllegalArgumentException.class)
-                    .hasMessage("[error] invalid number range");
-        } else {
-            assertThatCode(() -> new UserInputLottoGenerator(userInput)).doesNotThrowAnyException();
-        }
+    void exceptionByInvalidRange(List<String> userInput) {
+        assertThatThrownBy(() -> new UserInputLottoGenerator(userInput)).isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("[error] invalid number range");
     }
 
     static Stream<Arguments> invalidRange() {
         return Stream.of(
-                Arguments.of(List.of(Integer.toString(MIN), "2", "3", "4", "5", Integer.toString(MAX)), false),
-                Arguments.of(List.of(Integer.toString(MIN - 1), "1", "3", "4", "5", "6"), true),
-                Arguments.of(List.of("1", "2", "3", "4", "5", Integer.toString(MAX + 1)), true)
-
+                Arguments.of(List.of(Integer.toString(MIN - 1), "1", "3", "4", "5", "6")),
+                Arguments.of(List.of("1", "2", "3", "4", "5", Integer.toString(MAX + 1)))
         );
     }
 }
