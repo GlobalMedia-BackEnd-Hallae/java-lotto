@@ -26,16 +26,6 @@ public class Tickets {
         return prizeCounts;
     }
 
-    public float profitRatio(int ticketPrice, Ticket winningNumbers, LottoNumber bonusNumber) {
-        Map<Prize, Integer> profits = checkMatches(winningNumbers, bonusNumber);
-        float moneyEarned = 0;
-        int moneyPaid = lottoTickets.size() * ticketPrice;
-        for (Map.Entry<Prize, Integer> matchCount : profits.entrySet()) {
-            moneyEarned += matchCount.getKey().money() * matchCount.getValue();
-        }
-        return moneyEarned / moneyPaid;
-    }
-
     private Map<Prize, Integer> createPrizeCounts() {
         return Stream.of(
                 new AbstractMap.SimpleEntry<>(Prize.FIRST, 0),
@@ -45,6 +35,16 @@ public class Tickets {
                 new AbstractMap.SimpleEntry<>(Prize.FIFTH, 0),
                 new AbstractMap.SimpleEntry<>(Prize.LOSER, 0)
         ).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
+
+    public float profitRatio(int ticketPrice, Ticket winningNumbers, LottoNumber bonusNumber) {
+        Map<Prize, Integer> profits = checkMatches(winningNumbers, bonusNumber);
+        float moneyEarned = 0;
+        int moneyPaid = lottoTickets.size() * ticketPrice;
+        for (Map.Entry<Prize, Integer> matchCount : profits.entrySet()) {
+            moneyEarned += matchCount.getKey().money() * matchCount.getValue();
+        }
+        return moneyEarned / moneyPaid;
     }
 
     public List<Ticket> getTickets() {

@@ -35,7 +35,6 @@ public class LottoNumber implements Comparable<LottoNumber> {
     }
 
     private void validateNoInput(String number) {
-
         if (number.isEmpty()) {
             throw new IllegalArgumentException(("[error] no input"));
         }

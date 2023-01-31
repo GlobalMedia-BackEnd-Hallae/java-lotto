@@ -15,17 +15,6 @@ public class Ticket {
         this.numbers = generator.getNumbers();
     }
 
-    private int checkMatches(Ticket anotherTicket) {
-        int matchCount = 0;
-        List<LottoNumber> anotherNumbers = anotherTicket.getLottoNumbers();
-        for (LottoNumber number : anotherNumbers) {
-            if (this.numbers.contains(number)) {
-                matchCount++;
-            }
-        }
-        return matchCount;
-    }
-
     public boolean hasValue(LottoNumber value) {
         return numbers.contains(value);
     }
@@ -34,6 +23,17 @@ public class Ticket {
         int match = checkMatches(winningNumbers);
         boolean hasBonus = hasValue(bonusNumber);
         return Prize.find(match, hasBonus);
+    }
+
+    private int checkMatches(Ticket anotherTicket) {
+        int matchCount = 0;
+        List<LottoNumber> anotherNumbers = anotherTicket.getLottoNumbers();
+        for (LottoNumber anotherNumber : anotherNumbers) {
+            if (this.numbers.contains(anotherNumber)) {
+                matchCount++;
+            }
+        }
+        return matchCount;
     }
 
     public List<LottoNumber> getLottoNumbers() {
