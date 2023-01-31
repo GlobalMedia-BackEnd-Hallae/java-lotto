@@ -24,9 +24,9 @@ public class LottoController {
         WinningNumbers userInputWinningNumbers = requestWinningNumbers();
         Ticket winningNumbers = new Ticket(userInputWinningNumbers);
         display.bonusNumberDisplay();
-        BonusNumber bonus = requestBonusNumber(userInputWinningNumbers);
-        display.matchesDisplay(getStats(tickets.checkMatches(winningNumbers, bonus.getBonus())));
-        display.profitRatioDisplay(tickets.profitRatio(money.getDefaultTicketPrice(), winningNumbers, bonus.getBonus()));
+        LottoNumber bonus = requestBonusNumber(winningNumbers);
+        display.matchesDisplay(getStats(tickets.checkMatches(winningNumbers, bonus)));
+        display.profitRatioDisplay(tickets.profitRatio(money.getDefaultTicketPrice(), winningNumbers, bonus));
     }
 
     private UserMoney reqeustUserMoney() {
@@ -59,7 +59,7 @@ public class LottoController {
         return numbers;
     }
 
-    private BonusNumber requestBonusNumber(WinningNumbers winningNumbers) {
+    private LottoNumber requestBonusNumber(Ticket winningNumbers) {
         BonusNumber bonus;
         while (true) {
             try {
@@ -69,7 +69,7 @@ public class LottoController {
                 display.exceptionDisplay(e);
             }
         }
-        return bonus;
+        return bonus.getLottoNumber();
     }
 
     private Map<Integer, Map<String, Integer>> getStats(Map<Prize, Integer> stats) {

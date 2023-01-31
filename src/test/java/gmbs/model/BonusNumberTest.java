@@ -13,7 +13,7 @@ class BonusNumberTest {
     @Test
     @DisplayName("중복이 있으면 예외를 발생")
     void exceptionByOverlap() {
-        WinningNumbers winningNumbers = new WinningNumbers(List.of("1", "2", "3", "4", "5", "6"));
+        Ticket winningNumbers = new Ticket(() -> List.of(new LottoNumber(1), new LottoNumber(2), new LottoNumber(3), new LottoNumber(4), new LottoNumber(5), new LottoNumber(6)));
         LottoNumber invalidBonusNumber = new LottoNumber(1);
 
         assertThatThrownBy(() -> new BonusNumber(winningNumbers, invalidBonusNumber))

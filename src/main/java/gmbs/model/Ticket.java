@@ -25,7 +25,7 @@ public class Ticket {
         return matchCount;
     }
 
-    private boolean hasValue(LottoNumber value) {
+    public boolean hasValue(LottoNumber value) {
         return numbers.contains(value);
     }
 
