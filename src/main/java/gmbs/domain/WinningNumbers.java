@@ -15,8 +15,8 @@ public class WinningNumbers {
     }
 
     public Ranking calculateRanking(LottoNumbers otherLottoNumbers) {
-        int cnt = lottoNumbers.calculateSameCount(otherLottoNumbers);
-        return Ranking.findRanking(cnt, otherLottoNumbers.contains(bonusNumber));
+        int count = lottoNumbers.calculateSameCount(otherLottoNumbers);
+        return Ranking.findRanking(count, otherLottoNumbers.contains(bonusNumber));
     }
 
     private void validateDuplicateNumber(LottoNumbers lottoNumbers, LottoNumber bonusNumber) {
