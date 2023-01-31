@@ -2,6 +2,7 @@ package gmbs.model;
 
 import gmbs.model.vo.LottoNumber;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,7 +16,7 @@ public class Ticket {
 
     private int checkMatches(Ticket anotherTicket) {
         int matchCount = 0;
-        List<LottoNumber> anotherNumbers = anotherTicket.getNumbers();
+        List<LottoNumber> anotherNumbers = anotherTicket.getLottoNumbers();
         for (LottoNumber number : anotherNumbers) {
             if (this.numbers.contains(number)) {
                 matchCount++;
@@ -34,8 +35,16 @@ public class Ticket {
         return Prize.find(match, hasBonus);
     }
 
-    public List<LottoNumber> getNumbers() {
+    public List<LottoNumber> getLottoNumbers() {
         return numbers;
+    }
+
+    public List<Integer> getLottoNumberValues() {
+        List<Integer> numberValues = new ArrayList<>();
+        for (LottoNumber number : numbers) {
+            numberValues.add(number.getValue());
+        }
+        return numberValues;
     }
 
     @Override

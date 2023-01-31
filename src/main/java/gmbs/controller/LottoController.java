@@ -82,18 +82,10 @@ public class LottoController {
         return winningStats;
     }
 
-    private List<Integer> getTicketNumbers(Ticket ticket) {
-        List<Integer> numbers = new ArrayList<>();
-        for (LottoNumber lottoNumber : ticket.getNumbers()) {
-            numbers.add(lottoNumber.getValue());
-        }
-        return numbers;
-    }
-
     private List<List<Integer>> getTicketsData(Tickets givenTickets) {
         List<List<Integer>> tickets = new ArrayList<>();
         for (Ticket ticket : givenTickets.getTickets()) {
-            tickets.add(getTicketNumbers(ticket));
+            tickets.add(ticket.getLottoNumberValues());
         }
         return tickets;
     }
