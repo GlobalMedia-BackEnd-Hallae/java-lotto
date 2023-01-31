@@ -18,12 +18,12 @@ class WinningResultTest {
         lottoNumbersList.add(Ranking.FIFTH);
         lottoNumbersList.add(Ranking.FOURTH);
 
+        WinningResult winningResult = new WinningResult(lottoNumbersList);
+        int expect = Ranking.FIFTH.getPrize() * 2 + Ranking.FOURTH.getPrize();
 
         // when
-
+        long sum = winningResult.calculatePrizeSum();
         // then
-        int expect = Ranking.FIFTH.getPrize() * 2 + Ranking.FOURTH.getPrize();
-        WinningResult winningResult = new WinningResult(lottoNumbersList);
-        assertThat(winningResult.calculatePrizeSum()).isEqualTo(expect);
+        assertThat(sum).isEqualTo(expect);
     }
 }
