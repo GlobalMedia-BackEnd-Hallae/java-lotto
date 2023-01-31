@@ -29,22 +29,7 @@ public class Ticket {
     public Prize checkPrize(Ticket winningNumbers, LottoNumber bonusNumber) {
         int match = checkMatches(winningNumbers);
         boolean hasBonus = hasValue(bonusNumber);
-        if (match == 6) {
-            return Prize.FIRST;
-        }
-        if (match == 5 && hasBonus) {
-            return Prize.SECOND;
-        }
-        if (match == 5) {
-            return Prize.THIRD;
-        }
-        if (match == 4) {
-            return Prize.FOURTH;
-        }
-        if (match == 3) {
-            return Prize.FIFTH;
-        }
-        return Prize.LOSER;
+        return Prize.find(match, hasBonus);
     }
 
     public List<LottoNumber> getNumbers() {
