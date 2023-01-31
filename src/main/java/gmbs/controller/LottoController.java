@@ -1,24 +1,15 @@
 package gmbs.controller;
 
-import gmbs.domain.LottoAmount;
-import gmbs.domain.LottoNumber;
-import gmbs.domain.LottoNumbers;
-import gmbs.domain.LottoTicket;
-import gmbs.domain.WinningNumbers;
-import gmbs.domain.WinningResult;
+import gmbs.domain.*;
 import gmbs.view.InputView;
 import gmbs.view.OutputView;
 
 public class LottoController {
     public void start() {
         LottoAmount amount = inputAmount();
-
-        LottoTicket lottoTicket = buyTickets(amount);
-
+        LottoTicket lottoTicket = buyTicket(amount);
         WinningNumbers winningNumbers = createWinningNumbers();
-
         WinningResult winningResult = getWinningResult(lottoTicket, winningNumbers);
-
         printResult(amount, winningResult);
     }
 
@@ -31,37 +22,43 @@ public class LottoController {
         }
     }
 
-    private LottoTicket buyTickets(LottoAmount amount) {
+    private LottoTicket buyTicket(LottoAmount amount) {
         int ticketCount = amount.calculateLottoCount();
         OutputView.printTicketCount(ticketCount);
-
-        LottoTicket lottoTicket = new LottoTicket(ticketCount);
-        OutputView.printTicket(lottoTicket);
+        int autoTicketCount = amount.calculateLottoCount();
+        LottoTicket lottoTicket = LottoTicket.createAutoLottoTicket(autoTicketCount);
+        printTickets(lottoTicket);
         return lottoTicket;
     }
 
+    private void printTickets(LottoTicket lottoTicket) {
+        OutputView.printTicket(lottoTicket);
+    }
+
+
     private WinningNumbers createWinningNumbers() {
-        LottoNumbers inputLottoNumbers = getInputLottoNumbers();
-        LottoNumber bonusNumber = getBonusNumber();
+        OutputView.printInputWinningTicketSentence();
+        LottoNumbers inputLottoNumbers = inputLottoNumbers();
+        LottoNumber bonusNumber = inputBonusNumber();
 
         return getWinningNumbers(inputLottoNumbers, bonusNumber);
     }
 
-    private LottoNumbers getInputLottoNumbers() {
+    private LottoNumbers inputLottoNumbers() {
         try {
-            return new LottoNumbers(InputView.inputWinningNumbers());
+            return new LottoNumbers(InputView.inputLottoNumbers());
         } catch (IllegalArgumentException e) {
             OutputView.printException(e);
-            return getInputLottoNumbers();
+            return inputLottoNumbers();
         }
     }
 
-    private LottoNumber getBonusNumber() {
+    private LottoNumber inputBonusNumber() {
         try {
             return LottoNumber.of(InputView.inputBonusBall());
         } catch (IllegalArgumentException e) {
             OutputView.printException(e);
-            return getBonusNumber();
+            return inputBonusNumber();
         }
     }
 
@@ -70,9 +67,8 @@ public class LottoController {
             return new WinningNumbers(lottoNumbers, bonusNumber);
         } catch (IllegalArgumentException e) {
             OutputView.printException(e);
-            return getWinningNumbers(lottoNumbers, getBonusNumber());
+            return getWinningNumbers(lottoNumbers, inputBonusNumber());
         }
-
     }
 
     private WinningResult getWinningResult(LottoTicket lottoTicket, WinningNumbers winningNumbers) {
