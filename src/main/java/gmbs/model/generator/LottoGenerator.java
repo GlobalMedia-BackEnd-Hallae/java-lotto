@@ -1,10 +1,10 @@
-package gmbs.model;
+package gmbs.model.generator;
 
 import gmbs.model.vo.LottoNumber;
 
 import java.util.List;
 
-public interface NumberGenerator {
+public interface LottoGenerator {
 
     int LOTTO_LENGTH = 6;
     int MAX = 45;

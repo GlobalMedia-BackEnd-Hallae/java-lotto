@@ -1,4 +1,4 @@
-package gmbs.model;
+package gmbs.model.generator;
 
 import gmbs.model.vo.LottoNumber;
 
@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class WinningNumbers implements NumberGenerator {
+public class UserInputLottoGenerator implements LottoGenerator {
 
     private final List<LottoNumber> lottoNumbers;
 
-    public WinningNumbers(List<String> userInputNumbers) {
+    public UserInputLottoGenerator(List<String> userInputNumbers) {
         Set<LottoNumber> numbers = convert(userInputNumbers);
         overlapValidate(userInputNumbers, numbers);
         lengthValidate(numbers);

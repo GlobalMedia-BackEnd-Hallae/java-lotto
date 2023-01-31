@@ -1,6 +1,6 @@
-package gmbs.model;
+package gmbs.model.vo;
 
-import gmbs.model.vo.LottoNumber;
+import gmbs.model.Ticket;
 
 public class BonusNumber {
 

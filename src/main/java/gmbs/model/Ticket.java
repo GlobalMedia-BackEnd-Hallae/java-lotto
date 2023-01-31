@@ -1,5 +1,6 @@
 package gmbs.model;
 
+import gmbs.model.generator.LottoGenerator;
 import gmbs.model.vo.LottoNumber;
 
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ public class Ticket {
 
     private final List<LottoNumber> numbers;
 
-    public Ticket(NumberGenerator generator) {
+    public Ticket(LottoGenerator generator) {
         this.numbers = generator.getNumbers();
     }
 

@@ -1,4 +1,4 @@
-package gmbs.model;
+package gmbs.model.generator;
 
 import gmbs.model.vo.LottoNumber;
 
@@ -8,7 +8,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class RandomNumberGenerator implements NumberGenerator {
+public class RandomLottoGenerator implements LottoGenerator {
 
     @Override
     public List<LottoNumber> getNumbers() {

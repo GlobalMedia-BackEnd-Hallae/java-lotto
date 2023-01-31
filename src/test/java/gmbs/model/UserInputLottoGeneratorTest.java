@@ -1,5 +1,6 @@
 package gmbs.model;
 
+import gmbs.model.generator.UserInputLottoGenerator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -11,7 +12,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
-class WinningNumbersTest {
+class UserInputLottoGeneratorTest {
 
     private static final int MIN = 1;
     private static final int MAX = 45;
@@ -20,7 +21,7 @@ class WinningNumbersTest {
     @DisplayName("문자열이 정수형 숫자로 이루어지지 않으면 예외 발생")
     @MethodSource("invalidExpressions")
     void exceptionByInvalidExpression(List<String> userInput) {
-        assertThatThrownBy(() -> new WinningNumbers(userInput)).isInstanceOf(IllegalArgumentException.class)
+        assertThatThrownBy(() -> new UserInputLottoGenerator(userInput)).isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[error] is not number");
     }
 
@@ -37,7 +38,7 @@ class WinningNumbersTest {
     @DisplayName("문자열이 중복이 있다면 예외 발생")
     @MethodSource("overlap")
     void exceptionByOverlap(List<String> userInput) {
-        assertThatThrownBy(() -> new WinningNumbers(userInput)).isInstanceOf(IllegalArgumentException.class)
+        assertThatThrownBy(() -> new UserInputLottoGenerator(userInput)).isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[error] has overlap");
     }
 
@@ -54,10 +55,10 @@ class WinningNumbersTest {
     @MethodSource("invalidLength")
     void exceptionByInvalidLength(List<String> userInput, boolean isInvalidLength) {
         if (isInvalidLength) {
-            assertThatThrownBy(() -> new WinningNumbers(userInput)).isInstanceOf(IllegalArgumentException.class)
+            assertThatThrownBy(() -> new UserInputLottoGenerator(userInput)).isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("[error] invalid length");
         } else {
-            assertThatCode(() -> new WinningNumbers(userInput)).doesNotThrowAnyException();
+            assertThatCode(() -> new UserInputLottoGenerator(userInput)).doesNotThrowAnyException();
         }
     }
 
@@ -74,10 +75,10 @@ class WinningNumbersTest {
     @MethodSource("invalidRange")
     void exceptionByInvalidRange(List<String> userInput, boolean isInvalid) {
         if (isInvalid) {
-            assertThatThrownBy(() -> new WinningNumbers(userInput)).isInstanceOf(IllegalArgumentException.class)
+            assertThatThrownBy(() -> new UserInputLottoGenerator(userInput)).isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("[error] invalid number range");
         } else {
-            assertThatCode(() -> new WinningNumbers(userInput)).doesNotThrowAnyException();
+            assertThatCode(() -> new UserInputLottoGenerator(userInput)).doesNotThrowAnyException();
         }
     }
 

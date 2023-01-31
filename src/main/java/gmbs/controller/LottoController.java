@@ -1,6 +1,12 @@
 package gmbs.controller;
 
-import gmbs.model.*;
+import gmbs.model.Prize;
+import gmbs.model.Ticket;
+import gmbs.model.Tickets;
+import gmbs.model.UserMoney;
+import gmbs.model.generator.TicketGenerator;
+import gmbs.model.generator.UserInputLottoGenerator;
+import gmbs.model.vo.BonusNumber;
 import gmbs.model.vo.LottoNumber;
 import gmbs.view.Input;
 import gmbs.view.Output;
@@ -21,8 +27,8 @@ public class LottoController {
         Tickets tickets = createTickets(money);
         display.ticketDisplay(getTicketsData(tickets));
         display.winningNumberDisplay();
-        WinningNumbers userInputWinningNumbers = requestWinningNumbers();
-        Ticket winningNumbers = new Ticket(userInputWinningNumbers);
+        UserInputLottoGenerator userInputUserInputLottoGenerator = requestWinningNumbers();
+        Ticket winningNumbers = new Ticket(userInputUserInputLottoGenerator);
         display.bonusNumberDisplay();
         LottoNumber bonus = requestBonusNumber(winningNumbers);
         display.matchesDisplay(getStats(tickets.checkMatches(winningNumbers, bonus)));
@@ -46,11 +52,11 @@ public class LottoController {
         return new Tickets(new TicketGenerator().generate(money.getTicketCount()));
     }
 
-    private WinningNumbers requestWinningNumbers() {
-        WinningNumbers numbers;
+    private UserInputLottoGenerator requestWinningNumbers() {
+        UserInputLottoGenerator numbers;
         while (true) {
             try {
-                numbers = new WinningNumbers(List.of(userInput.scan().split(",")));
+                numbers = new UserInputLottoGenerator(List.of(userInput.scan().split(",")));
                 break;
             } catch (IllegalArgumentException e) {
                 display.exceptionDisplay(e);
