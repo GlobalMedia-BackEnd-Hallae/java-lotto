@@ -22,9 +22,19 @@ public enum Ranking {
 
     public static Ranking findRanking(int count, boolean hasBonusNumber) {
         return Arrays.stream(Ranking.values())
-                .filter(ranking -> ranking.count == count && ranking.hasBonusNumber == hasBonusNumber)
+                .filter(ranking -> checkCountAndBonusNumber(ranking, count, hasBonusNumber))
                 .findAny()
                 .orElse(NONE);
+    }
+
+    private static boolean checkCountAndBonusNumber(Ranking ranking, int count, boolean hasBonusNumber) {
+        if (ranking.count != count) {
+            return false;
+        }
+        if (count == SECOND.count) {
+            return ranking.hasBonusNumber == hasBonusNumber;
+        }
+        return true;
     }
 
     public long multiple(Integer count) {
