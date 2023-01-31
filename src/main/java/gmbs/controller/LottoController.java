@@ -11,21 +11,20 @@ import gmbs.model.vo.LottoNumber;
 import gmbs.view.Input;
 import gmbs.view.Output;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class LottoController {
-
     private final Input userInput = new Input();
+
     private final Output display = new Output();
 
     public void operate() {
         display.userMoneyDisplay();
         UserMoney money = reqeustUserMoney();
         Tickets tickets = createTickets(money);
-        display.ticketDisplay(getTicketsData(tickets));
+        showTickets(tickets);
         display.winningNumberDisplay();
         UserInputLottoGenerator userInputUserInputLottoGenerator = requestWinningNumbers();
         Ticket winningNumbers = new Ticket(userInputUserInputLottoGenerator);
@@ -50,6 +49,11 @@ public class LottoController {
 
     private Tickets createTickets(UserMoney money) {
         return new Tickets(new TicketGenerator().generate(money.getTicketCount()));
+    }
+
+    private void showTickets(Tickets tickets) {
+        tickets.getTickets()
+                .forEach((ticket -> display.ticketDataDisplay(ticket.getLottoNumberValues())));
     }
 
     private UserInputLottoGenerator requestWinningNumbers() {
@@ -86,13 +90,5 @@ public class LottoController {
             winningStats.put(prize.place(), Map.of("price", prize.money(), "matches", prize.matches(), "count", winningStat.getValue()));
         }
         return winningStats;
-    }
-
-    private List<List<Integer>> getTicketsData(Tickets givenTickets) {
-        List<List<Integer>> tickets = new ArrayList<>();
-        for (Ticket ticket : givenTickets.getTickets()) {
-            tickets.add(ticket.getLottoNumberValues());
-        }
-        return tickets;
     }
 }

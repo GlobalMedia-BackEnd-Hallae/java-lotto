@@ -46,6 +46,10 @@ public class Output {
         ticketData.forEach(System.out::println);
     }
 
+    public void ticketDataDisplay(List<Integer> ticketNumbers) {
+        System.out.println(ticketNumbers);
+    }
+
     public void profitRatioDisplay(float profitRatio) {
         System.out.println(format.format(profitRatio * 100) + "% 수익");
     }
