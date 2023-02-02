@@ -1,13 +1,14 @@
-package gmbs.model.outter;
+package gmbs.model.lotto.number;
 
 import gmbs.model.dto.LottoNumberDto;
-import gmbs.model.inner.lotto.result.LottoResult;
-import gmbs.model.inner.lotto.result.Rank;
-import gmbs.model.inner.lotto.ticket.LottoTicket;
-import gmbs.model.inner.lotto.ticket.generator.AutoLottoNumberGenerator;
-import gmbs.model.inner.lotto.ticket.generator.RandomNumberGenerator;
-import gmbs.model.inner.lotto.ticket.generator.impl.AutoLottoNumberGeneratorImpl;
-import gmbs.model.inner.lotto.vo.LottoNumber;
+import gmbs.model.lotto.result.LottoResult;
+import gmbs.model.lotto.result.Rank;
+import gmbs.model.lotto.number.generator.AutoLottoNumberGenerator;
+import gmbs.model.lotto.number.generator.RandomNumberGenerator;
+import gmbs.model.lotto.number.generator.impl.AutoLottoNumberGeneratorImpl;
+import gmbs.model.lotto.number.vo.LottoNumber;
+import gmbs.model.lotto.LottoMachine;
+import gmbs.model.vo.BuyAmount;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,8 +24,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class LottoMachineTest {
 
-    private static final Long MIN_LOTTO_PRICE = 1000L;
-    private static final Long BUY_QUANTITY = 1L;
+    private static final BuyAmount BUY_AMOUNT = BuyAmount.from("1000");
+    private static final Long BUY_AMOUNT_VALUE = BUY_AMOUNT.getValue();
+    private static final Long BUY_QUANTITY = BUY_AMOUNT.calculateBuyQuantity();
     private static final int INIT_INDEX = 0;
     private static final int[] GENERATE_RANDOM_NUMBER = new int[] {1, 2, 3, 4, 5, 6};
 
@@ -36,14 +38,15 @@ class LottoMachineTest {
         index = INIT_INDEX;
         final RandomNumberGenerator randomNumberGenerator = () -> GENERATE_RANDOM_NUMBER[index++];
         final AutoLottoNumberGenerator autoLottoNumberGenerator = new AutoLottoNumberGeneratorImpl(randomNumberGenerator);
-        lottoMachine = LottoMachine.of(BUY_QUANTITY, autoLottoNumberGenerator);
+        lottoMachine = LottoMachine.of(BUY_AMOUNT, autoLottoNumberGenerator);
     }
 
-    @DisplayName("구매 수량에 따라 발급된 LottoTicket 들을 가져온다")
+    @DisplayName("구매 금액에 따라 발급된 LottoTicket 들을 가져온다")
     @Test
     void getLottoTickets() {
         // when
         final List<LottoTicket> lottoTickets = lottoMachine.getLottoTickets();
+
 
         // then
         assertAll(
@@ -76,12 +79,22 @@ class LottoMachineTest {
 
     private static Stream<Arguments> provider() {
         return Stream.of(
-                Arguments.of(LottoTicket.from(List.of(1, 2, 3, 4, 5, 6)), LottoNumber.getInstance(7), Rank.FIRST, 1L, Rank.FIRST.getWinningPrize() / MIN_LOTTO_PRICE),
-                Arguments.of(LottoTicket.from(List.of(1, 2, 3, 4, 5, 8)), LottoNumber.getInstance(6), Rank.SECOND, 1L, Rank.SECOND.getWinningPrize() / MIN_LOTTO_PRICE),
-                Arguments.of(LottoTicket.from(List.of(1, 2, 3, 4, 5, 9)), LottoNumber.getInstance(7), Rank.THIRD, 1L, Rank.THIRD.getWinningPrize() / MIN_LOTTO_PRICE),
-                Arguments.of(LottoTicket.from(List.of(1, 2, 3, 4, 8, 9)), LottoNumber.getInstance(7), Rank.FOURTH, 1L, Rank.FOURTH.getWinningPrize() / MIN_LOTTO_PRICE),
-                Arguments.of(LottoTicket.from(List.of(1, 2, 3, 8, 9, 10)), LottoNumber.getInstance(7), Rank.FIFTH, 1L, Rank.FIFTH.getWinningPrize() / MIN_LOTTO_PRICE),
-                Arguments.of(LottoTicket.from(List.of(8, 9, 10, 11, 12, 13)), LottoNumber.getInstance(7), Rank.NONE, 1L, Rank.NONE.getWinningPrize() / MIN_LOTTO_PRICE)
+                Arguments.of(LottoTicket.from(List.of(1, 2, 3, 4, 5, 6)), LottoNumber.getInstance(7), Rank.FIRST, 1L, (Rank.FIRST.getWinningPrize() - BUY_AMOUNT_VALUE) / BUY_AMOUNT_VALUE),
+                Arguments.of(LottoTicket.from(List.of(1, 2, 3, 4, 5, 8)), LottoNumber.getInstance(6), Rank.SECOND, 1L, (Rank.SECOND.getWinningPrize() - BUY_AMOUNT_VALUE) / BUY_AMOUNT_VALUE),
+                Arguments.of(LottoTicket.from(List.of(1, 2, 3, 4, 5, 9)), LottoNumber.getInstance(7), Rank.THIRD, 1L, (Rank.THIRD.getWinningPrize() - BUY_AMOUNT_VALUE) / BUY_AMOUNT_VALUE),
+                Arguments.of(LottoTicket.from(List.of(1, 2, 3, 4, 8, 9)), LottoNumber.getInstance(7), Rank.FOURTH, 1L, (Rank.FOURTH.getWinningPrize() - BUY_AMOUNT_VALUE) / BUY_AMOUNT_VALUE),
+                Arguments.of(LottoTicket.from(List.of(1, 2, 3, 8, 9, 10)), LottoNumber.getInstance(7), Rank.FIFTH, 1L, (Rank.FIFTH.getWinningPrize() - BUY_AMOUNT_VALUE) / BUY_AMOUNT_VALUE),
+                Arguments.of(LottoTicket.from(List.of(8, 9, 10, 11, 12, 13)), LottoNumber.getInstance(7), Rank.NONE, 1L, (Rank.NONE.getWinningPrize() - BUY_AMOUNT_VALUE) / BUY_AMOUNT_VALUE)
         );
+    }
+
+    @DisplayName("구매 금액에 따른 구매 수량을 가져온다")
+    @Test
+    void getBuyQuantity() {
+        // when
+        Long buyQuantity = lottoMachine.getBuyQuantity();
+
+        // then
+        assertThat(buyQuantity).isEqualTo(BUY_QUANTITY);
     }
 }
