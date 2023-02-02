@@ -1,16 +1,16 @@
 package gmbs.controller;
 
-import gmbs.model.inner.lotto.number.impl.LottoNumberGeneratorImpl;
-import gmbs.model.inner.lotto.number.impl.RandomNumberGeneratorImpl;
-import gmbs.model.outter.LottoMachine;
+import gmbs.model.lotto.number.LottoTicket;
+import gmbs.model.lotto.number.generator.impl.AutoLottoNumberGeneratorImpl;
+import gmbs.model.lotto.number.generator.impl.RandomLottoNumberGeneratorNumber;
+import gmbs.model.lotto.number.vo.LottoNumber;
+import gmbs.model.lotto.LottoMachine;
 import gmbs.model.dto.LottoNumberDto;
-import gmbs.model.outter.vo.BonusNumber;
-import gmbs.model.outter.vo.BuyQuantity;
-import gmbs.model.outter.vo.WinNumbers;
+import gmbs.model.vo.BuyAmount;
 import gmbs.view.input.InputConsole;
 import gmbs.view.output.OutputConsole;
 
-public class LottoController {
+public final class LottoController {
 
     private final InputConsole inputConsole;
     private final OutputConsole outputConsole;
@@ -21,15 +21,15 @@ public class LottoController {
     }
 
     public void run() {
-        LottoMachine lottoMachine = new LottoMachine(
-                BuyQuantity.from(inputConsole.readBuyAmount()).getValue(),
-                new LottoNumberGeneratorImpl(new RandomNumberGeneratorImpl())
+        final LottoMachine lottoMachine = LottoMachine.of(
+                BuyAmount.from(inputConsole.readBuyAmount()),
+                new AutoLottoNumberGeneratorImpl(new RandomLottoNumberGeneratorNumber())
         );
         outputConsole.printAutoLottoTickets(lottoMachine.getLottoTickets(), lottoMachine.getBuyQuantity());
 
-        LottoNumberDto lottoNumberDto = LottoNumberDto.of(
-                WinNumbers.from(inputConsole.readWinNumbers()).getValues(),
-                BonusNumber.from(inputConsole.readBonusNumber()).getValue()
+        final LottoNumberDto lottoNumberDto = LottoNumberDto.of(
+                LottoTicket.from(inputConsole.readWinNumbers()),
+                LottoNumber.getInstance(inputConsole.readBonusNumber())
         );
         outputConsole.printWinningStatistics(lottoMachine.runReadLotto(lottoNumberDto));
     }
