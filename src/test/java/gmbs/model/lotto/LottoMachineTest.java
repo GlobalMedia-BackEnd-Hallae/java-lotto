@@ -1,13 +1,13 @@
-package gmbs.model.lotto.number;
+package gmbs.model.lotto;
 
 import gmbs.model.dto.LottoNumberDto;
+import gmbs.model.lotto.number.LottoTicket;
 import gmbs.model.lotto.result.LottoResult;
 import gmbs.model.lotto.result.Rank;
 import gmbs.model.lotto.number.generator.AutoLottoNumberGenerator;
 import gmbs.model.lotto.number.generator.RandomNumberGenerator;
 import gmbs.model.lotto.number.generator.impl.AutoLottoNumberGeneratorImpl;
 import gmbs.model.lotto.number.vo.LottoNumber;
-import gmbs.model.lotto.LottoMachine;
 import gmbs.model.vo.BuyAmount;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
