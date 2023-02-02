@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class InputConsoleImpl implements InputConsole {
+public final class InputConsoleImpl implements InputConsole {
 
     private static final String WIN_NUMBER_DELIMITER = ",";
     private static final Scanner SCANNER = new Scanner(System.in);

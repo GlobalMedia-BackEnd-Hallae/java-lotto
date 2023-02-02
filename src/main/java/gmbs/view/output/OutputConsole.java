@@ -1,7 +1,7 @@
 package gmbs.view.output;
 
-import gmbs.model.inner.lotto.result.LottoResult;
-import gmbs.model.inner.lotto.LottoTicket;
+import gmbs.model.lotto.result.LottoResult;
+import gmbs.model.lotto.number.LottoTicket;
 
 import java.util.List;
 

@@ -1,28 +1,28 @@
 package gmbs.view.output;
 
-import gmbs.model.inner.lotto.result.LottoResult;
-import gmbs.model.inner.lotto.LottoTicket;
+import gmbs.model.lotto.result.LottoResult;
+import gmbs.model.lotto.number.LottoTicket;
 
 import java.util.List;
 
-public class OutputConsoleImpl implements OutputConsole {
+public final class OutputConsoleImpl implements OutputConsole {
 
     private static final String LINE_BREAK = "\n";
 
     @Override
-    public void printAutoLottoTickets(List<LottoTicket> lottoTickets, Long buyQuantity) {
-        StringBuilder ticketResult = new StringBuilder();
+    public void printAutoLottoTickets(final List<LottoTicket> lottoTickets, final Long buyQuantity) {
+        final StringBuilder ticketResult = new StringBuilder();
         ticketResult.append(buyQuantity).append("개를 구매했습니다").append(LINE_BREAK);
         lottoTickets.forEach(lottoTicket -> ticketResult
-                .append(lottoTicket.getLottoNumbers())
+                .append(lottoTicket.getLottoNumbersValues())
                 .append(LINE_BREAK)
         );
         System.out.println(ticketResult);
     }
 
     @Override
-    public void printWinningStatistics(LottoResult lottoResult) {
-        StringBuilder statisticsResult = new StringBuilder();
+    public void printWinningStatistics(final LottoResult lottoResult) {
+        final StringBuilder statisticsResult = new StringBuilder();
         statisticsResult.append("당첨 통계").append(LINE_BREAK).append("---").append(LINE_BREAK);
         lottoResult.getRankResults().forEach((rank, countOfRank) -> statisticsResult
                 .append(rank.getDisplay())
