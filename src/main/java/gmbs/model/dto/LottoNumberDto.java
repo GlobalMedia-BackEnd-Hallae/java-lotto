@@ -1,26 +1,27 @@
 package gmbs.model.dto;
 
-import java.util.List;
+import gmbs.model.lotto.number.LottoTicket;
+import gmbs.model.lotto.number.vo.LottoNumber;
 
-public class LottoNumberDto {
+public final class LottoNumberDto {
 
-    private final List<Integer> winNumbers;
-    private final int bonusNumber;
+    private final LottoTicket winNumbers;
+    private final LottoNumber bonusNumber;
 
-    private LottoNumberDto(final List<Integer> winNumbers, final int bonusNumber) {
+    private LottoNumberDto(final LottoTicket winNumbers, final LottoNumber bonusNumber) {
         this.winNumbers = winNumbers;
         this.bonusNumber = bonusNumber;
     }
 
-    public static LottoNumberDto of(final List<Integer> winNumbers, final int bonusNumber) {
+    public static LottoNumberDto of(final LottoTicket winNumbers, final LottoNumber bonusNumber) {
         return new LottoNumberDto(winNumbers, bonusNumber);
     }
 
-    public List<Integer> getWinNumbers() {
+    public LottoTicket getWinNumbers() {
         return winNumbers;
     }
 
-    public int getBonusNumber() {
+    public LottoNumber getBonusNumber() {
         return bonusNumber;
     }
 }

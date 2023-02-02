@@ -1,4 +1,4 @@
-package gmbs.model.inner.dto;
+package gmbs.model.lotto.dto;
 
 public final class MatchResultDto {
 

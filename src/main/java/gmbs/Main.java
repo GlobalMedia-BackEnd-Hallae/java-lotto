@@ -9,9 +9,9 @@ import gmbs.view.output.OutputConsoleImpl;
 public class Main {
 
     public static void main(String[] args) {
-        InputConsole inputConsole = new InputConsoleImpl();
-        OutputConsole outputConsole = new OutputConsoleImpl();
-        LottoController lottoController = new LottoController(inputConsole, outputConsole);
+        final InputConsole inputConsole = new InputConsoleImpl();
+        final OutputConsole outputConsole = new OutputConsoleImpl();
+        final LottoController lottoController = new LottoController(inputConsole, outputConsole);
         lottoController.run();
     }
 }

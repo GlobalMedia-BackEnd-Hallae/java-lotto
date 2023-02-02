@@ -1,4 +1,4 @@
-package gmbs.model.inner.lotto.result;
+package gmbs.model.lotto.result;
 
 import java.util.List;
 

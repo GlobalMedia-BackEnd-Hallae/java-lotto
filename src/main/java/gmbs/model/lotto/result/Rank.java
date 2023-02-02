@@ -1,19 +1,17 @@
-package gmbs.model.inner.lotto.result;
+package gmbs.model.lotto.result;
 
-import gmbs.model.inner.dto.MatchResultDto;
+import gmbs.model.lotto.dto.MatchResultDto;
 
 import java.util.Arrays;
 
-import static gmbs.model.inner.lotto.result.BonusAllowance.*;
-
 public enum Rank {
 
-    FIRST(6, 2_000_000_000L, ONLY_FALSE, "6개 일치"),
-    SECOND(5, 30_000_000L, ONLY_TRUE, "5개 일치, 보너스 볼 일치"),
-    THIRD(5, 1_500_000L, ONLY_FALSE, "5개 일치"),
-    FOURTH(4, 50_000L, ALL, "4개 일치"),
-    FIFTH(3, 5_000L, ALL, "3개 일치"),
-    NONE(0, 0L, ALL, ""),
+    FIRST(6, 2_000_000_000L, BonusAllowance.ONLY_FALSE, "6개 일치"),
+    SECOND(5, 30_000_000L, BonusAllowance.ONLY_TRUE, "5개 일치, 보너스 볼 일치"),
+    THIRD(5, 1_500_000L, BonusAllowance.ONLY_FALSE, "5개 일치"),
+    FOURTH(4, 50_000L, BonusAllowance.ALL, "4개 일치"),
+    FIFTH(3, 5_000L, BonusAllowance.ALL, "3개 일치"),
+    NONE(0, 0L, BonusAllowance.ALL, ""),
     ;
 
     private final int matchCount;
