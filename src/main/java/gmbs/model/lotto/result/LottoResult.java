@@ -1,6 +1,6 @@
-package gmbs.model.inner.lotto.result;
+package gmbs.model.lotto.result;
 
-import gmbs.model.inner.dto.MatchResultDto;
+import gmbs.model.lotto.dto.MatchResultDto;
 
 import java.util.Collections;
 import java.util.EnumMap;
@@ -11,18 +11,16 @@ import java.util.stream.Stream;
 
 public final class LottoResult {
 
-    private static final Long MIN_LOTTO_PRICE = 1000L;
-
     private final Map<Rank, Long> rankResults;
     private final Long rateOfReturn;
 
-    private LottoResult(final List<MatchResultDto> matchResultDtos, final Long buyQuantity) {
+    private LottoResult(final List<MatchResultDto> matchResultDtos, final Long buyAmount) {
         this.rankResults = aggregateRankResult(matchResultDtos);
-        this.rateOfReturn = aggregateTotalRevenue(matchResultDtos) / (buyQuantity * MIN_LOTTO_PRICE);
+        this.rateOfReturn = (aggregateTotalRevenue(matchResultDtos) - buyAmount) / (buyAmount);
     }
 
-    public static LottoResult from(final List<MatchResultDto> matchResultDtos, final Long buyQuantity) {
-        return new LottoResult(matchResultDtos, buyQuantity);
+    public static LottoResult from(final List<MatchResultDto> matchResultDtos, final Long buyAmount) {
+        return new LottoResult(matchResultDtos, buyAmount);
     }
 
     private Map<Rank, Long> aggregateRankResult(final List<MatchResultDto> matchResultDtos) {
