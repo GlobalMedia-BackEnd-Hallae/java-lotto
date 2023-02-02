@@ -1,11 +1,12 @@
-package gmbs.model.outter;
+package gmbs.model.lotto;
 
-import gmbs.model.inner.dto.MatchResultDto;
-import gmbs.model.inner.lotto.result.LottoResult;
-import gmbs.model.inner.lotto.ticket.LottoTicket;
+import gmbs.model.lotto.dto.MatchResultDto;
+import gmbs.model.lotto.number.LottoTicket;
+import gmbs.model.lotto.result.LottoResult;
 import gmbs.model.dto.LottoNumberDto;
-import gmbs.model.inner.lotto.ticket.generator.AutoLottoNumberGenerator;
-import gmbs.model.inner.lotto.vo.LottoNumber;
+import gmbs.model.lotto.number.generator.AutoLottoNumberGenerator;
+import gmbs.model.lotto.number.vo.LottoNumber;
+import gmbs.model.vo.BuyAmount;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,16 +15,16 @@ import java.util.stream.Collectors;
 
 public final class LottoMachine {
 
-    private final Long buyQuantity;
+    private final BuyAmount buyAmount;
     private final List<LottoTicket> lottoTickets;
 
-    private LottoMachine(final Long buyQuantity, final List<LottoTicket> lottoTickets) {
-        this.buyQuantity = buyQuantity;
+    private LottoMachine(final BuyAmount buyAmount, final List<LottoTicket> lottoTickets) {
+        this.buyAmount = buyAmount;
         this.lottoTickets = lottoTickets;
     }
 
-    public static LottoMachine of(final Long buyQuantity, final AutoLottoNumberGenerator autoLottoNumberGenerator) {
-        return new LottoMachine(buyQuantity, issueLottoTickets(buyQuantity, autoLottoNumberGenerator));
+    public static LottoMachine of(final BuyAmount buyAmount, final AutoLottoNumberGenerator autoLottoNumberGenerator) {
+        return new LottoMachine(buyAmount, issueLottoTickets(buyAmount.calculateBuyQuantity(), autoLottoNumberGenerator));
     }
 
     private static List<LottoTicket> issueLottoTickets(final Long buyQuantity, final AutoLottoNumberGenerator autoLottoNumberGenerator) {
@@ -35,7 +36,7 @@ public final class LottoMachine {
     }
 
     public LottoResult runReadLotto(final LottoNumberDto lottoNumberDto) {
-        return LottoResult.from(aggregateMatchResults(lottoNumberDto), buyQuantity);
+        return LottoResult.from(aggregateMatchResults(lottoNumberDto), buyAmount.getValue());
     }
 
     private List<MatchResultDto> aggregateMatchResults(final LottoNumberDto lottoNumberDto) {
@@ -50,7 +51,7 @@ public final class LottoMachine {
     }
 
     public Long getBuyQuantity() {
-        return buyQuantity;
+        return buyAmount.calculateBuyQuantity();
     }
 
     public List<LottoTicket> getLottoTickets() {
