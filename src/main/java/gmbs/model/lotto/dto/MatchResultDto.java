@@ -1,6 +1,6 @@
 package gmbs.model.inner.dto;
 
-public class MatchResultDto {
+public final class MatchResultDto {
 
     private final int matchCount;
     private final boolean hasBonus;

@@ -1,8 +1,8 @@
-package gmbs.model.outter.vo;
+package gmbs.model.vo;
 
 import java.util.Objects;
 
-public class BuyQuantity {
+public final class BuyAmount {
 
     private static final String NUMBER_REGEX = "^\\d*$";
     private static final Long MIN_AMOUNT = 1000L;
@@ -10,24 +10,24 @@ public class BuyQuantity {
 
     private final Long value;
 
-    private BuyQuantity(final String amount) {
-        long validateAmount = validateNumber(amount);
+    private BuyAmount(final String amount) {
+        final Long validateAmount = validateNumber(amount);
         validateAmount(validateAmount);
-        this.value = setQuantityValue(validateAmount);
+        this.value = validateAmount;
     }
 
-    public static BuyQuantity from(final String amount) {
-        return new BuyQuantity(amount);
+    public static BuyAmount from(final String amount) {
+        return new BuyAmount(amount);
     }
 
-    private Long validateNumber(String amount) {
+    private Long validateNumber(final String amount) {
         if (!amount.matches(NUMBER_REGEX)) {
             throw new IllegalArgumentException("[ERROR] 구입 금액은 숫자여야 합니다");
         }
         return Long.parseLong(amount);
     }
 
-    private void validateAmount(long amount) {
+    private void validateAmount(final Long amount) {
         if (amount < MIN_AMOUNT) {
             throw new IllegalArgumentException("[ERROR] 구입 금액은 최소 1000원 이상이어야 합니다");
         }
@@ -36,8 +36,8 @@ public class BuyQuantity {
         }
     }
 
-    private Long setQuantityValue(long amount) {
-        return amount / MIN_AMOUNT;
+    public Long calculateBuyQuantity() {
+        return value / MIN_AMOUNT;
     }
 
     public Long getValue() {
@@ -48,8 +48,8 @@ public class BuyQuantity {
     public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BuyQuantity that = (BuyQuantity) o;
-        return value == that.value;
+        final BuyAmount buyAmount = (BuyAmount) o;
+        return Objects.equals(value, buyAmount.value);
     }
 
     @Override

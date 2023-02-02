@@ -2,13 +2,14 @@ package gmbs.model.inner.lotto.result;
 
 import gmbs.model.inner.dto.MatchResultDto;
 
+import java.util.Collections;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class LottoResult {
+public final class LottoResult {
 
     private static final Long MIN_LOTTO_PRICE = 1000L;
 
@@ -24,7 +25,7 @@ public class LottoResult {
         return new LottoResult(matchResultDtos, buyQuantity);
     }
 
-    private Map<Rank, Long> aggregateRankResult(List<MatchResultDto> matchResultDtos) {
+    private Map<Rank, Long> aggregateRankResult(final List<MatchResultDto> matchResultDtos) {
         return getRankStream(matchResultDtos)
                 .collect(Collectors.groupingBy(
                         rank -> rank,
@@ -33,19 +34,19 @@ public class LottoResult {
                 ));
     }
 
-    private Long aggregateTotalRevenue(List<MatchResultDto> matchResultDtos) {
+    private Long aggregateTotalRevenue(final List<MatchResultDto> matchResultDtos) {
         return getRankStream(matchResultDtos)
                 .mapToLong(Rank::getWinningPrize)
                 .sum();
     }
 
-    private Stream<Rank> getRankStream(List<MatchResultDto> matchResultDtos) {
+    private Stream<Rank> getRankStream(final List<MatchResultDto> matchResultDtos) {
         return matchResultDtos.stream()
                 .map(Rank::findRankByMatchResult);
     }
 
     public Map<Rank, Long> getRankResults() {
-        return rankResults;
+        return Collections.unmodifiableMap(rankResults);
     }
 
     public Long getRateOfReturn() {
