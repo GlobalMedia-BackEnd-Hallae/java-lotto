@@ -8,7 +8,7 @@ import java.util.Random;
 public class LottoCreation {
 
     private static final int LOTTO_COUNT = 6;
-    private static final int LOTTO_NUMBER_RANGE = 45;
+    private static final int LOTTO_NUMBER_MAX_VALUE = 45;
 
     private final Random random = new Random();
 
@@ -34,7 +34,7 @@ public class LottoCreation {
         final List<Integer> randomNumbers = new ArrayList<>();
 
         for (int index = 0; index < LOTTO_COUNT; index++) {
-            randomNumbers.add(random.nextInt(LOTTO_NUMBER_RANGE) + 1);
+            randomNumbers.add(random.nextInt(LOTTO_NUMBER_MAX_VALUE) + 1);
         }
 
         Collections.sort(randomNumbers);
