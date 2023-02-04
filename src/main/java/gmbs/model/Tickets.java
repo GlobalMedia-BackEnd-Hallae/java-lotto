@@ -1,7 +1,5 @@
 package gmbs.model;
 
-import gmbs.model.vo.LottoNumber;
-
 import java.util.AbstractMap;
 import java.util.List;
 import java.util.Map;
@@ -17,11 +15,10 @@ public class Tickets {
                 .collect(Collectors.toUnmodifiableList());
     }
 
-    public Map<Prize, Integer> checkMatches(Ticket winningNumbers, LottoNumber bonusNumber) {
+    public Map<Prize, Integer> checkMatches(Winner winningNumber) {
         Map<Prize, Integer> prizeCounts = createPrizeCounts();
         for (Ticket ticket : lottoTickets) {
-            ticket.checkPrize(winningNumbers, bonusNumber);
-            prizeCounts.compute(ticket.checkPrize(winningNumbers, bonusNumber), (key, value) -> value + 1);
+            prizeCounts.compute(ticket.checkPrize(winningNumber), (key, value) -> value + 1);
         }
         return prizeCounts;
     }
@@ -37,8 +34,8 @@ public class Tickets {
         ).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
-    public float profitRatio(int ticketPrice, Ticket winningNumbers, LottoNumber bonusNumber) {
-        Map<Prize, Integer> profits = checkMatches(winningNumbers, bonusNumber);
+    public float getProfitRatio(int ticketPrice, Winner winningNumber) {
+        Map<Prize, Integer> profits = checkMatches(winningNumber);
         float moneyEarned = 0;
         int moneyPaid = lottoTickets.size() * ticketPrice;
         for (Map.Entry<Prize, Integer> matchCount : profits.entrySet()) {

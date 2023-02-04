@@ -1,12 +1,8 @@
 package gmbs.controller;
 
-import gmbs.model.Prize;
-import gmbs.model.Ticket;
-import gmbs.model.Tickets;
-import gmbs.model.UserMoney;
+import gmbs.model.*;
 import gmbs.model.generator.TicketGenerator;
 import gmbs.model.generator.UserInputLottoGenerator;
-import gmbs.model.vo.BonusNumber;
 import gmbs.model.vo.LottoNumber;
 import gmbs.view.Input;
 import gmbs.view.Output;
@@ -24,13 +20,9 @@ public class LottoController {
         UserMoney money = reqeustUserMoney();
         Tickets tickets = createTickets(money);
         showTickets(tickets);
-        display.winningNumberDisplay();
-        UserInputLottoGenerator userInputUserInputLottoGenerator = requestWinningNumbers();
-        Ticket winningNumbers = new Ticket(userInputUserInputLottoGenerator);
-        display.bonusNumberDisplay();
-        LottoNumber bonus = requestBonusNumber(winningNumbers);
-        showStats(tickets.checkMatches(winningNumbers, bonus));
-        float profitRatio = tickets.profitRatio(money.getDefaultTicketPrice(), winningNumbers, bonus);
+        Winner winner = requestWinner();
+        showStats(tickets.checkMatches(winner));
+        float profitRatio = tickets.getProfitRatio(money.getDefaultTicketPrice(), winner);
         display.profitRatioDisplay(profitRatio);
     }
 
@@ -56,30 +48,30 @@ public class LottoController {
                 .forEach((ticket -> display.ticketDataDisplay(ticket.getLottoNumberValues())));
     }
 
-    private UserInputLottoGenerator requestWinningNumbers() {
-        UserInputLottoGenerator numbers;
+    private Winner requestWinner() {
+        Ticket winningTicket;
+        LottoNumber bonus;
         while (true) {
             try {
-                numbers = new UserInputLottoGenerator(List.of(userInput.scan().split(",")));
+                winningTicket = requestWinningTicket();
+                bonus = requestBonus();
                 break;
             } catch (IllegalArgumentException e) {
-                display.exceptionDisplay(e);
+                System.out.println(e.getMessage());
             }
         }
-        return numbers;
+        return new Winner(winningTicket, bonus);
     }
 
-    private LottoNumber requestBonusNumber(Ticket winningNumbers) {
-        BonusNumber bonus;
-        while (true) {
-            try {
-                bonus = new BonusNumber(winningNumbers, new LottoNumber(userInput.scan()));
-                break;
-            } catch (IllegalArgumentException e) {
-                display.exceptionDisplay(e);
-            }
-        }
-        return bonus.getLottoNumber();
+    private LottoNumber requestBonus() {
+        display.bonusNumberDisplay();
+        return new LottoNumber(userInput.scan());
+    }
+
+    private Ticket requestWinningTicket() {
+        display.winningNumberDisplay();
+        UserInputLottoGenerator numbers = new UserInputLottoGenerator(List.of(userInput.scan().split(",")));
+        return new Ticket(numbers);
     }
 
     private void showStats(Map<Prize, Integer> stats) {

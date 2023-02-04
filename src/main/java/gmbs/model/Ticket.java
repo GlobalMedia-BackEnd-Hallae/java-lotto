@@ -15,13 +15,9 @@ public class Ticket {
         this.numbers = generator.getNumbers();
     }
 
-    public boolean hasValue(LottoNumber value) {
-        return numbers.contains(value);
-    }
-
-    public Prize checkPrize(Ticket winningNumbers, LottoNumber bonusNumber) {
-        int match = checkMatches(winningNumbers);
-        boolean hasBonus = hasValue(bonusNumber);
+    public Prize checkPrize(Winner winner) {
+        int match = checkMatches(winner.getWinningTicket());
+        boolean hasBonus = hasValue(winner.getBonusNumber());
         return Prize.find(match, hasBonus);
     }
 
@@ -34,6 +30,10 @@ public class Ticket {
             }
         }
         return matchCount;
+    }
+
+    public boolean hasValue(LottoNumber bonusNumber) {
+        return numbers.contains(bonusNumber);
     }
 
     public List<LottoNumber> getLottoNumbers() {

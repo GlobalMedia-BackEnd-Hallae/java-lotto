@@ -22,6 +22,8 @@ class TicketsTest {
     private final Ticket fourthPrize = new Ticket(() -> createLottoNumbers(List.of(1, 2, 3, 4, 15, 16)));
     private final Ticket fifthPrize = new Ticket(() -> createLottoNumbers(List.of(1, 2, 3, 14, 15, 16)));
     private final Ticket noPrize = new Ticket(() -> createLottoNumbers(List.of(1, 2, 13, 14, 15, 16)));
+    private final Winner winningNumber = new Winner(winningNumbers, bonus);
+
 
     private static List<LottoNumber> createLottoNumbers(List<Integer> numbers) {
         List<LottoNumber> lottoNumbers = new ArrayList<>();
@@ -34,7 +36,7 @@ class TicketsTest {
     void checkMatches() {
         List<Ticket> generatedTickets = List.of(firstPrize, secondPrize1, secondPrize2, thirdPrize, fourthPrize, fifthPrize, noPrize);
         Tickets tickets = new Tickets(generatedTickets);
-        Map<Prize, Integer> prize = tickets.checkMatches(winningNumbers, bonus);
+        Map<Prize, Integer> prize = tickets.checkMatches(winningNumber);
 
         assertThat(prize).containsEntry(Prize.FIRST, 1)
                 .containsEntry(Prize.SECOND, 2)
@@ -49,7 +51,7 @@ class TicketsTest {
     void profitRatio() {
         List<Ticket> generatedTickets = List.of(firstPrize);
         Tickets tickets = new Tickets(generatedTickets);
-        float profitRatio = tickets.profitRatio(1000, winningNumbers, bonus);
+        float profitRatio = tickets.getProfitRatio(1000, winningNumber);
         assertThat(profitRatio).isEqualTo(2000000);
     }
 }
