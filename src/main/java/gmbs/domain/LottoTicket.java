@@ -1,17 +1,16 @@
 package gmbs.domain;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.IntStream;
 
-import static java.util.stream.Collectors.collectingAndThen;
-import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.*;
 
 public class LottoTicket {
     private final List<LottoNumbers> lottoTicket;
 
-    public LottoTicket(final List<LottoNumbers> lottoTicket) {
+    private LottoTicket(final List<LottoNumbers> lottoTicket) {
         this.lottoTicket = lottoTicket;
     }
 
@@ -20,11 +19,9 @@ public class LottoTicket {
     }
 
     private static List<LottoNumbers> generateTickets(int count) {
-        List<LottoNumbers> lottoTicket = new ArrayList<>();
-        for (int i = 0; i < count; i++) {
-            lottoTicket.add(new LottoNumbers());
-        }
-        return lottoTicket;
+        return IntStream.range(0, count)
+                .mapToObj(index -> new LottoNumbers())
+                .collect(toUnmodifiableList());
     }
 
     public List<LottoNumbers> getLottoTicket() {
@@ -37,9 +34,5 @@ public class LottoTicket {
                 .filter(Objects::nonNull)
                 .collect(collectingAndThen(toList(), Collections::unmodifiableList));
         return new WinningResult(rankings);
-    }
-
-    public void addLottoTicket(LottoTicket otherLottoTicket) {
-        lottoTicket.addAll(otherLottoTicket.getLottoTicket());
     }
 }
