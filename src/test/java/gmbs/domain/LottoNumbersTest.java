@@ -20,7 +20,7 @@ class LottoNumbersTest {
         // given
         List<Integer> numbers = getNumbers(2, 2, 3, 4, 5, 6);
 
-        // then
+        // when, then
         assertThatThrownBy(() -> new LottoNumbers(numbers)).isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("로또 개수는 중복이 불가능합니다.");
     }
@@ -31,7 +31,7 @@ class LottoNumbersTest {
         // given
         List<Integer> numbers = getNumbers(1, 2, 3, 4, 5);
 
-        // then
+        // when, then
         assertThatThrownBy(() -> new LottoNumbers(numbers)).isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("로또 개수는 6개로 제한됩니다.");
     }
