@@ -34,16 +34,6 @@ public class Tickets {
         ).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
-    public float getProfitRatio(int ticketPrice, Winner winningNumber) {
-        Map<Prize, Integer> profits = checkMatches(winningNumber);
-        float moneyEarned = 0;
-        int moneyPaid = lottoTickets.size() * ticketPrice;
-        for (Map.Entry<Prize, Integer> matchCount : profits.entrySet()) {
-            moneyEarned += matchCount.getKey().money() * matchCount.getValue();
-        }
-        return moneyEarned / moneyPaid;
-    }
-
     public List<Ticket> getTickets() {
         return lottoTickets;
     }

@@ -22,7 +22,7 @@ public class LottoController {
         showTickets(tickets);
         Winner winner = requestWinner();
         showStats(tickets.checkMatches(winner));
-        float profitRatio = tickets.getProfitRatio(money.getDefaultTicketPrice(), winner);
+        float profitRatio = new ProfitCalculator().calculate(money, tickets.checkMatches(winner));
         display.profitRatioDisplay(profitRatio);
     }
 

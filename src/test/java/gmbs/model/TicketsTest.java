@@ -45,13 +45,4 @@ class TicketsTest {
                 .containsEntry(Prize.FIFTH, 1)
                 .containsEntry(Prize.LOSER, 1);
     }
-
-    @Test
-    @DisplayName("수익률을 확인한다")
-    void profitRatio() {
-        List<Ticket> generatedTickets = List.of(firstPrize);
-        Tickets tickets = new Tickets(generatedTickets);
-        float profitRatio = tickets.getProfitRatio(1000, winningNumber);
-        assertThat(profitRatio).isEqualTo(2000000);
-    }
 }
