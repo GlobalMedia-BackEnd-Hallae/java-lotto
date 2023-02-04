@@ -29,9 +29,7 @@ class WinningNumbersTest {
         // given
         LottoNumber bonusNumber = LottoNumber.of(1);
 
-        // when
-
-        // then
+        // when, then
         assertThatThrownBy(() -> new WinningNumbers(lottoNumbers, bonusNumber))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(DUPLICATE_ERROR);

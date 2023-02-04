@@ -23,6 +23,7 @@ class WinningResultTest {
 
         // when
         long sum = winningResult.calculatePrizeSum();
+
         // then
         assertThat(sum).isEqualTo(expect);
     }
