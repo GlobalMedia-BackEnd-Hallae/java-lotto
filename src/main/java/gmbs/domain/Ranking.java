@@ -21,20 +21,13 @@ public enum Ranking {
     }
 
     public static Ranking findRanking(int count, boolean hasBonusNumber) {
+        if (hasBonusNumber == SECOND.hasBonusNumber && count == SECOND.count) {
+            return SECOND;
+        }
         return Arrays.stream(Ranking.values())
-                .filter(ranking -> checkCountAndBonusNumber(ranking, count, hasBonusNumber))
+                .filter(ranking -> ranking != SECOND && ranking.count == count)
                 .findAny()
                 .orElse(NONE);
-    }
-
-    private static boolean checkCountAndBonusNumber(Ranking ranking, int count, boolean hasBonusNumber) {
-        if (ranking.count != count) {
-            return false;
-        }
-        if (count == SECOND.count) {
-            return ranking.hasBonusNumber == hasBonusNumber;
-        }
-        return true;
     }
 
     public long multiple(Integer count) {
