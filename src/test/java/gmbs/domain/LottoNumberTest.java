@@ -4,8 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
 
 class LottoNumberTest {
 
@@ -27,6 +26,7 @@ class LottoNumberTest {
     @ValueSource(ints = {1, 25, 45})
     @DisplayName("숫자가 범위 내에서 생성됨")
     void correct(int number) {
-        assertThat(LottoNumber.of(number)).isNotNull();
+        assertThatCode(() -> LottoNumber.of(number))
+                .doesNotThrowAnyException();
     }
 }
