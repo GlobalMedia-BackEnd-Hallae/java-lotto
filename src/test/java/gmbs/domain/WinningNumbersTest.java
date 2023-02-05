@@ -25,7 +25,7 @@ class WinningNumbersTest {
 
     @Test
     @DisplayName("당첨번호와 보너스 번호가 중복되면 예외가 발생한다")
-    void test() {
+    void generateWinningNumbers_DuplicateWithWinningNumbers() {
         // given
         LottoNumber bonusNumber = LottoNumber.of(1);
 
@@ -38,7 +38,7 @@ class WinningNumbersTest {
     @ParameterizedTest(name = "결과 {1} 반환")
     @MethodSource("parameterProvider")
     @DisplayName("[n]등 당첨 결과 반환")
-    void prize2(List<Integer> list, Ranking expect) {
+    void findRank_First(List<Integer> list, Ranking expect) {
         // given
         LottoNumber bonusNumber = LottoNumber.of(7);
         WinningNumbers winningNumbers = new WinningNumbers(lottoNumbers, bonusNumber);
@@ -64,7 +64,7 @@ class WinningNumbersTest {
     @ParameterizedTest(name = "[{index}] LottoNumbers의 Ranking은 {1}")
     @MethodSource("parameterProvider2")
     @DisplayName("보너스 볼이 포함되는 경우")
-    void test2(LottoNumbers userLottoNumbers, Ranking expect) {
+    void findRank_Second(LottoNumbers userLottoNumbers, Ranking expect) {
         // given
         LottoNumber bonusNumber = LottoNumber.of(7);
         WinningNumbers winningNumbers = new WinningNumbers(lottoNumbers, bonusNumber);
