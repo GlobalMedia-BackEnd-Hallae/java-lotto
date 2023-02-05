@@ -2,7 +2,6 @@ package gmbs.domain;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.*;
@@ -31,8 +30,11 @@ public class LottoTicket {
     public WinningResult calculateWinningStatistic(WinningNumbers winningNumbers) {
         List<Ranking> rankings = lottoTicket.stream()
                 .map(winningNumbers::calculateRanking)
-                .filter(Objects::nonNull)
                 .collect(collectingAndThen(toList(), Collections::unmodifiableList));
         return new WinningResult(rankings);
+    }
+
+    public void addLottoTicket(LottoTicket otherLottoTicket) {
+        lottoTicket.addAll(otherLottoTicket.getLottoTicket());
     }
 }

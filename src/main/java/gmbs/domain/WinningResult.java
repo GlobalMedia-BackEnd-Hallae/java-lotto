@@ -25,7 +25,7 @@ public class WinningResult {
 
     private void putValues(List<Ranking> rankings) {
         for (Ranking ranking : rankings) {
-            winningResult.put(ranking, winningResult.get(ranking) + 1);
+            winningResult.put(ranking, winningResult.getOrDefault(ranking, 0) + 1);
         }
     }
 }
