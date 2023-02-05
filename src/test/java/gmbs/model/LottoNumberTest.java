@@ -31,9 +31,9 @@ class LottoNumberTest {
     }
 
     @ParameterizedTest
-    @DisplayName("1~45 사이의 수가 아니면 예외를 발생시킨다")
+    @DisplayName("입력이 문자일 때 1~45 사이의 수가 아니면 예외를 발생시킨다")
     @MethodSource("rangeExceptionStringData")
-    void exceptionThrownByInvalidRangeString(String given, boolean expectedExceptionThrown) {
+    void exceptionThrownByInvalidRangeString(String given) {
         assertThatThrownBy(() -> new LottoNumber(given))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[error] invalid number range");
@@ -55,7 +55,7 @@ class LottoNumberTest {
     }
 
     @Test
-    @DisplayName("숫자가 아니면 예외를 발생시킨다")
+    @DisplayName("문자열에 숫자가 아닌 문자가 포함되면 예외를 발생시킨다")
     void exceptionThrownByInvalidExpression() {
         assertThatThrownBy(() -> new LottoNumber("a"))
                 .isInstanceOf(IllegalArgumentException.class)

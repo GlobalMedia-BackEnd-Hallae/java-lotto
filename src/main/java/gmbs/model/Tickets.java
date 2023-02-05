@@ -1,10 +1,9 @@
 package gmbs.model;
 
-import java.util.AbstractMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Tickets {
 
@@ -15,23 +14,14 @@ public class Tickets {
                 .collect(Collectors.toUnmodifiableList());
     }
 
-    public Map<Prize, Integer> checkMatches(Winner winningNumber) {
-        Map<Prize, Integer> prizeCounts = createPrizeCounts();
-        for (Ticket ticket : lottoTickets) {
-            prizeCounts.compute(ticket.checkPrize(winningNumber), (key, value) -> value + 1);
+    public Map<Prize, Integer> checkMatches(Winner winner) {
+        Map<Prize, Integer> prizeMatches = lottoTickets.stream()
+                .map(ticket -> ticket.checkPrize(winner))
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.summingInt(value -> 1)));
+        for (Prize prize : Prize.values()) {
+            prizeMatches.putIfAbsent(prize, 0);
         }
-        return prizeCounts;
-    }
-
-    private Map<Prize, Integer> createPrizeCounts() {
-        return Stream.of(
-                new AbstractMap.SimpleEntry<>(Prize.FIRST, 0),
-                new AbstractMap.SimpleEntry<>(Prize.SECOND, 0),
-                new AbstractMap.SimpleEntry<>(Prize.THIRD, 0),
-                new AbstractMap.SimpleEntry<>(Prize.FOURTH, 0),
-                new AbstractMap.SimpleEntry<>(Prize.FIFTH, 0),
-                new AbstractMap.SimpleEntry<>(Prize.LOSER, 0)
-        ).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        return prizeMatches;
     }
 
     public List<Ticket> getTickets() {

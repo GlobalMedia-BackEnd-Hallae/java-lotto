@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Map;
 
 public class LottoController {
-    private final Input userInput = new Input();
 
+    private final Input userInput = new Input();
     private final Output display = new Output();
 
     public void operate() {
@@ -75,10 +75,11 @@ public class LottoController {
     }
 
     private void showStats(Map<Prize, Integer> stats) {
-        stats.keySet().remove(Prize.LOSER);
-        for (Map.Entry<Prize, Integer> winningStat : stats.entrySet()) {
-            Prize prize = winningStat.getKey();
-            display.statDisplay(Map.of("price", prize.money(), "matches", prize.matches(), "count", winningStat.getValue(), "requireBonus", convertBonus(prize.requireBonus())));
+        for (Prize prize : Prize.values()) {
+            if (prize == Prize.LOSER) {
+                continue;
+            }
+            display.statDisplay(Map.of("price", prize.money(), "matches", prize.matches(), "count", stats.get(prize), "requireBonus", convertBonus(prize.requireBonus())));
         }
     }
 

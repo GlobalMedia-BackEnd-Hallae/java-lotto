@@ -21,9 +21,7 @@ class TicketsTest {
     private final Ticket thirdPrize = new Ticket(() -> createLottoNumbers(List.of(1, 2, 3, 4, 5, 16)));
     private final Ticket fourthPrize = new Ticket(() -> createLottoNumbers(List.of(1, 2, 3, 4, 15, 16)));
     private final Ticket fifthPrize = new Ticket(() -> createLottoNumbers(List.of(1, 2, 3, 14, 15, 16)));
-    private final Ticket noPrize = new Ticket(() -> createLottoNumbers(List.of(1, 2, 13, 14, 15, 16)));
     private final Winner winningNumber = new Winner(winningNumbers, bonus);
-
 
     private static List<LottoNumber> createLottoNumbers(List<Integer> numbers) {
         List<LottoNumber> lottoNumbers = new ArrayList<>();
@@ -34,7 +32,7 @@ class TicketsTest {
     @Test
     @DisplayName("당첨 순위의 개수를 확인한다")
     void checkMatches() {
-        List<Ticket> generatedTickets = List.of(firstPrize, secondPrize1, secondPrize2, thirdPrize, fourthPrize, fifthPrize, noPrize);
+        List<Ticket> generatedTickets = List.of(firstPrize, secondPrize1, secondPrize2, thirdPrize, fourthPrize, fifthPrize);
         Tickets tickets = new Tickets(generatedTickets);
         Map<Prize, Integer> prize = tickets.checkMatches(winningNumber);
 
@@ -43,6 +41,6 @@ class TicketsTest {
                 .containsEntry(Prize.THIRD, 1)
                 .containsEntry(Prize.FOURTH, 1)
                 .containsEntry(Prize.FIFTH, 1)
-                .containsEntry(Prize.LOSER, 1);
+                .containsEntry(Prize.LOSER, 0);
     }
 }
