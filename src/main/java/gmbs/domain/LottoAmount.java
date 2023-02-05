@@ -5,8 +5,8 @@ public class LottoAmount {
     private static final int LOTTO_COST = 1000;
     private static final double DECIMAL = 1.0;
 
-    private static final String NOT_NATURAL_NUMBER_ERROR = "[ERROR] 금액은 " + MIN_COST + " 이상이어야 합니다.";
-    private static final String NOT_DIVISIBLE_NUMBER_ERROR = "[ERROR] 금액은 " + MIN_COST + "단위여야 합니다.";
+    private static final String NOT_NATURAL_NUMBER_ERROR = String.format("금액은 %d 이상이어야 합니다.", MIN_COST);
+    private static final String NOT_DIVISIBLE_NUMBER_ERROR = String.format("금액은 %d 단위여야 합니다.", MIN_COST);
 
     private final int amount;
 
