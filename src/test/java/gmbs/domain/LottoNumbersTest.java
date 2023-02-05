@@ -14,6 +14,12 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class LottoNumbersTest {
 
+    private List<Integer> getNumbers(int... numbers) {
+        return Arrays.stream(numbers)
+                .boxed()
+                .collect(collectingAndThen(toList(), Collections::unmodifiableList));
+    }
+
     @Test
     @DisplayName("중복된 숫자로 생성시 예외 발생")
     void incorrect() {
@@ -36,7 +42,6 @@ class LottoNumbersTest {
                 .hasMessageContaining("로또 개수는 6개로 제한됩니다.");
     }
 
-
     @Test
     @DisplayName("equals 확인")
     void test() {
@@ -47,14 +52,7 @@ class LottoNumbersTest {
         LottoNumbers lottoNumbers1 = new LottoNumbers(numbers1);
         LottoNumbers lottoNumbers2 = new LottoNumbers(numbers2);
 
-        // then
+        // when, then
         assertThat(lottoNumbers1).isEqualTo(lottoNumbers2);
-    }
-
-
-    private List<Integer> getNumbers(int... numbers) {
-        return Arrays.stream(numbers)
-                .boxed()
-                .collect(collectingAndThen(toList(), Collections::unmodifiableList));
     }
 }
