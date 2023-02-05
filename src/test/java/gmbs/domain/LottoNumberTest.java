@@ -23,7 +23,7 @@ class LottoNumberTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {1, 25, 45})
+    @ValueSource(ints = {1, 2, 3, 43, 44, 45})
     @DisplayName("숫자가 범위 내에서 생성됨")
     void correct(int number) {
         assertThatCode(() -> LottoNumber.of(number))
