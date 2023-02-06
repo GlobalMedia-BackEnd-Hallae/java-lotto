@@ -15,19 +15,19 @@ public class Ticket {
     }
 
     public Prize checkPrize(Winner winner) {
-        int match = checkMatches(winner.getWinningTicket());
-        boolean hasBonus = hasValue(winner.getBonusNumber());
-        return Prize.find(match, hasBonus);
+        int matchCount = checkMatchCount(winner.getWinningTicket());
+        boolean hasBonus = hasLottoNumber(winner.getBonusNumber());
+        return Prize.find(matchCount, hasBonus);
     }
 
-    private int checkMatches(Ticket anotherTicket) {
+    private int checkMatchCount(Ticket anotherTicket) {
         return (int) anotherTicket.getLottoNumbers()
                 .stream()
                 .filter(numbers::contains)
                 .count();
     }
 
-    public boolean hasValue(LottoNumber bonusNumber) {
+    public boolean hasLottoNumber(LottoNumber bonusNumber) {
         return numbers.contains(bonusNumber);
     }
 
