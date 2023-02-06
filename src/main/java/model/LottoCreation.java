@@ -1,9 +1,6 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class LottoCreation {
 
@@ -24,7 +21,7 @@ public class LottoCreation {
 
     private Lotto checkLotto() {
         try {
-            return new Lotto(createRandomNumbers());
+            return new Lotto(convertNumbersToLotto(createRandomNumbers()));
         } catch (IllegalArgumentException e) {
             return checkLotto();
         }
@@ -39,5 +36,15 @@ public class LottoCreation {
 
         Collections.sort(randomNumbers);
         return randomNumbers;
+    }
+
+    private List<LottoNumber> convertNumbersToLotto(List<Integer> randomNumbers) {
+        final List<LottoNumber> lotto = new ArrayList<>();
+
+        for (int randomNumber : randomNumbers) {
+            lotto.add(new LottoNumber(randomNumber));
+        }
+
+        return lotto;
     }
 }
