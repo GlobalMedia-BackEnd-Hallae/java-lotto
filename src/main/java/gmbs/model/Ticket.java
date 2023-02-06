@@ -4,7 +4,6 @@ import gmbs.model.generator.LottoGenerator;
 import gmbs.model.vo.LottoNumber;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Ticket {
@@ -40,18 +39,5 @@ public class Ticket {
         return numbers.stream()
                 .map(LottoNumber::getValue)
                 .collect(Collectors.toUnmodifiableList());
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        final Ticket ticket = (Ticket) o;
-        return numbers.equals(ticket.numbers);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(numbers);
     }
 }

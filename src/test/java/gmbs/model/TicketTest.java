@@ -2,7 +2,6 @@ package gmbs.model;
 
 import gmbs.model.vo.LottoNumber;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -21,30 +20,8 @@ class TicketTest {
         return lottoNumbers;
     }
 
-    @Test
-    @DisplayName("숫자가 같으면 같은 객체인지 확인한다")
-    void equals() {
-        Ticket origin = new Ticket(() -> createLottoNumbers(List.of(1, 2, 3, 4, 5, 6)));
-        Ticket duplicate = new Ticket(() -> createLottoNumbers(List.of(1, 2, 3, 4, 5, 6)));
-        Ticket another = new Ticket(() -> createLottoNumbers(List.of(1, 2, 3, 4, 5, 17)));
-
-        assertThat(origin).isEqualTo(duplicate);
-        assertThat(origin).isNotEqualTo(another);
-    }
-
-    @Test
-    @DisplayName("필드값이 같으면 같은 haschCode를 반환하는지 확인한다")
-    void hashCodeCheck() {
-        Ticket origin = new Ticket(() -> createLottoNumbers(List.of(1, 2, 3, 4, 5, 6)));
-        Ticket duplicate = new Ticket(() -> createLottoNumbers(List.of(1, 2, 3, 4, 5, 6)));
-        Ticket another = new Ticket(() -> createLottoNumbers(List.of(1, 2, 3, 4, 5, 17)));
-
-        assertThat(origin).hasSameHashCodeAs(duplicate);
-        assertThat(origin.hashCode()).isNotEqualTo(another.hashCode());
-    }
-
     @ParameterizedTest
-    @DisplayName("로또 당첨 금액을 확인한다")
+    @DisplayName("당첨 숫자와 보너스 숫자를 비교하여 올바른 prize를 반환하는지 확인한다")
     @MethodSource("prizeCheckData")
     void checkPrize(Ticket ticket, Prize expected) {
         Ticket winningTicket = new Ticket(() -> createLottoNumbers(List.of(1, 2, 3, 4, 5, 6)));
