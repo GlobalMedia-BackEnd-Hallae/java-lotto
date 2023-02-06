@@ -21,7 +21,7 @@ class LottoNumberTest {
     @DisplayName("입력이 정수 일때1~45 범위에 벗어난 수로 lottoNumber 생성하면 예외 발생시킨다")
     @MethodSource("rangeExceptionIntegerData")
     void exceptionThrownByInvalidRangeInteger(int given) {
-        assertThatThrownBy(() -> new LottoNumber(given))
+        assertThatThrownBy(() -> LottoNumber.from(given))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[error] invalid number range");
     }
@@ -37,7 +37,7 @@ class LottoNumberTest {
     @DisplayName("입력이 문자일 때 1~45 범위에 벗어난 수로 lottoNumber 생성하면 예외 발생시킨다")
     @MethodSource("rangeExceptionStringData")
     void exceptionThrownByInvalidRangeString(String given) {
-        assertThatThrownBy(() -> new LottoNumber(given))
+        assertThatThrownBy(() -> LottoNumber.from(given))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[error] invalid number range");
     }
@@ -55,7 +55,7 @@ class LottoNumberTest {
         //given
         String noInput = "";
 
-        assertThatThrownBy(() -> new LottoNumber(noInput))
+        assertThatThrownBy(() -> LottoNumber.from(noInput))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[error] no input");
     }
@@ -66,7 +66,7 @@ class LottoNumberTest {
         //given
         String notNumber = "a";
 
-        assertThatThrownBy(() -> new LottoNumber(notNumber))
+        assertThatThrownBy(() -> LottoNumber.from(notNumber))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[error] is not number");
     }
@@ -78,8 +78,8 @@ class LottoNumberTest {
         int anyNumber = random.nextInt(45) + 1;
 
         //when
-        LottoNumber number = new LottoNumber(anyNumber);
-        LottoNumber sameNumber = new LottoNumber(anyNumber);
+        LottoNumber number = LottoNumber.from(anyNumber);
+        LottoNumber sameNumber = LottoNumber.from(anyNumber);
 
         //then
         assertThat(number).isEqualTo(sameNumber);
@@ -92,10 +92,26 @@ class LottoNumberTest {
         int anyNumber = random.nextInt(45) + 1;
 
         //when
-        LottoNumber number = new LottoNumber(anyNumber);
-        LottoNumber sameNumber = new LottoNumber(anyNumber);
+        LottoNumber number = LottoNumber.from(anyNumber);
+        LottoNumber sameNumber = LottoNumber.from(anyNumber);
 
         //then
         assertThat(number).hasSameHashCodeAs(sameNumber);
+    }
+
+    @Test
+    @DisplayName("필드 값이 같으면 같은 주소를 참조하는지 확인한다")
+    void checkCache() {
+        //given
+        int anyNumber = random.nextInt(45) + 1;
+        String sameAnyNumber = String.valueOf(anyNumber);
+
+        //when
+        LottoNumber number = LottoNumber.from(anyNumber);
+        LottoNumber sameNumber1 = LottoNumber.from(anyNumber);
+        LottoNumber sameNumber2 = LottoNumber.from(sameAnyNumber);
+
+        //then
+        assertThat(number == sameNumber1).isEqualTo(sameNumber1 == sameNumber2);
     }
 }

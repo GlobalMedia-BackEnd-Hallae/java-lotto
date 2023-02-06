@@ -1,31 +1,21 @@
 package gmbs.model.vo;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class LottoNumber implements Comparable<LottoNumber> {
 
     private static final int MAX = 45;
     private static final int MIN = 1;
+    private static final Map<Integer, LottoNumber> CACHE = new HashMap<>();
     private static final String INTEGER_REGEX = "^[0-9]*$";
     private final int value;
 
-    public LottoNumber(int number) {
+
+    private LottoNumber(int number) {
         validateRange(number);
         value = number;
-    }
-
-    public LottoNumber(String number) {
-        validateType(number);
-        validateNoInput(number);
-        int converted = Integer.parseInt(number);
-        validateRange(converted);
-        value = converted;
-    }
-
-    private void validateType(String number) {
-        if (!number.matches(INTEGER_REGEX)) {
-            throw new IllegalArgumentException("[error] is not number");
-        }
     }
 
     private void validateRange(int number) {
@@ -34,7 +24,26 @@ public class LottoNumber implements Comparable<LottoNumber> {
         }
     }
 
-    private void validateNoInput(String number) {
+    public static LottoNumber from(int number) {
+        CACHE.putIfAbsent(number, new LottoNumber(number));
+        return CACHE.get(number);
+    }
+
+    public static LottoNumber from(String number) {
+        validateType(number);
+        validateNoInput(number);
+        int converted = Integer.parseInt(number);
+        CACHE.putIfAbsent(converted, new LottoNumber(converted));
+        return CACHE.get(converted);
+    }
+
+    private static void validateType(String number) {
+        if (!number.matches(INTEGER_REGEX)) {
+            throw new IllegalArgumentException("[error] is not number");
+        }
+    }
+
+    private static void validateNoInput(String number) {
         if (number.isEmpty()) {
             throw new IllegalArgumentException(("[error] no input"));
         }

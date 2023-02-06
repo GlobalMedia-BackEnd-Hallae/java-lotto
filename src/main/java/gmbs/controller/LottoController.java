@@ -72,7 +72,7 @@ public class LottoController {
 
     private LottoNumber requestBonus() {
         display.bonusNumberDisplay();
-        return new LottoNumber(userInput.scan());
+        return LottoNumber.from(userInput.scan());
     }
 
     private void showStats(Map<Prize, Integer> stats) {

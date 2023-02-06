@@ -16,7 +16,7 @@ class TicketTest {
 
     private static List<LottoNumber> createLottoNumbers(List<Integer> numbers) {
         List<LottoNumber> lottoNumbers = new ArrayList<>();
-        numbers.forEach((number) -> lottoNumbers.add(new LottoNumber(number)));
+        numbers.forEach((number) -> lottoNumbers.add(LottoNumber.from(number)));
         return lottoNumbers;
     }
 
@@ -25,7 +25,7 @@ class TicketTest {
     @MethodSource("prizeCheckData")
     void checkPrize(Ticket ticket, Prize expected) {
         Ticket winningTicket = new Ticket(() -> createLottoNumbers(List.of(1, 2, 3, 4, 5, 6)));
-        LottoNumber bonus = new LottoNumber(7);
+        LottoNumber bonus = LottoNumber.from(7);
         Winner winningNumber = new Winner(winningTicket, bonus);
 
         //when

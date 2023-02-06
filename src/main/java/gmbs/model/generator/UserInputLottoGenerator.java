@@ -19,7 +19,7 @@ public class UserInputLottoGenerator implements LottoGenerator {
 
     private Set<LottoNumber> convert(List<String> userInputNumbers) {
         return userInputNumbers.stream()
-                .map(LottoNumber::new)
+                .map(LottoNumber::from)
                 .collect(Collectors.toSet());
     }
 
