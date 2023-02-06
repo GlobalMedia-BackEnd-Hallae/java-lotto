@@ -14,19 +14,20 @@ public class LottoController {
 
     private final Input userInput = new Input();
     private final Output display = new Output();
+    private final ProfitCalculator calculator = new ProfitCalculator();
 
     public void operate() {
-        display.userMoneyDisplay();
         UserMoney money = reqeustUserMoney();
         Tickets tickets = createTickets(money);
         showTickets(tickets);
         Winner winner = requestWinner();
-        showStats(tickets.checkMatches(winner));
-        float profitRatio = new ProfitCalculator().calculate(money, tickets.checkMatches(winner));
-        display.profitRatioDisplay(profitRatio);
+        Map<Prize, Integer> stats = tickets.checkMatches(winner);
+        showStats(stats);
+        showProfitRatio(money, stats);
     }
 
     private UserMoney reqeustUserMoney() {
+        display.userMoneyDisplay();
         UserMoney money;
         while (true) {
             try {
@@ -57,21 +58,21 @@ public class LottoController {
                 bonus = requestBonus();
                 break;
             } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
+                display.exceptionDisplay(e);
             }
         }
         return new Winner(winningTicket, bonus);
-    }
-
-    private LottoNumber requestBonus() {
-        display.bonusNumberDisplay();
-        return new LottoNumber(userInput.scan());
     }
 
     private Ticket requestWinningTicket() {
         display.winningNumberDisplay();
         UserInputLottoGenerator numbers = new UserInputLottoGenerator(List.of(userInput.scan().split(",")));
         return new Ticket(numbers);
+    }
+
+    private LottoNumber requestBonus() {
+        display.bonusNumberDisplay();
+        return new LottoNumber(userInput.scan());
     }
 
     private void showStats(Map<Prize, Integer> stats) {
@@ -88,5 +89,10 @@ public class LottoController {
             return 1;
         }
         return 0;
+    }
+
+    private void showProfitRatio(UserMoney money, Map<Prize, Integer> stats) {
+        float profitRatio = calculator.calculate(money, stats);
+        display.profitRatioDisplay(profitRatio);
     }
 }
