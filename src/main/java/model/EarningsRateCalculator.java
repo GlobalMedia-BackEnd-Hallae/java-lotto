@@ -1,31 +1,25 @@
 package model;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.HashMap;
 
 public class EarningsRateCalculator {
 
-    private final String earningsRate;
+    private final long INITIAL_VALUE = 0;
+    private final int PERCENT = 100;
 
-    public EarningsRateCalculator(Money money, List<Integer> winningResult) {
-        final List<Long> prize = getWinningPrize();
-        long prizeSum = 0;
+    private final double earningsRate;
 
-        for (int index = 0; index < prize.size(); index++) {
-            prizeSum += prize.get(index) * winningResult.get(index);
+    public EarningsRateCalculator(int money, HashMap<Winning, Integer> winningResult) {
+        long prizeSum = INITIAL_VALUE;
+
+        for (Winning winning : winningResult.keySet()) {
+            prizeSum += Winning.calculatePrize(winning, winningResult.get(winning));
         }
 
-        this.earningsRate = String.format("%.2f", (double)prizeSum / (double)money.getMoney() * 100);
+        this.earningsRate = (double) prizeSum / (double) money * PERCENT;
     }
 
-    public String getEarningsRate() {
+    public double getEarningsRate() {
         return this.earningsRate;
-    }
-
-    private List<Long> getWinningPrize() {
-        return Stream.of(Winning.values())
-                .map(m -> m.getPrize())
-                .collect(Collectors.toList());
     }
 }
