@@ -2,72 +2,78 @@ package model;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 
 public class Lotto {
 
     private static final int LOTTO_COUNT = 6;
-    private static final int LOTTO_MIN_VALUE = 1;
-    private static final int LOTTO_MAX_VALUE = 45;
 
-    private final List<Integer> lottery;
-    private int bonusNumber;
+    private final List<LottoNumber> lotto;
 
-    public Lotto(List<Integer> lottery) {
-        if (checkOverlap(lottery) || checkRange(lottery) || checkCount(lottery)) {
-            throw new IllegalArgumentException();
+    public Lotto(List<LottoNumber> lotto) {
+        if (checkLotteryOverlap(lotto) || checkLotteryCount(lotto)) {
+            throw new IllegalArgumentException("[ERROR] 중복이 아닌 6개의 숫자를 입력해주세요.");
         }
 
-        this.lottery = lottery;
+        this.lotto = lotto;
     }
 
-    public void addBonusNumber(int bonusNumber) {
-        if (checkRange(bonusNumber) || checkOverlap(bonusNumber)) {
-            throw new IllegalArgumentException();
-        }
-
-        this.bonusNumber = bonusNumber;
+    public List<LottoNumber> getLotto() {
+        return this.lotto;
     }
 
-    public List<Integer> getLotto() {
-        return this.lottery;
-    }
-
-    public int getBonusNumber() {
-        return this.bonusNumber;
-    }
-
-    private boolean checkOverlap(List<Integer> lottery) {
-        final HashSet<Integer> overlapChecker = new HashSet<>(lottery);
+    private boolean checkLotteryOverlap(List<LottoNumber> lotto) {
+        final HashSet<LottoNumber> overlapChecker = new HashSet<>(lotto);
         return overlapChecker.size() != LOTTO_COUNT;
     }
 
-    private boolean checkRange(List<Integer> lottery) {
-        return lottery.get(0) < LOTTO_MIN_VALUE || lottery.get(5) > LOTTO_MAX_VALUE;
+    private boolean checkLotteryCount(List<LottoNumber> lotto) {
+        return lotto.size() != LOTTO_COUNT;
     }
 
-    private boolean checkCount(List<Integer> lottery) {
-        return lottery.size() != LOTTO_COUNT;
+    public void checkBonusNumberOverlap(LottoNumber bonusNumber) {
+        this.lotto.stream()
+                .filter(lottoNumber -> lottoNumber.equals(bonusNumber))
+                .findAny()
+                .ifPresent(a -> {
+                    throw new IllegalArgumentException();
+                });
     }
 
-    private boolean checkOverlap(int bonusNumber) {
-        int check = 0;
+    public int drawLottoWithWinningNumbers(Lotto winningNumbers) {
+        int count = 0;
 
-        for (int number : this.lottery) {
-            check = Math.max(check, compareNumber(number, bonusNumber));
+        for (LottoNumber lottoNumber : this.lotto) {
+            count += winningNumbers.compareLottoNumberWithWinningNumber(lottoNumber);
         }
 
-        return check == 1;
+        return count;
     }
 
-    private int compareNumber(int number, int bonusNumber) {
-        if (number == bonusNumber) {
+    public int compareLottoNumberWithWinningNumber(LottoNumber lottoNumber) {
+        if (this.lotto.stream().anyMatch(winningNumber -> winningNumber.equals(lottoNumber)))
             return 1;
-        }
 
         return 0;
     }
 
-    private boolean checkRange(int bonusNumber) {
-        return bonusNumber < LOTTO_MIN_VALUE || bonusNumber > LOTTO_MAX_VALUE;
+    public int compareLottoNumberWithBonusNumber(LottoNumber bonusNumber) {
+        if (this.lotto.stream().anyMatch(lottoNumber -> lottoNumber.equals(bonusNumber)))
+            return 1;
+
+        return 0;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Lotto lotto1 = (Lotto) o;
+        return Objects.equals(lotto, lotto1.lotto);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(lotto);
     }
 }
