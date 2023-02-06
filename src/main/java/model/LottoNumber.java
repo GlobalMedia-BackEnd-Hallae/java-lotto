@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 public class LottoNumber {
 
     private static final int LOTTO_NUMBER_MIN_VALUE = 1;
@@ -9,7 +11,7 @@ public class LottoNumber {
 
     public LottoNumber(int number) {
         if (checkNumberRange(number)) {
-            throw new IllegalArgumentException("[Error] 입력하신 수가 로또 숫자의 범위에 포함되지 않습니다.");
+            throw new IllegalArgumentException("[Error] 1 이상 45 이하의 번호를 입력해 주세요.");
         }
 
         this.lottoNumber = number;
@@ -23,19 +25,24 @@ public class LottoNumber {
         return number < LOTTO_NUMBER_MIN_VALUE || number > LOTTO_NUMBER_MAX_VALUE;
     }
 
-    public int drawLottoNumberWithWinningNumbers(Lotto winningNumbers) {
-        return winningNumbers.compareLottoNumberWithWinningNumber(this.lottoNumber);
-    }
-
-    public int drawLottoNumberWithBonusNumber(LottoNumber bonusNumber) {
-        return bonusNumber.isSameNumber(this.lottoNumber);
-    }
-
-    public int isSameNumber(int lottoNumber) {
-        if (this.lottoNumber == lottoNumber) {
+    public static int isSameNumber(LottoNumber lottoNumber, LottoNumber winningNumber) {
+        if (lottoNumber.equals(winningNumber)) {
             return 1;
         }
 
         return 0;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LottoNumber that = (LottoNumber) o;
+        return lottoNumber == that.lottoNumber;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(lottoNumber);
     }
 }
