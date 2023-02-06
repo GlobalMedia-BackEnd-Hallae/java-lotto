@@ -7,6 +7,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.Random;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -14,8 +15,10 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 class LottoNumberTest {
 
+    private final Random random = new Random();
+
     @ParameterizedTest
-    @DisplayName("입력이 정수 일때1~45 사이의 수가 아니면 예외를 발생시킨다")
+    @DisplayName("입력이 정수 일때1~45 범위에 벗어난 수로 lottoNumber 생성하면 예외 발생시킨다")
     @MethodSource("rangeExceptionIntegerData")
     void exceptionThrownByInvalidRangeInteger(int given) {
         assertThatThrownBy(() -> new LottoNumber(given))
@@ -31,7 +34,7 @@ class LottoNumberTest {
     }
 
     @ParameterizedTest
-    @DisplayName("입력이 문자일 때 1~45 사이의 수가 아니면 예외를 발생시킨다")
+    @DisplayName("입력이 문자일 때 1~45 범위에 벗어난 수로 lottoNumber 생성하면 예외 발생시킨다")
     @MethodSource("rangeExceptionStringData")
     void exceptionThrownByInvalidRangeString(String given) {
         assertThatThrownBy(() -> new LottoNumber(given))
@@ -47,17 +50,23 @@ class LottoNumberTest {
     }
 
     @Test
-    @DisplayName("문자열이 없으면 예외를 발생시킨다")
+    @DisplayName("빈 문자열로 lottoNumber 생성하면 예외를 발생시킨다")
     void exceptionThrownByNoInput() {
-        assertThatThrownBy(() -> new LottoNumber(""))
+        //given
+        String noInput = "";
+
+        assertThatThrownBy(() -> new LottoNumber(noInput))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[error] no input");
     }
 
     @Test
-    @DisplayName("문자열에 숫자가 아닌 문자가 포함되면 예외를 발생시킨다")
+    @DisplayName("숫자가 아닌 문자열로 lottoNumber 생성하면 예외 발생시킨다")
     void exceptionThrownByInvalidExpression() {
-        assertThatThrownBy(() -> new LottoNumber("a"))
+        //given
+        String notNumber = "a";
+
+        assertThatThrownBy(() -> new LottoNumber(notNumber))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[error] is not number");
     }
@@ -65,18 +74,28 @@ class LottoNumberTest {
     @Test
     @DisplayName("필드값이 같으면 같은 같은 객체인지 확인한다")
     void testEquals() {
-        LottoNumber num = new LottoNumber(1);
-        LottoNumber num2 = new LottoNumber(1);
+        //given
+        int anyNumber = random.nextInt(45) + 1;
 
-        assertThat(num).isEqualTo(num2);
+        //when
+        LottoNumber number = new LottoNumber(anyNumber);
+        LottoNumber sameNumber = new LottoNumber(anyNumber);
+
+        //then
+        assertThat(number).isEqualTo(sameNumber);
     }
 
     @Test
     @DisplayName("필드값이 같으면 같은 hashcode를 반환하는지 확인한다")
     void testHashCode() {
-        LottoNumber num = new LottoNumber(1);
-        LottoNumber num2 = new LottoNumber(1);
+        //given
+        int anyNumber = random.nextInt(45) + 1;
 
-        assertThat(num).hasSameHashCodeAs(num2);
+        //when
+        LottoNumber number = new LottoNumber(anyNumber);
+        LottoNumber sameNumber = new LottoNumber(anyNumber);
+
+        //then
+        assertThat(number).hasSameHashCodeAs(sameNumber);
     }
 }

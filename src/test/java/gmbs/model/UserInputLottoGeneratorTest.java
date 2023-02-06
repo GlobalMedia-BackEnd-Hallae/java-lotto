@@ -17,7 +17,7 @@ class UserInputLottoGeneratorTest {
     private static final int MAX = 45;
 
     @ParameterizedTest
-    @DisplayName("문자열이 정수형 숫자로 이루어지지 않으면 예외 발생")
+    @DisplayName("자연수가 아닌 문자가 포함된 리스트로 객체 생성시 예외 발생시킨다")
     @MethodSource("invalidExpressions")
     void exceptionByInvalidExpression(List<String> userInput) {
         assertThatThrownBy(() -> new UserInputLottoGenerator(userInput)).isInstanceOf(IllegalArgumentException.class)
@@ -34,7 +34,7 @@ class UserInputLottoGeneratorTest {
     }
 
     @ParameterizedTest
-    @DisplayName("문자열이 중복이 있다면 예외 발생")
+    @DisplayName("중복된 문자가 있는 리스트로 객체 생성시 예외 발생시킨다")
     @MethodSource("overlap")
     void exceptionByOverlap(List<String> userInput) {
         assertThatThrownBy(() -> new UserInputLottoGenerator(userInput)).isInstanceOf(IllegalArgumentException.class)
@@ -50,7 +50,7 @@ class UserInputLottoGeneratorTest {
     }
 
     @ParameterizedTest
-    @DisplayName("입력된 정수가 6개가 아니면 예외 발생")
+    @DisplayName("길이가 6이 아닌 리스트로 객체 생성시 예외 발생시킨다")
     @MethodSource("invalidLength")
     void exceptionByInvalidLength(List<String> userInput) {
         assertThatThrownBy(() -> new UserInputLottoGenerator(userInput)).isInstanceOf(IllegalArgumentException.class)
@@ -65,7 +65,7 @@ class UserInputLottoGeneratorTest {
     }
 
     @ParameterizedTest
-    @DisplayName("1 ~ 45 사이의 값이 아니면 예외 발생")
+    @DisplayName("리스트의 요소가 모두 1 ~ 45 범위가 아닌 리스트로 객체 생성 시 예외 발생시킨다")
     @MethodSource("invalidRange")
     void exceptionByInvalidRange(List<String> userInput) {
         assertThatThrownBy(() -> new UserInputLottoGenerator(userInput)).isInstanceOf(IllegalArgumentException.class)

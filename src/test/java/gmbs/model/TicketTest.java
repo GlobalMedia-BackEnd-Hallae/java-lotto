@@ -27,8 +27,11 @@ class TicketTest {
         Ticket winningTicket = new Ticket(() -> createLottoNumbers(List.of(1, 2, 3, 4, 5, 6)));
         LottoNumber bonus = new LottoNumber(7);
         Winner winningNumber = new Winner(winningTicket, bonus);
+
+        //when
         Prize actual = ticket.checkPrize(winningNumber);
 
+        //then
         assertThat(actual).isEqualTo(expected);
     }
 
