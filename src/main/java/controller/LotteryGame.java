@@ -3,6 +3,7 @@ package controller;
 import model.*;
 import view.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class LotteryGame {
@@ -13,50 +14,56 @@ public class LotteryGame {
     private final Output output = new Output();
 
     public void lotteryGame() {
-        final Money money = getMoney();
+        final Money money = createMoney();
         final int number = money.getMoney() / MIN_MONEY_VALUE;
-        final List<Lotto> lotto = getLotto(number);
-        output.outputLotto(number, lotto);
-        final Lotto winningNumber = getWinningNumber();
-        getBonusNumber(winningNumber);
-        final List<Integer> winningResult = getWinningResult(winningNumber, lotto);
-        output.outputResult(winningResult, new EarningsRateCalculator(money, winningResult));
+        final Lottery lottery = createLottery(createLotto(number));
+        output.outputLotto(number, lottery);
+        final Lotto winningNumber = createWinningNumber();
+        final LottoNumber bonusNumber = createBonusNumber(winningNumber);
+        final HashMap<Winning, Integer> winningResult = createWinningResult(winningNumber, bonusNumber, lottery);
+        output.outputResult(winningResult, new EarningsRateCalculator(money.getMoney(), winningResult));
     }
 
-    private Money getMoney() {
+    private Money createMoney() {
         try {
-            return new Money(input.inputMoney());
+            return input.inputMoney();
         } catch (IllegalArgumentException e) {
-            output.outputError();
-            return getMoney();
+            System.out.println(e.getMessage());
+            return createMoney();
         }
     }
 
-    private List<Lotto> getLotto(int number) {
+    private List<Lotto> createLotto(int number) {
         final LottoCreation lottoCreation = new LottoCreation();
         return lottoCreation.createLotto(number);
     }
 
-    private Lotto getWinningNumber() {
+    private Lottery createLottery(List<Lotto> lotto) {
+        return new Lottery(lotto);
+    }
+
+    private Lotto createWinningNumber() {
         try {
             return new Lotto(input.inputWinningNumber());
         } catch (IllegalArgumentException e) {
-            output.outputError();
-            return getWinningNumber();
+            System.out.println(e.getMessage());
+            return createWinningNumber();
         }
     }
 
-    private void getBonusNumber(Lotto winningNumber) {
+    private LottoNumber createBonusNumber(Lotto winningNumber) {
         try {
-            winningNumber.addBonusNumber(input.inputBonusNumber());
+            final LottoNumber bonusNumber = input.inputBonusNumber();
+            winningNumber.checkBonusNumberOverlap(bonusNumber);
+            return bonusNumber;
         } catch (IllegalArgumentException e) {
-            output.outputError();
-            getBonusNumber(winningNumber);
+            System.out.println(e.getMessage());
+            return createBonusNumber(winningNumber);
         }
     }
 
-    private List<Integer> getWinningResult(Lotto winningNumber, List<Lotto> lotto) {
+    private HashMap<Winning, Integer> createWinningResult(Lotto winningNumber, LottoNumber bonusNumber, Lottery lottery) {
         final LotteryDrawing lotteryDrawing = new LotteryDrawing();
-        return lotteryDrawing.drawLottery(winningNumber, lotto);
+        return lotteryDrawing.drawLottery(winningNumber, bonusNumber, lottery);
     }
 }
