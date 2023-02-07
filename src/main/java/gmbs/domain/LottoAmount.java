@@ -41,21 +41,20 @@ public class LottoAmount {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (!(o instanceof LottoAmount)) {
+        if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
+        LottoAmount that = (LottoAmount) obj;
 
-        LottoAmount that = (LottoAmount) o;
-
-        return amount == that.amount;
+        return this.amount == that.amount;
     }
 
     @Override
     public int hashCode() {
-        return amount;
+        return this.amount;
     }
 }

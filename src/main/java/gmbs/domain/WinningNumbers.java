@@ -30,16 +30,15 @@ public class WinningNumbers {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof WinningNumbers)) {
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
-
         WinningNumbers that = (WinningNumbers) o;
 
-        if (!Objects.equals(lottoNumbers, that.lottoNumbers)) {
+        if (lottoNumbers != that.lottoNumbers) {
             return false;
         }
-        return Objects.equals(bonusNumber, that.bonusNumber);
+        return Objects.equals(bonusNumber, that.lottoNumbers);
     }
 
     @Override

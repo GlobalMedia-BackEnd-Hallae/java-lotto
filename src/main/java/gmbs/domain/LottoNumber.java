@@ -2,6 +2,7 @@ package gmbs.domain;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class LottoNumber {
     private static final int MIN = 1;
@@ -45,18 +46,16 @@ public class LottoNumber {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof LottoNumber)) {
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
-
         LottoNumber that = (LottoNumber) o;
-
-        return value == that.value;
+        return Objects.equals(value, that.value);
     }
 
     @Override
     public int hashCode() {
-        return value;
+        return Objects.hash(value, value);
     }
 
     @Override
