@@ -1,10 +1,9 @@
 package gmbs.domain;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.IntStream;
-
-import static java.util.stream.Collectors.*;
+import java.util.stream.Collectors;
 
 public class LottoTicket {
     private final List<LottoNumbers> lottoTicket;
@@ -18,9 +17,11 @@ public class LottoTicket {
     }
 
     private static List<LottoNumbers> generateTickets(int count) {
-        return IntStream.range(0, count)
-                .mapToObj(index -> new LottoNumbers())
-                .collect(toUnmodifiableList());
+        List<LottoNumbers> lottoTicket = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            lottoTicket.add(new LottoNumbers());
+        }
+        return lottoTicket;
     }
 
     public List<LottoNumbers> getLottoTicket() {
@@ -30,7 +31,7 @@ public class LottoTicket {
     public WinningResult calculateWinningStatistic(WinningNumbers winningNumbers) {
         List<Ranking> rankings = lottoTicket.stream()
                 .map(winningNumbers::calculateRanking)
-                .collect(collectingAndThen(toList(), Collections::unmodifiableList));
+                .collect(Collectors.toUnmodifiableList());
         return new WinningResult(rankings);
     }
 
