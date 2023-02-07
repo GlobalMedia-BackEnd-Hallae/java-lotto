@@ -1,12 +1,9 @@
 package gmbs.view;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
-
-import static java.util.stream.Collectors.collectingAndThen;
-import static java.util.stream.Collectors.toList;
+import java.util.stream.Collectors;
 
 public class InputView {
     private static final String BLANK = " ";
@@ -43,7 +40,7 @@ public class InputView {
     private static List<Integer> convertToIntegerList(String[] array) {
         return Arrays.stream(array)
                 .map(InputView::convertToInt)
-                .collect(collectingAndThen(toList(), Collections::unmodifiableList));
+                .collect(Collectors.toUnmodifiableList());
     }
 
     public static int inputBonusBall() {
