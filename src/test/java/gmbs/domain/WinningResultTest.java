@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class WinningResultTest {
     @Test
-    @DisplayName("상금합 구하기")
+    @DisplayName("상금 금액이 올바르게 계산되는지 확인한다")
     void calculate() {
         // given
         List<Ranking> lottoNumbersList = new ArrayList<>();

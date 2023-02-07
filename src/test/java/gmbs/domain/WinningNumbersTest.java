@@ -7,12 +7,10 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static java.util.stream.Collectors.collectingAndThen;
-import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -37,7 +35,7 @@ class WinningNumbersTest {
 
     @ParameterizedTest(name = "결과 {1} 반환")
     @MethodSource("parameterProvider")
-    @DisplayName("[n]등 당첨 결과 반환")
+    @DisplayName("[n]등 당첨 결과 반환 테스트")
     void findRank_First(List<Integer> list, Ranking expect) {
         // given
         LottoNumber bonusNumber = LottoNumber.of(7);
@@ -63,7 +61,7 @@ class WinningNumbersTest {
 
     @ParameterizedTest(name = "[{index}] LottoNumbers의 Ranking은 {1}")
     @MethodSource("parameterProvider2")
-    @DisplayName("보너스 볼이 포함되는 경우")
+    @DisplayName("보너스 볼이 포함되는 경우를 테스트한다")
     void findRank_Second(LottoNumbers userLottoNumbers, Ranking expect) {
         // given
         LottoNumber bonusNumber = LottoNumber.of(7);
@@ -86,6 +84,6 @@ class WinningNumbersTest {
     private static List<Integer> getNumbers(int... numbers) {
         return Arrays.stream(numbers)
                 .boxed()
-                .collect(collectingAndThen(toList(), Collections::unmodifiableList));
+                .collect(Collectors.toUnmodifiableList());
     }
 }

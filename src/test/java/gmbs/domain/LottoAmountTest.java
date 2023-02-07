@@ -18,7 +18,7 @@ class LottoAmountTest {
     }
 
     @Test
-    @DisplayName("구매한 로또 개수 구하기")
+    @DisplayName("구매 금액에 맞는 로또 개수 테스트")
     void calculateLottoCount() {
         LottoAmount amount = new LottoAmount(1000);
         assertThat(amount.calculateLottoCount()).isEqualTo(1);

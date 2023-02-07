@@ -16,7 +16,7 @@ class LottoNumberTest {
     @ParameterizedTest
     @ValueSource(ints = {0, 46, -1})
     @DisplayName("숫자가 범위 내에 존재하지 않는 경우 예외 발생")
-    void incorrect(int number) {
+    void checkValidNumber(int number) {
         assertThatThrownBy(() -> LottoNumber.of(number))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(NUMBER_RANGE_ERROR);
@@ -24,8 +24,8 @@ class LottoNumberTest {
 
     @ParameterizedTest
     @ValueSource(ints = {1, 2, 3, 43, 44, 45})
-    @DisplayName("숫자가 범위 내에서 생성됨")
-    void correct(int number) {
+    @DisplayName("숫자가 범위 내에서 생성되는지 확인한다")
+    void lottoNumbers_ListTest(int number) {
         assertThatCode(() -> LottoNumber.of(number))
                 .doesNotThrowAnyException();
     }
