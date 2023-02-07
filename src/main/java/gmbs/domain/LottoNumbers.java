@@ -29,7 +29,7 @@ public class LottoNumbers {
 
     public LottoNumbers(List<Integer> numbers) {
         validateLottoNumbers(numbers);
-        this.lottoNumbers = convertToLottoNumberList(numbers);
+        this.lottoNumbers = convertToLottoNumbers(numbers);
     }
 
     private List<LottoNumber> generateRandomLottoNumbers() {
@@ -49,20 +49,20 @@ public class LottoNumbers {
     }
 
     private void validateDuplicateCount(List<Integer> numbers) {
-        int distinctCount = calculateDistinctCountFromArray(numbers);
+        int distinctCount = calculateDistinctCount(numbers);
 
         if (numbers.size() != distinctCount) {
             throw new IllegalArgumentException(DUPLICATE_ERROR);
         }
     }
 
-    private int calculateDistinctCountFromArray(List<Integer> numbers) {
+    private int calculateDistinctCount(List<Integer> numbers) {
         return (int) numbers.stream()
                 .distinct()
                 .count();
     }
 
-    private List<LottoNumber> convertToLottoNumberList(List<Integer> numbers) {
+    private List<LottoNumber> convertToLottoNumbers(List<Integer> numbers) {
         return numbers.stream()
                 .map(LottoNumber::of)
                 .collect(Collectors.toUnmodifiableList());
@@ -92,7 +92,7 @@ public class LottoNumbers {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof LottoNumbers)) {
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
 
