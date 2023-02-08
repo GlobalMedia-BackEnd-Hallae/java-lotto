@@ -15,6 +15,10 @@ public enum BonusAllowance {
         this.values = values;
     }
 
+    public boolean hasAllowance(final boolean hasBonus) {
+        return values.contains(hasBonus);
+    }
+
     public List<Boolean> getValues() {
         return values;
     }
