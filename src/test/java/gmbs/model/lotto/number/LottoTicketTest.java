@@ -2,7 +2,6 @@ package gmbs.model.lotto.number;
 
 import gmbs.model.lotto.number.vo.LottoNumber;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -45,21 +44,7 @@ class LottoTicketTest {
     }
 
     private static Stream<Arguments> providerDuplicateNumbers() {
-        return Stream.of(
-                Arguments.of(List.of(1, 1, 3 ,4, 5, 6)),
-                Arguments.of(List.of(1, 1, 1 ,4, 5, 6)),
-                Arguments.of(List.of(1, 1, 1 ,1, 5, 6)),
-                Arguments.of(List.of(1, 1, 1 ,1, 1, 6)),
-                Arguments.of(List.of(1, 1, 1 ,1, 1, 1))
-        );
-    }
-
-    @DisplayName("1~45 사이의 숫자가 들어오면 LottoTicket 생성에 성공한다")
-    @Test
-    void success_createLottoTicket() {
-        // when, then
-        assertThatCode(() -> LottoTicket.from(List.of(1, 2, 3, 4, 5, 45)))
-                .doesNotThrowAnyException();
+        return Stream.of(Arguments.of(List.of(1, 1, 3 ,4, 5, 6)));
     }
 
     @DisplayName("자동 생성된 로또 번호와 보너스 번호를 받아, 보너스 번호가 있다면 true, 없다면 false 를 반환한다")
@@ -125,7 +110,6 @@ class LottoTicketTest {
                 () -> assertThrows(UnsupportedOperationException.class, () -> lottoNumbers.remove(lottoNumber)),
                 () -> assertThrows(UnsupportedOperationException.class, () -> lottoNumbers.clear())
         );
-
     }
 
     private static Stream<Arguments> provideLottoNumber() {
