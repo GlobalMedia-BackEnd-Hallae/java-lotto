@@ -38,9 +38,9 @@ public final class LottoTicket {
     }
 
     public int calculateMatchCountByWinNumbers(final LottoTicket winNumbers) {
-        final List<LottoNumber> tempLottoNumbers = new ArrayList<>(values);
-        tempLottoNumbers.retainAll(winNumbers.getLottoNumbers());
-        return tempLottoNumbers.size();
+        final List<LottoNumber> retainedLottoNumbers = new ArrayList<>(values);
+        retainedLottoNumbers.retainAll(winNumbers.getLottoNumbers());
+        return retainedLottoNumbers.size();
     }
 
     public boolean hasBonus(final LottoNumber bonusNumber) {
