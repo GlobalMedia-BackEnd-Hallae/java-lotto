@@ -29,7 +29,7 @@ public enum Rank {
     public static Rank findRankByMatchResult(MatchResultDto matchResultDto) {
         return Arrays.stream(Rank.values())
                 .filter(rank -> rank.matchCount == matchResultDto.getMatchCount())
-                .filter(rank -> rank.bonusAllowance.getValues().contains(matchResultDto.getHasBonus()))
+                .filter(rank -> rank.bonusAllowance.hasAllowance(matchResultDto.getHasBonus()))
                 .findAny()
                 .orElse(NONE);
     }
