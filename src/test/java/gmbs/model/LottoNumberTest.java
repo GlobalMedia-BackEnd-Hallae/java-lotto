@@ -12,7 +12,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 class LottoNumberTest {
 
     @ParameterizedTest
-    @DisplayName("입력이 정수 일때1~45 범위에 벗어난 수로 lottoNumber 생성하면 예외 발생시킨다")
+    @DisplayName("1~45 범위에 벗어난 수로 lottoNumber 생성하면 예외 발생시킨다")
     @CsvSource(value = {"0", "46"})
     void exceptionThrownByInvalidRangeInteger(int given) {
         assertThatThrownBy(() -> LottoNumber.from(given))
@@ -27,10 +27,8 @@ class LottoNumberTest {
         int number = 1;
         LottoNumber lottoNumber = LottoNumber.from(number);
         LottoNumber sameLottoNumber = LottoNumber.from(number);
-
         //when
         boolean actual = lottoNumber.equals(sameLottoNumber);
-
         //then
         assertThat(actual).isTrue();
     }
@@ -42,11 +40,9 @@ class LottoNumberTest {
         int number = 1;
         LottoNumber lottoNumber = LottoNumber.from(number);
         LottoNumber sameLottoNumber = LottoNumber.from(number);
-
         //when
         int lottoNumberHash = lottoNumber.hashCode();
         int sameLottoNumberHash = sameLottoNumber.hashCode();
-
         //then
         assertThat(lottoNumberHash).isEqualTo(sameLottoNumberHash);
     }
@@ -58,10 +54,8 @@ class LottoNumberTest {
         int number = 1;
         LottoNumber lottoNumber = LottoNumber.from(number);
         LottoNumber sameLottoNumber = LottoNumber.from(number);
-
         //when
         boolean actual = lottoNumber == sameLottoNumber;
-
         //then
         assertThat(actual).isTrue();
     }

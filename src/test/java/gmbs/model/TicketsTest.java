@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class TicketsTest {
 
     @Test
-    @DisplayName("주어진 ticket리스트와 winner를 비교하여 당첨된 순위의 개수를 반환하는지 확인한다")
+    @DisplayName("주어진 ticket리스트와 winningNumber를 각각 비교하여 당첨된 순위의 개수를 반환하는지 확인한다")
     void checkMatches() {
         //given
         Ticket winningTicket = createTicket(List.of(1, 2, 3, 4, 5, 6));
@@ -25,12 +25,9 @@ class TicketsTest {
         Ticket thirdPrize = createTicket(List.of(1, 2, 3, 4, 5, 16));
         Ticket fourthPrize = createTicket(List.of(1, 2, 3, 4, 15, 16));
         Ticket fifthPrize = createTicket(List.of(1, 2, 3, 14, 15, 16));
-        List<Ticket> generatedTickets = List.of(firstPrize, secondPrize1, secondPrize2, thirdPrize, fourthPrize, fifthPrize);
-        Tickets tickets = new Tickets(generatedTickets);
-
+        Tickets tickets = new Tickets(List.of(firstPrize, secondPrize1, secondPrize2, thirdPrize, fourthPrize, fifthPrize));
         //when
         Map<Prize, Integer> prize = tickets.checkMatches(winningNumbers);
-
         //then
         assertThat(prize).containsEntry(Prize.FIRST, 1)
                 .containsEntry(Prize.SECOND, 2)

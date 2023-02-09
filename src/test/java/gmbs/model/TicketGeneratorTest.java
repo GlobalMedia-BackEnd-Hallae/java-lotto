@@ -17,10 +17,8 @@ class TicketGeneratorTest {
         //given
         int any = new Random().nextInt(10);
         TicketGenerator generator = new TicketGenerator();
-
         //when
         List<Ticket> tickets = generator.generate(any);
-
         //then
         assertThat(tickets).hasSize(any);
     }

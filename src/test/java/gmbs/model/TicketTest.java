@@ -19,12 +19,11 @@ class TicketTest {
         //given
         Ticket ticket = createTicket(List.of(1, 2, 3, 4, 5, 6));
         Ticket anotherTicket = createTicket(List.of(1, 2, 3, 4, 5, 16));
-
+        int expectedMatchCount = 5;
         //when
         int actualMatchCount = ticket.checkMatchCount(anotherTicket);
-
         //then
-        assertThat(actualMatchCount).isEqualTo(5);
+        assertThat(actualMatchCount).isEqualTo(expectedMatchCount);
     }
 
     @ParameterizedTest
@@ -34,10 +33,8 @@ class TicketTest {
         //given
         Ticket ticket = createTicket(List.of(1, 2, 3, 4, 5, 6));
         LottoNumber containNumber = LottoNumber.from(value);
-
         //when
         boolean actual = ticket.contains(containNumber);
-
         //then
         assertThat(actual).isEqualTo(expected);
     }

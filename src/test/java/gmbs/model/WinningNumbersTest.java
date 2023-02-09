@@ -22,7 +22,6 @@ class WinningNumbersTest {
         //given
         Ticket winningTicket = new Ticket(() -> createLottoNumbers(List.of(1, 2, 3, 4, 5, 6)));
         LottoNumber allocatedLottoNumber = LottoNumber.from(1);
-
         //when,then
         assertThatThrownBy(() -> new WinningNumbers(winningTicket, allocatedLottoNumber))
                 .isInstanceOf(IllegalArgumentException.class)
@@ -30,16 +29,14 @@ class WinningNumbersTest {
     }
 
     @ParameterizedTest
-    @DisplayName("당첨 숫자와 보너스 숫자를 비교하여 번호가 일치함에 따른 prize를 반환하는지 확인한다")
+    @DisplayName("ticket을 인자로 받아서 일치하는 lottoNumber에 따른 prize를 반환한다")
     @MethodSource("prizeCheckData")
     void checkPrize(Ticket ticket, Prize expected) {
         Ticket winningTicket = new Ticket(() -> createLottoNumbers(List.of(1, 2, 3, 4, 5, 6)));
         LottoNumber bonus = LottoNumber.from(7);
         WinningNumbers winningNumber = new WinningNumbers(winningTicket, bonus);
-
         //when
         Prize actual = winningNumber.checkPrize(ticket);
-
         //then
         assertThat(actual).isEqualTo(expected);
     }

@@ -14,7 +14,6 @@ class UserInputConverterTest {
     void convert_ExceptionThrownByInvalidExpression() {
         //given
         String notNumber = "a";
-
         //when,then
         assertThatThrownBy(() -> converter.convert(notNumber))
                 .isInstanceOf(IllegalArgumentException.class)
@@ -26,7 +25,6 @@ class UserInputConverterTest {
     void convert_ExceptionThrownByNoInput() {
         //given
         String noInput = "";
-
         //when,then
         assertThatThrownBy(() -> converter.convert(noInput))
                 .isInstanceOf(IllegalArgumentException.class)

@@ -19,7 +19,6 @@ class UserInputLottoGeneratorTest {
     void exceptionByOverlap() {
         //given
         List<Integer> overlap = List.of(1, 1, 3, 4, 5, 6);
-
         //when,then
         assertThatThrownBy(() -> new UserInputLottoGenerator(overlap)).isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[error] has overlap");
@@ -29,6 +28,7 @@ class UserInputLottoGeneratorTest {
     @DisplayName("길이가 6이 아닌 리스트로 객체 생성시 예외 발생시킨다")
     @MethodSource("invalidLength")
     void exceptionByInvalidLength(List<Integer> userInput) {
+        //when,then
         assertThatThrownBy(() -> new UserInputLottoGenerator(userInput)).isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[error] invalid length");
     }
@@ -44,6 +44,7 @@ class UserInputLottoGeneratorTest {
     @DisplayName("리스트의 요소가 모두 1 ~ 45 범위가 아닌 리스트로 객체 생성 시 예외 발생시킨다")
     @MethodSource("invalidRange")
     void exceptionByInvalidRange(List<Integer> userInput) {
+        //when,then
         assertThatThrownBy(() -> new UserInputLottoGenerator(userInput)).isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[error] invalid number range");
     }

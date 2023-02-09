@@ -1,37 +1,30 @@
 package gmbs.model;
 
-import gmbs.model.vo.LottoNumber;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class ProfitCalculatorTest {
-
-    private static Ticket createTicket(List<Integer> numbers) {
-        List<LottoNumber> lottoNumbers = numbers.stream()
-                .map(LottoNumber::from)
-                .collect(Collectors.toUnmodifiableList());
-        return new Ticket(() -> lottoNumbers);
-    }
 
     @Test
     @DisplayName("사용자 입력 총 티켓 구매 금액과 수익의 비율을 계산한다")
     void calculate() {
         //given
         UserMoney money = new UserMoney(1000);
-        Ticket winningTicket = createTicket(List.of(1, 2, 3, 4, 5, 6));
-        Tickets tickets = new Tickets(List.of(winningTicket));
-        LottoNumber bonus = LottoNumber.from(7);
-        WinningNumbers winningNumbers = new WinningNumbers(winningTicket, bonus);
-
+        Map<Prize, Integer> prizeCountData = new HashMap<>();
+        prizeCountData.put(Prize.FIRST, 1);
+        prizeCountData.put(Prize.SECOND, 0);
+        prizeCountData.put(Prize.THIRD, 0);
+        prizeCountData.put(Prize.FOURTH, 0);
+        prizeCountData.put(Prize.FIFTH, 0);
+        prizeCountData.put(Prize.LOSER, 0);
         //when
-        float actualRatio = new ProfitCalculator().calculateProfitRatio(money, tickets.checkMatches(winningNumbers));
-
+        float actualRatio = new ProfitCalculator().calculateProfitRatio(money, prizeCountData);
         //then
-        assertThat(actualRatio).isEqualTo(2000000);
+        assertThat(actualRatio).isEqualTo(2000f);
     }
 }
