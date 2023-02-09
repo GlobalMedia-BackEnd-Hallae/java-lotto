@@ -25,10 +25,10 @@ class ProfitCalculatorTest {
         Ticket winningTicket = new Ticket(() -> createLottoNumbers(List.of(1, 2, 3, 4, 5, 6)));
         Tickets tickets = new Tickets(List.of(winningTicket));
         LottoNumber bonus = LottoNumber.from(7);
-        Winner winner = new Winner(winningTicket, bonus);
+        WinningNumbers winningNumbers = new WinningNumbers(winningTicket, bonus);
 
         //when
-        float actualRatio = new ProfitCalculator().calculate(money, tickets.checkMatches(winner));
+        float actualRatio = new ProfitCalculator().calculate(money, tickets.checkMatches(winningNumbers));
 
         //then
         assertThat(actualRatio).isEqualTo(2000000);

@@ -12,8 +12,8 @@ public class UserInputLottoGenerator implements LottoGenerator {
 
     public UserInputLottoGenerator(List<String> userInputNumbers) {
         Set<LottoNumber> numbers = convert(userInputNumbers);
-        overlapValidate(userInputNumbers, numbers);
-        lengthValidate(numbers);
+        validateOverlap(userInputNumbers, numbers);
+        validateLength(numbers);
         lottoNumbers = numbers.stream().collect(Collectors.toUnmodifiableList());
     }
 
@@ -23,13 +23,13 @@ public class UserInputLottoGenerator implements LottoGenerator {
                 .collect(Collectors.toSet());
     }
 
-    private void overlapValidate(List<String> userInputNumbers, Set<LottoNumber> convertNumber) {
+    private void validateOverlap(List<String> userInputNumbers, Set<LottoNumber> convertNumber) {
         if (userInputNumbers.size() != convertNumber.size()) {
             throw new IllegalArgumentException("[error] has overlap");
         }
     }
 
-    private void lengthValidate(Set<LottoNumber> userInputNumbers) {
+    private void validateLength(Set<LottoNumber> userInputNumbers) {
         if (userInputNumbers.size() != LOTTO_LENGTH) {
             throw new IllegalArgumentException("[error] invalid length");
         }

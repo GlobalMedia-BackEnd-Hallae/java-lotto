@@ -12,19 +12,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class TicketsTest {
 
-    private static List<LottoNumber> createLottoNumbers(List<Integer> numbers) {
-        List<LottoNumber> lottoNumbers = new ArrayList<>();
-        numbers.forEach((number) -> lottoNumbers.add(LottoNumber.from(number)));
-        return lottoNumbers;
-    }
-
     @Test
     @DisplayName("주어진 ticket리스트와 winner를 비교하여 당첨된 순위의 개수를 반환하는지 확인한다")
     void checkMatches() {
         //given
         Ticket winningTicket = new Ticket(() -> createLottoNumbers(List.of(1, 2, 3, 4, 5, 6)));
         LottoNumber bonus = LottoNumber.from(7);
-        Winner winner = new Winner(winningTicket, bonus);
+        WinningNumbers winningNumbers = new WinningNumbers(winningTicket, bonus);
         Ticket firstPrize = new Ticket(() -> createLottoNumbers(List.of(1, 2, 3, 4, 5, 6)));
         Ticket secondPrize1 = new Ticket(() -> createLottoNumbers(List.of(1, 2, 3, 4, 5, 7)));
         Ticket secondPrize2 = new Ticket(() -> createLottoNumbers(List.of(1, 2, 3, 4, 6, 7)));
@@ -35,7 +29,7 @@ class TicketsTest {
         Tickets tickets = new Tickets(generatedTickets);
 
         //when
-        Map<Prize, Integer> prize = tickets.checkMatches(winner);
+        Map<Prize, Integer> prize = tickets.checkMatches(winningNumbers);
 
         //then
         assertThat(prize).containsEntry(Prize.FIRST, 1)
@@ -44,5 +38,11 @@ class TicketsTest {
                 .containsEntry(Prize.FOURTH, 1)
                 .containsEntry(Prize.FIFTH, 1)
                 .containsEntry(Prize.LOSER, 0);
+    }
+
+    private static List<LottoNumber> createLottoNumbers(List<Integer> numbers) {
+        List<LottoNumber> lottoNumbers = new ArrayList<>();
+        numbers.forEach((number) -> lottoNumbers.add(LottoNumber.from(number)));
+        return lottoNumbers;
     }
 }

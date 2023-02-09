@@ -20,8 +20,8 @@ public class LottoController {
         UserMoney money = reqeustUserMoney();
         Tickets tickets = createTickets(money);
         showTickets(tickets);
-        Winner winner = requestWinner();
-        Map<Prize, Integer> stats = tickets.checkMatches(winner);
+        WinningNumbers winningNumbers = requestWinningNumbers();
+        Map<Prize, Integer> stats = tickets.checkMatches(winningNumbers);
         showStats(stats);
         showProfitRatio(money, stats);
     }
@@ -49,7 +49,7 @@ public class LottoController {
                 .forEach((ticket -> display.ticketDataDisplay(ticket.getLottoNumberValues())));
     }
 
-    private Winner requestWinner() {
+    private WinningNumbers requestWinningNumbers() {
         Ticket winningTicket;
         LottoNumber bonus;
         while (true) {
@@ -61,7 +61,7 @@ public class LottoController {
                 display.exceptionDisplay(e);
             }
         }
-        return new Winner(winningTicket, bonus);
+        return new WinningNumbers(winningTicket, bonus);
     }
 
     private Ticket requestWinningTicket() {

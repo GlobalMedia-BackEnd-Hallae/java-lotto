@@ -14,9 +14,9 @@ public class Tickets {
                 .collect(Collectors.toUnmodifiableList());
     }
 
-    public Map<Prize, Integer> checkMatches(Winner winner) {
+    public Map<Prize, Integer> checkMatches(WinningNumbers winningNumbers) {
         Map<Prize, Integer> prizeMatches = lottoTickets.stream()
-                .map(ticket -> ticket.checkPrize(winner))
+                .map(winningNumbers::checkPrize)
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.summingInt(value -> 1)));
         for (Prize prize : Prize.values()) {
             prizeMatches.putIfAbsent(prize, 0);
