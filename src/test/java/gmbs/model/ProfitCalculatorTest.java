@@ -4,17 +4,18 @@ import gmbs.model.vo.LottoNumber;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class ProfitCalculatorTest {
 
-    private static List<LottoNumber> createLottoNumbers(List<Integer> numbers) {
-        List<LottoNumber> lottoNumbers = new ArrayList<>();
-        numbers.forEach((number) -> lottoNumbers.add(LottoNumber.from(number)));
-        return lottoNumbers;
+    private static Ticket createTicket(List<Integer> numbers) {
+        List<LottoNumber> lottoNumbers = numbers.stream()
+                .map(LottoNumber::from)
+                .collect(Collectors.toUnmodifiableList());
+        return new Ticket(() -> lottoNumbers);
     }
 
     @Test
@@ -22,13 +23,13 @@ class ProfitCalculatorTest {
     void calculate() {
         //given
         UserMoney money = new UserMoney(1000);
-        Ticket winningTicket = new Ticket(() -> createLottoNumbers(List.of(1, 2, 3, 4, 5, 6)));
+        Ticket winningTicket = createTicket(List.of(1, 2, 3, 4, 5, 6));
         Tickets tickets = new Tickets(List.of(winningTicket));
         LottoNumber bonus = LottoNumber.from(7);
         WinningNumbers winningNumbers = new WinningNumbers(winningTicket, bonus);
 
         //when
-        float actualRatio = new ProfitCalculator().calculate(money, tickets.checkMatches(winningNumbers));
+        float actualRatio = new ProfitCalculator().calculateProfitRatio(money, tickets.checkMatches(winningNumbers));
 
         //then
         assertThat(actualRatio).isEqualTo(2000000);

@@ -13,18 +13,12 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class TicketTest {
 
-    private static List<LottoNumber> createLottoNumbers(List<Integer> numbers) {
-        return numbers.stream()
-                .map(LottoNumber::from)
-                .collect(Collectors.toUnmodifiableList());
-    }
-
     @Test
     @DisplayName("다른ticket을 인자로 현재ticket과 비교하여 같은 lottoNumber를 포함한 수만큼 반환한다")
     void checkMatchCount() {
         //given
-        Ticket ticket = new Ticket(() -> createLottoNumbers(List.of(1, 2, 3, 4, 5, 6)));
-        Ticket anotherTicket = new Ticket(() -> createLottoNumbers(List.of(1, 2, 3, 4, 5, 16)));
+        Ticket ticket = createTicket(List.of(1, 2, 3, 4, 5, 6));
+        Ticket anotherTicket = createTicket(List.of(1, 2, 3, 4, 5, 16));
 
         //when
         int actualMatchCount = ticket.checkMatchCount(anotherTicket);
@@ -38,7 +32,7 @@ class TicketTest {
     @CsvSource(value = {"1, true", "7, false"})
     void contains(int value, boolean expected) {
         //given
-        Ticket ticket = new Ticket(() -> createLottoNumbers(List.of(1, 2, 3, 4, 5, 6)));
+        Ticket ticket = createTicket(List.of(1, 2, 3, 4, 5, 6));
         LottoNumber containNumber = LottoNumber.from(value);
 
         //when
@@ -46,5 +40,12 @@ class TicketTest {
 
         //then
         assertThat(actual).isEqualTo(expected);
+    }
+
+    private static Ticket createTicket(List<Integer> numbers) {
+        List<LottoNumber> lottoNumbers = numbers.stream()
+                .map(LottoNumber::from)
+                .collect(Collectors.toUnmodifiableList());
+        return new Ticket(() -> lottoNumbers);
     }
 }
