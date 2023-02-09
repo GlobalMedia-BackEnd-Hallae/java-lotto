@@ -5,17 +5,9 @@ public class UserMoney {
     private static final int DEFAULT_TICKET_PRICE = 1000;
     private final int money;
 
-    public UserMoney(String userInput) {
-        typeValidate(userInput);
-        int convertMoney = Integer.parseInt(userInput);
-        moneyValidate(convertMoney);
-        this.money = convertMoney;
-    }
-
-    private void typeValidate(String number) {
-        if (!number.matches("^[0-9]*$")) {
-            throw new IllegalArgumentException("[error] is not number");
-        }
+    public UserMoney(int userInputMoney) {
+        moneyValidate(userInputMoney);
+        this.money = userInputMoney;
     }
 
     private void moneyValidate(int money) {

@@ -9,12 +9,15 @@ import gmbs.view.Output;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class LottoController {
 
     private final Input userInput = new Input();
     private final Output display = new Output();
     private final ProfitCalculator calculator = new ProfitCalculator();
+    private final UserInputConverter converter = new UserInputConverter();
 
     public void operate() {
         UserMoney money = reqeustUserMoney();
@@ -31,7 +34,8 @@ public class LottoController {
         UserMoney money;
         while (true) {
             try {
-                money = new UserMoney(userInput.scan());
+                int userInputMoney = converter.convert(userInput.scan());
+                money = new UserMoney(userInputMoney);
                 break;
             } catch (IllegalArgumentException e) {
                 display.exceptionDisplay(e);
@@ -66,13 +70,17 @@ public class LottoController {
 
     private Ticket requestWinningTicket() {
         display.winningNumberDisplay();
-        UserInputLottoGenerator numbers = new UserInputLottoGenerator(List.of(userInput.scan().split(",")));
+        List<Integer> userInputNumbers = Stream.of(userInput.scan().split(","))
+                .map(converter::convert)
+                .collect(Collectors.toUnmodifiableList());
+        UserInputLottoGenerator numbers = new UserInputLottoGenerator(userInputNumbers);
         return new Ticket(numbers);
     }
 
     private LottoNumber requestBonus() {
         display.bonusNumberDisplay();
-        return LottoNumber.from(userInput.scan());
+        int userInputBonus = converter.convert(userInput.scan());
+        return LottoNumber.from(userInputBonus);
     }
 
     private void showStats(Map<Prize, Integer> stats) {
@@ -80,11 +88,11 @@ public class LottoController {
             if (prize == Prize.LOSER) {
                 continue;
             }
-            display.statDisplay(Map.of("price", prize.money(), "matches", prize.matches(), "count", stats.get(prize), "requireBonus", convertBonus(prize.requireBonus())));
+            display.statDisplay(Map.of("price", prize.money(), "matches", prize.matches(), "count", stats.get(prize), "requireBonus", convertBonusData(prize.requireBonus())));
         }
     }
 
-    private int convertBonus(boolean requireBonus) {
+    private int convertBonusData(boolean requireBonus) {
         if (requireBonus) {
             return 1;
         }

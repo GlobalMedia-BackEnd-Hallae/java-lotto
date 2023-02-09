@@ -10,20 +10,16 @@ public class UserInputLottoGenerator implements LottoGenerator {
 
     private final List<LottoNumber> lottoNumbers;
 
-    public UserInputLottoGenerator(List<String> userInputNumbers) {
-        Set<LottoNumber> numbers = convert(userInputNumbers);
+    public UserInputLottoGenerator(List<Integer> userInputNumbers) {
+        Set<LottoNumber> numbers = userInputNumbers.stream()
+                .map(LottoNumber::from)
+                .collect(Collectors.toUnmodifiableSet());
         validateOverlap(userInputNumbers, numbers);
         validateLength(numbers);
         lottoNumbers = numbers.stream().collect(Collectors.toUnmodifiableList());
     }
 
-    private Set<LottoNumber> convert(List<String> userInputNumbers) {
-        return userInputNumbers.stream()
-                .map(LottoNumber::from)
-                .collect(Collectors.toSet());
-    }
-
-    private void validateOverlap(List<String> userInputNumbers, Set<LottoNumber> convertNumber) {
+    private void validateOverlap(List<Integer> userInputNumbers, Set<LottoNumber> convertNumber) {
         if (userInputNumbers.size() != convertNumber.size()) {
             throw new IllegalArgumentException("[error] has overlap");
         }
