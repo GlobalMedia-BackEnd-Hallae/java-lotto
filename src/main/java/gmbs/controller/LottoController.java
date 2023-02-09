@@ -100,7 +100,7 @@ public class LottoController {
     }
 
     private void showProfitRatio(UserMoney money, Map<Prize, Integer> stats) {
-        float profitRatio = calculator.calculate(money, stats);
+        float profitRatio = calculator.calculateProfitRatio(money, stats);
         display.profitRatioDisplay(profitRatio);
     }
 }
