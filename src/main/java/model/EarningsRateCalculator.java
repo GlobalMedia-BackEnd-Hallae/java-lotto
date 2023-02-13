@@ -1,19 +1,19 @@
 package model;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public class EarningsRateCalculator {
 
-    private final long INITIAL_VALUE = 0;
-    private final int PERCENT = 100;
+    private static final long INITIAL_VALUE = 0;
+    private static final int PERCENT = 100;
 
     private final double earningsRate;
 
-    public EarningsRateCalculator(int money, HashMap<Winning, Integer> winningResult) {
+    public EarningsRateCalculator(int money, Map<Winning, Integer> winningResult) {
         long prizeSum = INITIAL_VALUE;
 
-        for (Winning winning : winningResult.keySet()) {
-            prizeSum += Winning.calculatePrize(winning, winningResult.get(winning));
+        for (Map.Entry<Winning, Integer> entry : winningResult.entrySet()) {
+            prizeSum += Winning.calculatePrize(entry.getKey(), entry.getValue());
         }
 
         this.earningsRate = (double) prizeSum / (double) money * PERCENT;
