@@ -3,8 +3,8 @@ package controller;
 import model.*;
 import view.*;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class LotteryGame {
 
@@ -20,7 +20,7 @@ public class LotteryGame {
         output.outputLotto(number, lottery);
         final Lotto winningNumber = createWinningNumber();
         final LottoNumber bonusNumber = createBonusNumber(winningNumber);
-        final HashMap<Winning, Integer> winningResult = createWinningResult(winningNumber, bonusNumber, lottery);
+        final Map<Winning, Integer> winningResult = createWinningResult(winningNumber, bonusNumber, lottery);
         output.outputResult(winningResult, new EarningsRateCalculator(money.getMoney(), winningResult));
     }
 
@@ -62,7 +62,7 @@ public class LotteryGame {
         }
     }
 
-    private HashMap<Winning, Integer> createWinningResult(Lotto winningNumber, LottoNumber bonusNumber, Lottery lottery) {
+    private Map<Winning, Integer> createWinningResult(Lotto winningNumber, LottoNumber bonusNumber, Lottery lottery) {
         final LotteryDrawing lotteryDrawing = new LotteryDrawing();
         return lotteryDrawing.drawLottery(winningNumber, bonusNumber, lottery);
     }
