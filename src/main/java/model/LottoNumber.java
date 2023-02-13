@@ -25,14 +25,6 @@ public class LottoNumber {
         return number < LOTTO_NUMBER_MIN_VALUE || number > LOTTO_NUMBER_MAX_VALUE;
     }
 
-    public static int isSameNumber(LottoNumber lottoNumber, LottoNumber winningNumber) {
-        if (lottoNumber.equals(winningNumber)) {
-            return 1;
-        }
-
-        return 0;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
