@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 
 public class Input {
 
-    private final static String COMMA = ",";
-    private final static String ENTER = "\n";
+    private static final String COMMA = ",";
+    private static final String ENTER = "\n";
 
     private final Scanner scanner = new Scanner(System.in);
 
