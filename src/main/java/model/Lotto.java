@@ -3,6 +3,7 @@ package model;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 public class Lotto {
 
@@ -32,12 +33,11 @@ public class Lotto {
     }
 
     public void checkBonusNumberOverlap(LottoNumber bonusNumber) {
-        this.lotto.stream()
-                .filter(lottoNumber -> lottoNumber.equals(bonusNumber))
-                .findAny()
-                .ifPresent(a -> {
-                    throw new IllegalArgumentException();
-                });
+        final Optional<LottoNumber> overlapNumber = this.lotto.stream().filter(lottoNumber -> lottoNumber.equals(bonusNumber)).findAny();
+
+        if (overlapNumber.isPresent()) {
+            throw new IllegalArgumentException("[ERROR] 중복이 아닌 보너스 번호를 입력해주세요.");
+        }
     }
 
     public int drawLottoWithWinningNumbers(Lotto winningNumbers) {
@@ -51,17 +51,21 @@ public class Lotto {
     }
 
     public int compareLottoNumberWithWinningNumber(LottoNumber lottoNumber) {
-        if (this.lotto.stream().anyMatch(winningNumber -> winningNumber.equals(lottoNumber)))
+        if (isSame(lottoNumber))
             return 1;
 
         return 0;
     }
 
     public int compareLottoNumberWithBonusNumber(LottoNumber bonusNumber) {
-        if (this.lotto.stream().anyMatch(lottoNumber -> lottoNumber.equals(bonusNumber)))
+        if (isSame(bonusNumber))
             return 1;
 
         return 0;
+    }
+
+    public boolean isSame(LottoNumber number) {
+        return this.lotto.stream().anyMatch(winningNumber -> winningNumber.equals(number));
     }
 
     @Override
