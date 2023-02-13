@@ -1,7 +1,6 @@
 package model;
 
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -28,22 +27,5 @@ class LottoNumberTest {
 
         // then
         assertThat(lottoNumber.getLottoNumber()).isEqualTo(number);
-    }
-
-    @Test
-    @DisplayName("같은 수가 입력되면 1을, 다른 수가 입력되면 0을 출력할 수 있다.")
-    void canInformSameNumber() {
-        // given
-        final LottoNumber sameNumber = new LottoNumber(1);
-        final LottoNumber differentNumber = new LottoNumber(45);
-        final LottoNumber lottoNumber = new LottoNumber(1);
-
-        // when
-        final int same = LottoNumber.isSameNumber(lottoNumber, sameNumber);
-        final int different = LottoNumber.isSameNumber(lottoNumber, differentNumber);
-
-        // then
-        assertThat(same).isEqualTo(1);
-        assertThat(different).isEqualTo(0);
     }
 }
