@@ -14,7 +14,6 @@ public class Output {
     private static final String CONNECTION = " - ";
     private static final String COUNT_AND_ENTER = "개\n";
     private static final int NONE = 0;
-    private static final String Decimal_Criteria = "%.2f";
 
     private final StringBuilder stringBuilder = new StringBuilder();
 
@@ -40,7 +39,7 @@ public class Output {
         return stringJoiner;
     }
 
-    public void outputResult(HashMap<Winning, Integer> winningResult, EarningsRateCalculator earningsRateCalculator) {
+    public void outputResult(Map<Winning, Integer> winningResult, EarningsRateCalculator earningsRateCalculator) {
         final List<Winning> winnings = Arrays.stream(Winning.values()).filter(w -> w != Winning.FAIL).collect(Collectors.toUnmodifiableList());
 
         stringBuilder.setLength(NONE);
@@ -54,10 +53,10 @@ public class Output {
         }
 
         System.out.print(stringBuilder);
-        System.out.println("총 수익률은 " + String.format(Decimal_Criteria, earningsRateCalculator.getEarningsRate()) + "%입니다.");
+        System.out.println(String.format("총 수익률은 %.2f%%입니다.", earningsRateCalculator.getEarningsRate()));
     }
 
-    private int winningCount(Winning winning, HashMap<Winning, Integer> winningResult) {
+    private int winningCount(Winning winning, Map<Winning, Integer> winningResult) {
         if (winningResult.containsKey(winning)) {
             return winningResult.get(winning);
         }
