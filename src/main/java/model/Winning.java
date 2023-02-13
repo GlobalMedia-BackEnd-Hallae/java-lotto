@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 public enum Winning {
     FAIL(0, 0, 0, ""),
@@ -36,16 +37,22 @@ public enum Winning {
     }
 
     public static long calculatePrize(Winning winning, int count) {
-        return Arrays.stream(Winning.values())
-                .filter(w -> w.equals(winning))
-                .findFirst()
-                .get().prize * count;
+        Optional<Winning> target = Arrays.stream(Winning.values()).filter(w -> w.equals(winning)).findFirst();
+
+        if (target.isPresent()) {
+            return target.get().prize * count;
+        }
+
+        return 0;
     }
 
     public static String outputDescription(Winning winning) {
-        return Arrays.stream(Winning.values())
-                .filter(w -> w == winning)
-                .findFirst()
-                .get().description;
+        Optional<Winning> target = Arrays.stream(Winning.values()).filter(w -> w.equals(winning)).findFirst();
+
+        if (target.isPresent()) {
+            return target.get().description;
+        }
+
+        return null;
     }
 }
