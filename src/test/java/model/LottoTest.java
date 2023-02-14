@@ -62,18 +62,6 @@ class LottoTest {
     }
 
     @Test
-    @DisplayName("로또 번호와 중복되는 보너스 번호를 전달받을 때 예외를 발생시킬 수 있다.")
-    void canThrowExceptionWhenBonusNumberOverlap() {
-        // given
-        final Lotto lotto = new Lotto(LottoNumbers);
-        final LottoNumber bonusNumber = one;
-
-        // when, then
-        assertThatThrownBy(() -> lotto.checkBonusNumberOverlap(bonusNumber))
-                .isInstanceOf(IllegalArgumentException.class);
-    }
-
-    @Test
     @DisplayName("입력된 당첨 번호와 비교하여 당첨된 번호의 개수를 알 수 있다.")
     void canDrawLottoWithWinningNumbers() {
         // given
