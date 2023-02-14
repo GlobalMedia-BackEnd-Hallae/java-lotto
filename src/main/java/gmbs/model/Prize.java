@@ -12,7 +12,6 @@ public enum Prize {
     LOSER(0, 2, false);
 
     private final int money;
-
     private final int matches;
     private final boolean requireBonus;
 
