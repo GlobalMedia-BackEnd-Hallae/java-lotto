@@ -11,9 +11,13 @@ public class UserMoney {
     }
 
     private void moneyValidate(int money) {
-        if (money % DEFAULT_TICKET_PRICE != 0 || money == 0) {
+        if (hasChange(money)) {
             throw new IllegalArgumentException("[error] invalid money input");
         }
+    }
+
+    private static boolean hasChange(int money) {
+        return money % DEFAULT_TICKET_PRICE != 0 || money == 0;
     }
 
     public int getTicketCount() {
