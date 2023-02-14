@@ -3,7 +3,6 @@ package model;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 public class Lotto {
 
@@ -12,8 +11,12 @@ public class Lotto {
     private final List<LottoNumber> lotto;
 
     public Lotto(List<LottoNumber> lotto) {
-        if (checkLotteryOverlap(lotto) || checkLotteryCount(lotto)) {
-            throw new IllegalArgumentException("[ERROR] 중복이 아닌 6개의 숫자를 입력해주세요.");
+        if (checkLotteryOverlap(lotto)) {
+            throw new IllegalArgumentException("[ERROR] 중복이 아닌 숫자를 입력해주세요.");
+        }
+
+        if (checkLotteryCount(lotto)) {
+            throw new IllegalArgumentException("[ERROR] 6개의 숫자를 입력해주세요.");
         }
 
         this.lotto = lotto;
@@ -30,14 +33,6 @@ public class Lotto {
 
     private boolean checkLotteryCount(List<LottoNumber> lotto) {
         return lotto.size() != LOTTO_COUNT;
-    }
-
-    public void checkBonusNumberOverlap(LottoNumber bonusNumber) {
-        final Optional<LottoNumber> overlapNumber = this.lotto.stream().filter(lottoNumber -> lottoNumber.equals(bonusNumber)).findAny();
-
-        if (overlapNumber.isPresent()) {
-            throw new IllegalArgumentException("[ERROR] 중복이 아닌 보너스 번호를 입력해주세요.");
-        }
     }
 
     public int drawLottoWithWinningNumbers(Lotto winningNumbers) {
