@@ -18,9 +18,9 @@ public class LotteryGame {
         final int number = money.getMoney() / MIN_MONEY_VALUE;
         final Lottery lottery = createLottery(createLotto(number));
         output.outputLotto(number, lottery);
-        final Lotto winningNumber = createWinningNumber();
-        final LottoNumber bonusNumber = createBonusNumber(winningNumber);
-        final Map<Winning, Integer> winningResult = createWinningResult(winningNumber, bonusNumber, lottery);
+        final WinningNumbers winningNumbers = new WinningNumbers(createWinningNumber());
+        createBonusNumber(winningNumbers);
+        final Map<Winning, Integer> winningResult = createWinningResult(winningNumbers.getWinningNumber(), winningNumbers.getBonusNumber(), lottery);
         output.outputResult(winningResult, new EarningsRateCalculator(money.getMoney(), winningResult));
     }
 
@@ -51,14 +51,12 @@ public class LotteryGame {
         }
     }
 
-    private LottoNumber createBonusNumber(Lotto winningNumber) {
+    private void createBonusNumber(WinningNumbers winningNumbers) {
         try {
-            final LottoNumber bonusNumber = input.inputBonusNumber();
-            winningNumber.checkBonusNumberOverlap(bonusNumber);
-            return bonusNumber;
+            winningNumbers.checkBonusNumberOverlap(input.inputBonusNumber());
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-            return createBonusNumber(winningNumber);
+            createBonusNumber(winningNumbers);
         }
     }
 
