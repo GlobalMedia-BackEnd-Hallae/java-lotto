@@ -1,5 +1,7 @@
 package gmbs.model;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -15,13 +17,11 @@ public class Tickets {
     }
 
     public Map<Prize, Integer> checkMatches(WinningNumbers winningNumbers) {
-        Map<Prize, Integer> prizeMatches = lottoTickets.stream()
+        List<Prize> prizes = lottoTickets.stream()
                 .map(winningNumbers::checkPrize)
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.summingInt(value -> 1)));
-        for (Prize prize : Prize.values()) {
-            prizeMatches.putIfAbsent(prize, 0);
-        }
-        return prizeMatches;
+                .collect(Collectors.toUnmodifiableList());
+        return Arrays.stream(Prize.values())
+                .collect(Collectors.toMap(Function.identity(), prize -> Collections.frequency(prizes, prize)));
     }
 
     public List<Ticket> getTickets() {
