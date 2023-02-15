@@ -14,7 +14,8 @@ class LottoNumberTest {
     void canThrowException(int number) {
         // when, then
         assertThatThrownBy(() -> new LottoNumber(number))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("[Error] 1 이상 45 이하의 번호를 입력해 주세요.");
     }
 
     @ParameterizedTest
