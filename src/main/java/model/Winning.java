@@ -37,22 +37,17 @@ public enum Winning {
     }
 
     public static long calculatePrize(Winning winning, int count) {
-        final Optional<Winning> target = Arrays.stream(Winning.values()).filter(w -> w.equals(winning)).findFirst();
-
-        if (target.isPresent()) {
-            return target.get().prize * count;
-        }
-
-        return 0;
+        return Arrays.stream(Winning.values())
+                .filter(w -> w.equals(winning))
+                .findFirst()
+                .map(value -> value.prize * count)
+                .orElse(0L);
     }
 
     public static String outputDescription(Winning winning) {
         final Optional<Winning> target = Arrays.stream(Winning.values()).filter(w -> w.equals(winning)).findFirst();
 
-        if (target.isPresent()) {
-            return target.get().description;
-        }
+        return target.map(value -> value.description).orElse(null);
 
-        return null;
     }
 }
