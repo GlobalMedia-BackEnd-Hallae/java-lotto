@@ -3,6 +3,7 @@ package model;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Predicate;
 
 public class Lotto {
 
@@ -34,32 +35,16 @@ public class Lotto {
         return this.lottoNumbers;
     }
 
-    public int drawLottoWithWinningNumbers(Lotto winningLotto) {
-        int count = 0;
-
-        for (LottoNumber lottoNumber : this.lottoNumbers) {
-            count += winningLotto.compareLottoNumberWithWinningNumber(lottoNumber);
-        }
-
-        return count;
+    public int drawLottoWithWinningNumbers(Lotto winningNumbers) {
+        return (int) this.lottoNumbers.stream()
+                .filter(lottoNumber -> winningNumbers.getLotto().stream().anyMatch(Predicate.isEqual(lottoNumber)))
+                .count();
     }
 
-    public int compareLottoNumberWithWinningNumber(LottoNumber lottoNumber) {
-        if (isSame(lottoNumber))
-            return 1;
-
-        return 0;
-    }
-
-    public int compareLottoNumberWithBonusNumber(LottoNumber bonusNumber) {
-        if (isSame(bonusNumber))
-            return 1;
-
-        return 0;
-    }
-
-    public boolean isSame(LottoNumber number) {
-        return this.lottoNumbers.stream().anyMatch(winningNumber -> winningNumber.equals(number));
+    public int drawLottoWithBonusNumber(LottoNumber bonusNumber) {
+        return (int) this.lottoNumbers.stream()
+                .filter(lottoNumber -> lottoNumber.equals(bonusNumber))
+                .count();
     }
 
     @Override
