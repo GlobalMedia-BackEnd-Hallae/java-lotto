@@ -5,22 +5,18 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.assertj.core.api.AssertionsForClassTypes.*;
 
 class MoneyTest {
 
     @Test
-    @DisplayName("1000원 이상이며 1000으로 나누어 떨어지는 금액 전달받을 때 오류 없이 돈을 생성할 수 있다.")
+    @DisplayName("구입금액이 1000원 이상이며 1000으로 나누어 떨어질 때 예외 발생 없이 Money 객체를 생성할 수 있다.")
     void canCreateMoney() {
         // given
         final String rightInput = "1000";
 
-        // when
-        final Money money = new Money(rightInput);
-
-        // then
-        assertThat(money.getMoney()).isEqualTo(Integer.parseInt(rightInput));
+        // when, then
+        assertThatCode(() -> new Money(rightInput)).doesNotThrowAnyException();
     }
 
     @ParameterizedTest
