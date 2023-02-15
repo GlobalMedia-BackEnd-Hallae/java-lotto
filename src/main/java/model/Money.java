@@ -6,14 +6,13 @@ public class Money {
 
     private static final String REGEX = "[0-9]+";
     private static final int MIN_MONEY_VALUE = 1000;
-    private final int money;
+    private final int cost;
 
     public Money(String input) {
         checkDigit(input);
-        final int money = Integer.parseInt(input);
-        checkRange(money);
-        checkRest(money);
-        this.money = money;
+        checkRange(Integer.parseInt(input));
+        checkRest(Integer.parseInt(input));
+        this.cost = Integer.parseInt(input);
     }
 
     private void checkDigit(String input) {
@@ -22,20 +21,20 @@ public class Money {
         }
     }
 
-    private void checkRange(int money) {
-        if (money < MIN_MONEY_VALUE) {
+    private void checkRange(int cost) {
+        if (cost < MIN_MONEY_VALUE) {
             throw new IllegalArgumentException("[ERROR] 1000원 이상의 금액을 입력해주세요.");
         }
     }
 
-    private void checkRest(int money) {
-        if (money % MIN_MONEY_VALUE != 0) {
+    private void checkRest(int cost) {
+        if (cost % MIN_MONEY_VALUE != 0) {
             throw new IllegalArgumentException("[ERROR] 1000으로 나누어 떨어지는 금액을 입력해주세요.");
         }
     }
 
     public int getMoney() {
-        return this.money;
+        return this.cost;
     }
 
     @Override
@@ -43,11 +42,11 @@ public class Money {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Money money1 = (Money) o;
-        return money == money1.money;
+        return cost == money1.cost;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(money);
+        return Objects.hash(cost);
     }
 }

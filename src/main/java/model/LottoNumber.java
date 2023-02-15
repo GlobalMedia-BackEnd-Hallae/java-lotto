@@ -7,11 +7,11 @@ public class LottoNumber {
     private static final int LOTTO_NUMBER_MIN_VALUE = 1;
     private static final int LOTTO_NUMBER_MAX_VALUE = 45;
 
-    private final int lottoNumber;
+    private final int number;
 
     public LottoNumber(int number) {
         checkNumberRange(number);
-        this.lottoNumber = number;
+        this.number = number;
     }
 
     private void checkNumberRange(int number) {
@@ -21,7 +21,7 @@ public class LottoNumber {
     }
 
     public int getLottoNumber() {
-        return lottoNumber;
+        return number;
     }
 
     @Override
@@ -29,11 +29,11 @@ public class LottoNumber {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         LottoNumber that = (LottoNumber) o;
-        return lottoNumber == that.lottoNumber;
+        return number == that.number;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(lottoNumber);
+        return Objects.hash(number);
     }
 }

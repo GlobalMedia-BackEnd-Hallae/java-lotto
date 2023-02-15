@@ -6,21 +6,21 @@ import java.util.Objects;
 
 public class Lottery {
 
-    private final List<Lotto> lottery;
+    private final List<Lotto> lottos;
 
-    public Lottery(List<Lotto> lottery) {
-        this.lottery = lottery;
+    public Lottery(List<Lotto> lottos) {
+        this.lottos = lottos;
     }
 
     public List<Lotto> getLottery() {
-        return lottery;
+        return lottos;
     }
 
-    public List<Integer> drawLotteryWithWinningNumbers(Lotto winningNumbers) {
+    public List<Integer> drawLotteryWithWinningNumbers(Lotto winningLotto) {
         List<Integer> matchWithWinningNumbersResult = new ArrayList<>();
 
-        for (Lotto lotto : this.lottery) {
-            matchWithWinningNumbersResult.add(lotto.drawLottoWithWinningNumbers(winningNumbers));
+        for (Lotto lotto : this.lottos) {
+            matchWithWinningNumbersResult.add(lotto.drawLottoWithWinningNumbers(winningLotto));
         }
 
         return matchWithWinningNumbersResult;
@@ -29,7 +29,7 @@ public class Lottery {
     public List<Integer> drawLotteryWithBonusNumber(LottoNumber bonusNumber) {
         List<Integer> matchWithBonusNumberResult = new ArrayList<>();
 
-        for (Lotto lotto : this.lottery) {
+        for (Lotto lotto : this.lottos) {
             matchWithBonusNumberResult.add(lotto.compareLottoNumberWithBonusNumber(bonusNumber));
         }
 
@@ -41,11 +41,11 @@ public class Lottery {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Lottery lottery1 = (Lottery) o;
-        return Objects.equals(lottery, lottery1.lottery);
+        return Objects.equals(lottos, lottery1.lottos);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(lottery);
+        return Objects.hash(lottos);
     }
 }

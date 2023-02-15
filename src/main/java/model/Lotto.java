@@ -8,22 +8,22 @@ public class Lotto {
 
     private static final int LOTTO_COUNT = 6;
 
-    private final List<LottoNumber> lotto;
+    private final List<LottoNumber> lottoNumbers;
 
-    public Lotto(List<LottoNumber> lotto) {
-        checkLotteryCount(lotto);
-        checkLotteryOverlap(lotto);
-        this.lotto = lotto;
+    public Lotto(List<LottoNumber> lottoNumbers) {
+        checkLotteryCount(lottoNumbers);
+        checkLotteryOverlap(lottoNumbers);
+        this.lottoNumbers = lottoNumbers;
     }
 
-    private void checkLotteryCount(List<LottoNumber> lotto) {
-        if (lotto.size() != LOTTO_COUNT) {
+    private void checkLotteryCount(List<LottoNumber> lottoNumbers) {
+        if (lottoNumbers.size() != LOTTO_COUNT) {
             throw new IllegalArgumentException("[ERROR] 6개의 숫자를 입력해주세요.");
         }
     }
 
-    private void checkLotteryOverlap(List<LottoNumber> lotto) {
-        final HashSet<LottoNumber> overlapChecker = new HashSet<>(lotto);
+    private void checkLotteryOverlap(List<LottoNumber> lottoNumbers) {
+        final HashSet<LottoNumber> overlapChecker = new HashSet<>(lottoNumbers);
 
         if (overlapChecker.size() != LOTTO_COUNT) {
             throw new IllegalArgumentException("[ERROR] 중복이 아닌 숫자를 입력해주세요.");
@@ -31,14 +31,14 @@ public class Lotto {
     }
 
     public List<LottoNumber> getLotto() {
-        return this.lotto;
+        return this.lottoNumbers;
     }
 
-    public int drawLottoWithWinningNumbers(Lotto winningNumbers) {
+    public int drawLottoWithWinningNumbers(Lotto winningLotto) {
         int count = 0;
 
-        for (LottoNumber lottoNumber : this.lotto) {
-            count += winningNumbers.compareLottoNumberWithWinningNumber(lottoNumber);
+        for (LottoNumber lottoNumber : this.lottoNumbers) {
+            count += winningLotto.compareLottoNumberWithWinningNumber(lottoNumber);
         }
 
         return count;
@@ -59,7 +59,7 @@ public class Lotto {
     }
 
     public boolean isSame(LottoNumber number) {
-        return this.lotto.stream().anyMatch(winningNumber -> winningNumber.equals(number));
+        return this.lottoNumbers.stream().anyMatch(winningNumber -> winningNumber.equals(number));
     }
 
     @Override
@@ -67,11 +67,11 @@ public class Lotto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Lotto lotto1 = (Lotto) o;
-        return Objects.equals(lotto, lotto1.lotto);
+        return Objects.equals(lottoNumbers, lotto1.lottoNumbers);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(lotto);
+        return Objects.hash(lottoNumbers);
     }
 }
