@@ -22,7 +22,7 @@ class MoneyTest {
     @ParameterizedTest
     @DisplayName("숫자가 아니거나 1000보다 작거나 1000으로 나누어 떨어지지 않는 금액이 입력되어 Money 객체로 전달될 때 예외를 발생시킨다.")
     @CsvSource({"abc", "0", "1001"})
-    void canCheckRest(String input) {
+    void canCheckInput(String input) {
         // when, then
         assertThatThrownBy(() -> new Money(input))
                 .isInstanceOf(IllegalArgumentException.class);
