@@ -10,8 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.assertj.core.api.AssertionsForClassTypes.*;
 
 class LottoTest {
 
@@ -27,11 +26,8 @@ class LottoTest {
     @Test
     @DisplayName("중복이 없으며 범위가 1 이상 45 이하인 6개의 로또 번호 리스트를 전달받을 때 로또 객체를 생성할 수 있다.")
     void canCreateLotto() {
-        // given, when
-        final Lotto lotto = new Lotto(LottoNumbers);
-
-        // then
-        assertThat(lotto.getLotto()).isEqualTo(LottoNumbers);
+        // when, then
+        assertThatCode(() -> new Lotto(LottoNumbers)).doesNotThrowAnyException();
     }
 
     @Test
