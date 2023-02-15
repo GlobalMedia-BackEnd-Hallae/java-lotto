@@ -16,21 +16,21 @@ public class Lottery {
         return lottos;
     }
 
-    public List<Integer> drawLotteryWithWinningNumbers(Lotto winningLotto) {
+    public List<Integer> drawLottosWithWinningNumbers(Lotto winningNumbers) {
         List<Integer> matchWithWinningNumbersResult = new ArrayList<>();
 
         for (Lotto lotto : this.lottos) {
-            matchWithWinningNumbersResult.add(lotto.drawLottoWithWinningNumbers(winningLotto));
+            matchWithWinningNumbersResult.add(lotto.drawLottoWithWinningNumbers(winningNumbers));
         }
 
         return matchWithWinningNumbersResult;
     }
 
-    public List<Integer> drawLotteryWithBonusNumber(LottoNumber bonusNumber) {
+    public List<Integer> drawLottosWithBonusNumber(LottoNumber bonusNumber) {
         List<Integer> matchWithBonusNumberResult = new ArrayList<>();
 
         for (Lotto lotto : this.lottos) {
-            matchWithBonusNumberResult.add(lotto.compareLottoNumberWithBonusNumber(bonusNumber));
+            matchWithBonusNumberResult.add(lotto.drawLottoWithBonusNumber(bonusNumber));
         }
 
         return matchWithBonusNumberResult;
