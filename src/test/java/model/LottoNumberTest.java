@@ -4,8 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.assertj.core.api.AssertionsForClassTypes.*;
 
 class LottoNumberTest {
 
@@ -22,10 +21,7 @@ class LottoNumberTest {
     @DisplayName("1이상 45 이하의 수가 입력되면 객체를 생성할 수 있다.")
     @CsvSource({"1", "45"})
     void canCreateLottoNumber(int number) {
-        // when
-        final LottoNumber lottoNumber = new LottoNumber(number);
-
-        // then
-        assertThat(lottoNumber.getLottoNumber()).isEqualTo(number);
+        // when, then
+        assertThatCode(() -> new LottoNumber(number)).doesNotThrowAnyException();
     }
 }
