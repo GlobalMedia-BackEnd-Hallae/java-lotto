@@ -9,29 +9,29 @@ public class Money {
     private final int money;
 
     public Money(String input) {
-        if (checkDigit(input)) {
-            throw new IllegalArgumentException("[ERROR] 숫자를 입력해주세요.");
-        }
-
+        checkDigit(input);
         final int money = Integer.parseInt(input);
-
-        if (checkRange(money) || checkRest(money)) {
-            throw new IllegalArgumentException("[ERROR] 1000원 이상이며 1000으로 나누어 떨어지는 금액을 입력해주세요.");
-        }
-
+        checkRange(money);
+        checkRest(money);
         this.money = money;
     }
 
-    private boolean checkDigit(String input) {
-        return !input.matches(REGEX);
+    private void checkDigit(String input) {
+        if (!input.matches(REGEX)) {
+            throw new IllegalArgumentException("[ERROR] 숫자를 입력해주세요.");
+        }
     }
 
-    private boolean checkRange(int money) {
-        return money < MIN_MONEY_VALUE;
+    private void checkRange(int money) {
+        if (money < MIN_MONEY_VALUE) {
+            throw new IllegalArgumentException("[ERROR] 1000원 이상의 금액을 입력해주세요.");
+        }
     }
 
-    private boolean checkRest(int money) {
-        return money % MIN_MONEY_VALUE != 0;
+    private void checkRest(int money) {
+        if (money % MIN_MONEY_VALUE != 0) {
+            throw new IllegalArgumentException("[ERROR] 1000으로 나누어 떨어지는 금액을 입력해주세요.");
+        }
     }
 
     public int getMoney() {
