@@ -22,10 +22,6 @@ public class Money {
         this.money = money;
     }
 
-    public int getMoney() {
-        return this.money;
-    }
-
     private boolean checkDigit(String input) {
         return !input.matches(REGEX);
     }
@@ -36,6 +32,10 @@ public class Money {
 
     private boolean checkRest(int money) {
         return money % MIN_MONEY_VALUE != 0;
+    }
+
+    public int getMoney() {
+        return this.money;
     }
 
     @Override

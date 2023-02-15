@@ -17,12 +17,12 @@ public class LottoNumber {
         this.lottoNumber = number;
     }
 
-    public int getLottoNumber() {
-        return lottoNumber;
-    }
-
     private boolean checkNumberRange(int number) {
         return number < LOTTO_NUMBER_MIN_VALUE || number > LOTTO_NUMBER_MAX_VALUE;
+    }
+
+    public int getLottoNumber() {
+        return lottoNumber;
     }
 
     @Override

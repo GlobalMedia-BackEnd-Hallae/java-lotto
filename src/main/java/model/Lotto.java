@@ -22,10 +22,6 @@ public class Lotto {
         this.lotto = lotto;
     }
 
-    public List<LottoNumber> getLotto() {
-        return this.lotto;
-    }
-
     private boolean checkLotteryOverlap(List<LottoNumber> lotto) {
         final HashSet<LottoNumber> overlapChecker = new HashSet<>(lotto);
         return overlapChecker.size() != LOTTO_COUNT;
@@ -33,6 +29,10 @@ public class Lotto {
 
     private boolean checkLotteryCount(List<LottoNumber> lotto) {
         return lotto.size() != LOTTO_COUNT;
+    }
+
+    public List<LottoNumber> getLotto() {
+        return this.lotto;
     }
 
     public int drawLottoWithWinningNumbers(Lotto winningNumbers) {
