@@ -10,15 +10,14 @@ public class LottoNumber {
     private final int lottoNumber;
 
     public LottoNumber(int number) {
-        if (checkNumberRange(number)) {
-            throw new IllegalArgumentException("[Error] 1 이상 45 이하의 번호를 입력해 주세요.");
-        }
-
+        checkNumberRange(number);
         this.lottoNumber = number;
     }
 
-    private boolean checkNumberRange(int number) {
-        return number < LOTTO_NUMBER_MIN_VALUE || number > LOTTO_NUMBER_MAX_VALUE;
+    private void checkNumberRange(int number) {
+        if (number < LOTTO_NUMBER_MIN_VALUE || number > LOTTO_NUMBER_MAX_VALUE) {
+            throw new IllegalArgumentException("[Error] 1 이상 45 이하의 번호를 입력해 주세요.");
+        }
     }
 
     public int getLottoNumber() {
