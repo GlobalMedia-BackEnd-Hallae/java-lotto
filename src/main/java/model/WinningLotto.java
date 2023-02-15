@@ -1,20 +1,19 @@
 package model;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class WinningNumbers {
+public class WinningLotto {
 
-    private final Lotto winningNumber;
+    private final Lotto winningNumbers;
     private LottoNumber bonusNumber;
 
-    public WinningNumbers(Lotto winningNumber) {
-        this.winningNumber = winningNumber;
+    public WinningLotto(Lotto winningNumbers) {
+        this.winningNumbers = winningNumbers;
     }
 
     public Lotto getWinningNumber() {
-        return winningNumber;
+        return winningNumbers;
     }
 
     public LottoNumber getBonusNumber() {
@@ -22,8 +21,7 @@ public class WinningNumbers {
     }
 
     public void checkBonusNumberOverlap(LottoNumber bonusNumber) {
-        final List<LottoNumber> winningNumbers = winningNumber.getLotto();
-        final Optional<LottoNumber> overlapNumber = winningNumbers.stream().filter(lottoNumber -> lottoNumber.equals(bonusNumber)).findAny();
+        final Optional<LottoNumber> overlapNumber = winningNumbers.getLotto().stream().filter(lottoNumber -> lottoNumber.equals(bonusNumber)).findAny();
 
         if (overlapNumber.isPresent()) {
             throw new IllegalArgumentException("[ERROR] 중복이 아닌 보너스 번호를 입력해주세요.");
@@ -36,12 +34,12 @@ public class WinningNumbers {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        WinningNumbers that = (WinningNumbers) o;
-        return Objects.equals(winningNumber, that.winningNumber) && Objects.equals(bonusNumber, that.bonusNumber);
+        WinningLotto that = (WinningLotto) o;
+        return Objects.equals(winningNumbers, that.winningNumbers) && Objects.equals(bonusNumber, that.bonusNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(winningNumber, bonusNumber);
+        return Objects.hash(winningNumbers, bonusNumber);
     }
 }

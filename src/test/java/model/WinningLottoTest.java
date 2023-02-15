@@ -7,7 +7,7 @@ import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
-class WinningNumbersTest {
+class WinningLottoTest {
 
     private final LottoNumber one = new LottoNumber(1);
     private final LottoNumber two = new LottoNumber(2);
@@ -20,11 +20,11 @@ class WinningNumbersTest {
     @DisplayName("당첨 로또 번호와 중복되는 보너스 번호를 전달받을 때 예외를 발생시킨다.")
     void canThrowExceptionWhenBonusNumberOverlap() {
         // given
-        final WinningNumbers winningNumbers = new WinningNumbers(new Lotto(List.of(one, two, three, four, five, six)));
+        final WinningLotto winningLotto = new WinningLotto(new Lotto(List.of(one, two, three, four, five, six)));
         final LottoNumber bonusNumber = six;
 
         // when, then
-        assertThatThrownBy(() -> winningNumbers.checkBonusNumberOverlap(bonusNumber))
+        assertThatThrownBy(() -> winningLotto.checkBonusNumberOverlap(bonusNumber))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }
