@@ -11,24 +11,23 @@ public class Lotto {
     private final List<LottoNumber> lotto;
 
     public Lotto(List<LottoNumber> lotto) {
-        if (checkLotteryOverlap(lotto)) {
-            throw new IllegalArgumentException("[ERROR] 중복이 아닌 숫자를 입력해주세요.");
-        }
-
-        if (checkLotteryCount(lotto)) {
-            throw new IllegalArgumentException("[ERROR] 6개의 숫자를 입력해주세요.");
-        }
-
+        checkLotteryCount(lotto);
+        checkLotteryOverlap(lotto);
         this.lotto = lotto;
     }
 
-    private boolean checkLotteryOverlap(List<LottoNumber> lotto) {
-        final HashSet<LottoNumber> overlapChecker = new HashSet<>(lotto);
-        return overlapChecker.size() != LOTTO_COUNT;
+    private void checkLotteryCount(List<LottoNumber> lotto) {
+        if (lotto.size() != LOTTO_COUNT) {
+            throw new IllegalArgumentException("[ERROR] 6개의 숫자를 입력해주세요.");
+        }
     }
 
-    private boolean checkLotteryCount(List<LottoNumber> lotto) {
-        return lotto.size() != LOTTO_COUNT;
+    private void checkLotteryOverlap(List<LottoNumber> lotto) {
+        final HashSet<LottoNumber> overlapChecker = new HashSet<>(lotto);
+
+        if (overlapChecker.size() != LOTTO_COUNT) {
+            throw new IllegalArgumentException("[ERROR] 중복이 아닌 숫자를 입력해주세요.");
+        }
     }
 
     public List<LottoNumber> getLotto() {
