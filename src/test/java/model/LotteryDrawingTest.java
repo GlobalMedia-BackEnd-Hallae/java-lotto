@@ -27,7 +27,7 @@ class LotteryDrawingTest {
     private final static LottoNumber ten = new LottoNumber(10);
 
     @ParameterizedTest
-    @DisplayName("등수를 추첨할 수 있다.")
+    @DisplayName("등수를 추첨한다.")
     @MethodSource("provideLottoAndLotteryAndWinningResult")
     void canDrawLottery(Lottery lottery, Map<Winning, Integer> expectedResult) {
         // given

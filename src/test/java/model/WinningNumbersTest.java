@@ -17,7 +17,7 @@ class WinningNumbersTest {
     private final LottoNumber six = new LottoNumber(6);
 
     @Test
-    @DisplayName("당첨 로또 번호와 중복되는 보너스 번호를 전달받을 때 예외를 발생시킬 수 있다.")
+    @DisplayName("당첨 로또 번호와 중복되는 보너스 번호를 전달받을 때 예외를 발생시킨다.")
     void canThrowExceptionWhenBonusNumberOverlap() {
         // given
         final WinningNumbers winningNumbers = new WinningNumbers(new Lotto(List.of(one, two, three, four, five, six)));

@@ -12,7 +12,7 @@ class LottoCreationTest {
     private final LottoCreation lottoCreation = new LottoCreation();
 
     @Test
-    @DisplayName("전달받은 개수만큼 복권을 생성할 수 있다.")
+    @DisplayName("전달받은 개수만큼 복권을 생성한다.")
     void canCreateLotto() {
         // given
         final int number = 10;

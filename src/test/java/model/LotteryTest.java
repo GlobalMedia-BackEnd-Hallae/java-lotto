@@ -31,7 +31,7 @@ class LotteryTest {
     private final Lotto lotto7 = new Lotto(Arrays.asList(seven, eight, nine, ten, eleven, twelve));
 
     @Test
-    @DisplayName("로또 묶음과 입력된 당첨 번호를 비교하여 같은 숫자의 개수를 담는 리스트를 반환할 수 있다.")
+    @DisplayName("로또 묶음과 입력된 당첨 번호를 비교하여 같은 숫자의 개수를 담는 리스트를 반환한다.")
     void canDrawLotteryWithWinningNumbers() {
         // given
         final Lottery lottery = new Lottery(Arrays.asList(lotto1, lotto2, lotto3, lotto4, lotto5, lotto6, lotto7));
@@ -46,7 +46,7 @@ class LotteryTest {
     }
 
     @Test
-    @DisplayName("로또 묶음과 입력된 보너스 번호를 비교하여 같은 번호가 있다면 1을, 없다면 0을 담는 리스트를 반환할 수 있다.")
+    @DisplayName("로또 묶음과 입력된 보너스 번호를 비교하여 같은 번호가 있다면 1을, 없다면 0을 담는 리스트를 반환한다.")
     void canDrawLotteryWithBonusNumber() {
         // given
         final Lottery lottery = new Lottery(Arrays.asList(lotto1, lotto7));

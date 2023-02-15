@@ -13,7 +13,7 @@ class EarningsRateCalculatorTest {
     private static final double FIRST_PRIZE_EARNINGS_RATE = 20000000;
 
     @Test
-    @DisplayName("수익률을 계산할 수 있다.")
+    @DisplayName("수익률을 계산한다.")
     void canGetRightValue() {
         // given
         final int money = 10000;

@@ -31,7 +31,7 @@ class LottoTest {
     }
 
     @Test
-    @DisplayName("중복이 있는 로또 번호 리스트를 전달받을 때 예외를 발생시킬 수 있다.")
+    @DisplayName("중복이 있는 로또 번호 리스트를 전달받을 때 예외를 발생시킨다.")
     void canThrowExceptionWhenLottoOverlap() {
         // given
         final List<LottoNumber> input = Arrays.asList(one, two, three, four, five, five);
@@ -42,7 +42,7 @@ class LottoTest {
     }
 
     @ParameterizedTest
-    @DisplayName("크기가 6이 아닌 로또 번호 리스트를 전달 받을 때 예외를 발생시킬 수 있다.")
+    @DisplayName("크기가 6이 아닌 로또 번호 리스트를 전달 받을 때 예외를 발생시킨다.")
     @MethodSource("provideLargeLottoAndSmallLotto")
     void canThrowExceptionWhenWierdLotto(List<LottoNumber> lotto) {
         // when, then
@@ -58,7 +58,7 @@ class LottoTest {
     }
 
     @Test
-    @DisplayName("입력된 당첨 번호와 비교하여 당첨된 번호의 개수를 알 수 있다.")
+    @DisplayName("입력된 당첨 번호와 비교하여 당첨된 번호의 개수를 반환한다.")
     void canDrawLottoWithWinningNumbers() {
         // given
         final Lotto lotto = new Lotto(LottoNumbers);
@@ -72,7 +72,7 @@ class LottoTest {
     }
 
     @ParameterizedTest
-    @DisplayName("입력된 로또 번호와 비교하여 당첨 번호 중에 같은 번호가 있다면 1을, 없다면 0을 반환할 수 있다.")
+    @DisplayName("입력된 로또 번호와 비교하여 당첨 번호 중에 같은 번호가 있다면 1을, 없다면 0을 반환한다.")
     @MethodSource("provideSameLottoNumberAndDifferentLottoNumber")
     void canCompareLottoNumberWithWinningNumber(LottoNumber lottoNumber, int expectedResult) {
         // given
@@ -93,7 +93,7 @@ class LottoTest {
     }
 
     @ParameterizedTest
-    @DisplayName("입력된 보너스 번호와 비교하여 같은 번호가 있다면 1을 아니라면 0을 반환할 수 있다.")
+    @DisplayName("입력된 보너스 번호와 비교하여 같은 번호가 있다면 1을 아니라면 0을 반환한다.")
     @MethodSource("provideSameBonusNumberAndDifferentBonusNumber")
     void canDrawLottoWithBonusNumber(LottoNumber bonusNumber, int expectedResult) {
         // given
