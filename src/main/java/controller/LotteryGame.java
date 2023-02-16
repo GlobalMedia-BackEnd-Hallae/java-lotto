@@ -8,16 +8,13 @@ import java.util.Map;
 
 public class LotteryGame {
 
-    private static final int MIN_MONEY_VALUE = 1000;
-
     private final Input input = new Input();
     private final Output output = new Output();
 
     public void lotteryGame() {
         final Money money = createMoney();
-        final int number = money.getMoney() / MIN_MONEY_VALUE;
-        final Lottery lottery = createLottery(createLotto(number));
-        output.outputLotto(number, lottery);
+        final Lottery lottery = createLottery(createLotto(money.getCount()));
+        output.outputLotto(money.getCount(), lottery);
         final WinningLotto winningLotto = new WinningLotto(createWinningNumber());
         createBonusNumber(winningLotto);
         final Map<Winning, Integer> winningResult = createWinningResult(winningLotto.getWinningNumber(), winningLotto.getBonusNumber(), lottery);

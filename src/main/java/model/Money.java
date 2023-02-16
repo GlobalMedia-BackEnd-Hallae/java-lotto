@@ -33,6 +33,10 @@ public class Money {
         }
     }
 
+    public int getCount() {
+        return this.cost / MIN_MONEY_VALUE;
+    }
+
     public int getMoney() {
         return this.cost;
     }
