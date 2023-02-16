@@ -12,14 +12,6 @@ public class WinningLotto {
         this.winningNumbers = winningNumbers;
     }
 
-    public Lotto getWinningNumber() {
-        return winningNumbers;
-    }
-
-    public LottoNumber getBonusNumber() {
-        return bonusNumber;
-    }
-
     public void checkBonusNumberOverlap(LottoNumber bonusNumber) {
         final Optional<LottoNumber> overlapNumber = winningNumbers.getLotto().stream().filter(lottoNumber -> lottoNumber.equals(bonusNumber)).findAny();
 
@@ -28,6 +20,14 @@ public class WinningLotto {
         }
 
         this.bonusNumber = bonusNumber;
+    }
+
+    public Lotto getWinningNumber() {
+        return winningNumbers;
+    }
+
+    public LottoNumber getBonusNumber() {
+        return bonusNumber;
     }
 
     @Override

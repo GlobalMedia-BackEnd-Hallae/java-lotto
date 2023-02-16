@@ -31,10 +31,6 @@ public class Lotto {
         }
     }
 
-    public List<LottoNumber> getLotto() {
-        return this.lottoNumbers;
-    }
-
     public int getMatchCountOfWinningNumbers(Lotto winningNumbers) {
         return winningNumbers.drawLottoWithWinningNumbers(this.lottoNumbers);
     }
@@ -52,6 +48,10 @@ public class Lotto {
     public boolean drawLottoWithBonusNumber(LottoNumber bonusNumber) {
         return this.lottoNumbers.stream()
                 .anyMatch(lottoNumber -> lottoNumber.equals(bonusNumber));
+    }
+
+    public List<LottoNumber> getLotto() {
+        return this.lottoNumbers;
     }
 
     @Override

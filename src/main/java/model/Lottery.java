@@ -12,10 +12,6 @@ public class Lottery {
         this.lottos = lottos;
     }
 
-    public List<Lotto> getLottery() {
-        return lottos;
-    }
-
     public List<Integer> drawLottosWithWinningNumbers(Lotto winningNumbers) {
         List<Integer> matchWithWinningNumbersResult = new ArrayList<>();
 
@@ -34,6 +30,10 @@ public class Lottery {
         }
 
         return matchWithBonusNumberResult;
+    }
+
+    public List<Lotto> getLottery() {
+        return lottos;
     }
 
     @Override
