@@ -1,8 +1,6 @@
 package model;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Predicate;
 
 public class Lotto {
@@ -24,9 +22,7 @@ public class Lotto {
     }
 
     private void checkLotteryOverlap(List<LottoNumber> lottoNumbers) {
-        final HashSet<LottoNumber> overlapChecker = new HashSet<>(lottoNumbers);
-
-        if (overlapChecker.size() != LOTTO_COUNT) {
+        if (lottoNumbers.stream().distinct().count() != LOTTO_COUNT) {
             throw new IllegalArgumentException("[ERROR] 중복이 아닌 숫자를 입력해주세요.");
         }
     }
