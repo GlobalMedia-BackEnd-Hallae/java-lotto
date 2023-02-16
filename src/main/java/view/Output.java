@@ -17,6 +17,10 @@ public class Output {
 
     private final StringBuilder stringBuilder = new StringBuilder();
 
+    public void outputError(String errorMessage) {
+        System.out.println(errorMessage);
+    }
+
     public void outputLotto(int number, Lottery lottery) {
         System.out.println("\n" + number + "개를 구매했습니다.");
 

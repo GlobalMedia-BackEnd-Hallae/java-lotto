@@ -28,7 +28,7 @@ public class LotteryGame {
         try {
             return input.inputMoney();
         } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+            output.outputError(e.getMessage());
             return createMoney();
         }
     }
@@ -46,7 +46,7 @@ public class LotteryGame {
         try {
             return new Lotto(input.inputWinningNumber());
         } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+            output.outputError(e.getMessage());
             return createWinningNumber();
         }
     }
@@ -55,7 +55,7 @@ public class LotteryGame {
         try {
             winningNumbers.checkBonusNumberOverlap(input.inputBonusNumber());
         } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+            output.outputError(e.getMessage());
             createBonusNumber(winningNumbers);
         }
     }
