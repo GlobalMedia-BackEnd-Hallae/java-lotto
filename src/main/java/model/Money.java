@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Money {
 
-    private static final String REGEX = "\\d";
+    private static final String REGEX = "\\d+";
     private static final int MIN_MONEY_VALUE = 1000;
     private final int cost;
 
