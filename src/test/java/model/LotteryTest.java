@@ -51,10 +51,10 @@ class LotteryTest {
         // given
         final Lottery lottery = new Lottery(Arrays.asList(lotto1, lotto7));
         final LottoNumber bonusNumber = one;
-        final List<Integer> expectedResult = Arrays.asList(1, 0);
+        final List<Boolean> expectedResult = Arrays.asList(true, false);
 
         // when
-        final List<Integer> result = lottery.drawLottosWithBonusNumber(bonusNumber);
+        final List<Boolean> result = lottery.drawLottosWithBonusNumber(bonusNumber);
 
         // then
         assertThat(result).isEqualTo(expectedResult);

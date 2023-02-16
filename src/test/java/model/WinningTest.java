@@ -10,8 +10,8 @@ class WinningTest {
 
     @ParameterizedTest
     @DisplayName("당첨된 번호의 개수에 따라 등수를 반환한다.")
-    @CsvSource({"6, 0, FIRST", "5, 1, SECOND", "5, 0, THIRD", "4, 0, FOURTH", "3, 0, FIFTH", "2, 0, FAIL"})
-    void canMatchWinning(int count, int hasBonusNumber, Winning winning) {
+    @CsvSource({"6, false, FIRST", "5, true, SECOND", "5, false, THIRD", "4, false, FOURTH", "3, false, FIFTH", "2, false, FAIL"})
+    void canMatchWinning(int count, boolean hasBonusNumber, Winning winning) {
         // when
         final Winning result = Winning.matchWinning(count, hasBonusNumber);
 

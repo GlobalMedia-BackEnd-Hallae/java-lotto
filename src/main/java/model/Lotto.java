@@ -49,15 +49,7 @@ public class Lotto {
         return lottoNumber -> lottoNumbers.stream().anyMatch(Predicate.isEqual(lottoNumber));
     }
 
-    public int getMatchCountOfBonusNumber(LottoNumber bonusNumber) {
-        if (drawLottoWithBonusNumber(bonusNumber)) {
-            return 1;
-        }
-
-        return 0;
-    }
-
-    private boolean drawLottoWithBonusNumber(LottoNumber bonusNumber) {
+    public boolean drawLottoWithBonusNumber(LottoNumber bonusNumber) {
         return this.lottoNumbers.stream()
                 .anyMatch(lottoNumber -> lottoNumber.equals(bonusNumber));
     }

@@ -100,12 +100,12 @@ class LottoTest {
     @ParameterizedTest
     @DisplayName("입력된 보너스 번호와 비교하여 같은 번호가 있다면 1을 아니라면 0을 반환한다.")
     @MethodSource("provideSameBonusNumberAndDifferentBonusNumber")
-    void canDrawLottoWithBonusNumber(LottoNumber bonusNumber, int expectedResult) {
+    void canDrawLottoWithBonusNumber(LottoNumber bonusNumber, boolean expectedResult) {
         // given
         final Lotto lotto = new Lotto(LottoNumbers);
 
         // when
-        final int result = lotto.getMatchCountOfBonusNumber(bonusNumber);
+        final boolean result = lotto.drawLottoWithBonusNumber(bonusNumber);
 
         // then
         assertThat(result).isEqualTo(expectedResult);
@@ -113,8 +113,8 @@ class LottoTest {
 
     private static Stream<Arguments> provideSameBonusNumberAndDifferentBonusNumber() {
         return Stream.of(
-                Arguments.of(one, 1),
-                Arguments.of(seven, 0)
+                Arguments.of(one, true),
+                Arguments.of(seven, false)
         );
     }
 }

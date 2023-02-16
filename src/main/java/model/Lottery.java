@@ -26,11 +26,11 @@ public class Lottery {
         return matchWithWinningNumbersResult;
     }
 
-    public List<Integer> drawLottosWithBonusNumber(LottoNumber bonusNumber) {
-        List<Integer> matchWithBonusNumberResult = new ArrayList<>();
+    public List<Boolean> drawLottosWithBonusNumber(LottoNumber bonusNumber) {
+        List<Boolean> matchWithBonusNumberResult = new ArrayList<>();
 
         for (Lotto lotto : this.lottos) {
-            matchWithBonusNumberResult.add(lotto.getMatchCountOfBonusNumber(bonusNumber));
+            matchWithBonusNumberResult.add(lotto.drawLottoWithBonusNumber(bonusNumber));
         }
 
         return matchWithBonusNumberResult;
