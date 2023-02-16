@@ -35,16 +35,31 @@ public class Lotto {
         return this.lottoNumbers;
     }
 
-    public int drawLottoWithWinningNumbers(Lotto winningNumbers) {
+    public int getMatchCountOfWinningNumbers(Lotto winningNumbers) {
+        return winningNumbers.drawLottoWithWinningNumbers(this.lottoNumbers);
+    }
+
+    private int drawLottoWithWinningNumbers(List<LottoNumber> lottoNumbers) {
         return (int) this.lottoNumbers.stream()
-                .filter(lottoNumber -> winningNumbers.getLotto().stream().anyMatch(Predicate.isEqual(lottoNumber)))
+                .filter(getLottoNumberPredicate(lottoNumbers))
                 .count();
     }
 
-    public int drawLottoWithBonusNumber(LottoNumber bonusNumber) {
-        return (int) this.lottoNumbers.stream()
-                .filter(lottoNumber -> lottoNumber.equals(bonusNumber))
-                .count();
+    private Predicate<LottoNumber> getLottoNumberPredicate(List<LottoNumber> lottoNumbers) {
+        return lottoNumber -> lottoNumbers.stream().anyMatch(Predicate.isEqual(lottoNumber));
+    }
+
+    public int getMatchCountOfBonusNumber(LottoNumber bonusNumber) {
+        if (drawLottoWithBonusNumber(bonusNumber)) {
+            return 1;
+        }
+
+        return 0;
+    }
+
+    private boolean drawLottoWithBonusNumber(LottoNumber bonusNumber) {
+        return this.lottoNumbers.stream()
+                .anyMatch(lottoNumber -> lottoNumber.equals(bonusNumber));
     }
 
     @Override

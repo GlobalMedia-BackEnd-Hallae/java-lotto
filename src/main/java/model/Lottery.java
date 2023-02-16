@@ -20,7 +20,7 @@ public class Lottery {
         List<Integer> matchWithWinningNumbersResult = new ArrayList<>();
 
         for (Lotto lotto : this.lottos) {
-            matchWithWinningNumbersResult.add(lotto.drawLottoWithWinningNumbers(winningNumbers));
+            matchWithWinningNumbersResult.add(lotto.getMatchCountOfWinningNumbers(winningNumbers));
         }
 
         return matchWithWinningNumbersResult;
@@ -30,7 +30,7 @@ public class Lottery {
         List<Integer> matchWithBonusNumberResult = new ArrayList<>();
 
         for (Lotto lotto : this.lottos) {
-            matchWithBonusNumberResult.add(lotto.drawLottoWithBonusNumber(bonusNumber));
+            matchWithBonusNumberResult.add(lotto.getMatchCountOfBonusNumber(bonusNumber));
         }
 
         return matchWithBonusNumberResult;

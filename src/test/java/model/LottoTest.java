@@ -79,7 +79,7 @@ class LottoTest {
         final Lotto winningNumbers = new Lotto(LottoNumbers);
 
         // when
-        final int result = lottoNumbers.drawLottoWithWinningNumbers(winningNumbers);
+        final int result = lottoNumbers.getMatchCountOfWinningNumbers(winningNumbers);
 
         // then
         assertThat(result).isEqualTo(expectedResult);
@@ -105,7 +105,7 @@ class LottoTest {
         final Lotto lotto = new Lotto(LottoNumbers);
 
         // when
-        final int result = lotto.drawLottoWithBonusNumber(bonusNumber);
+        final int result = lotto.getMatchCountOfBonusNumber(bonusNumber);
 
         // then
         assertThat(result).isEqualTo(expectedResult);
