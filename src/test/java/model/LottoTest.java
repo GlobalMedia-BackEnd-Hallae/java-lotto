@@ -8,45 +8,25 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 
 class LottoTest {
 
-    private static final LottoNumber one = new LottoNumber(1);
-    private static final LottoNumber two = new LottoNumber(2);
-    private static final LottoNumber three = new LottoNumber(3);
-    private static final LottoNumber four = new LottoNumber(4);
-    private static final LottoNumber five = new LottoNumber(5);
-    private static final LottoNumber six = new LottoNumber(6);
-    private static final LottoNumber seven = new LottoNumber(7);
-    private static final LottoNumber eight = new LottoNumber(8);
-    private static final LottoNumber nine = new LottoNumber(9);
-    private static final LottoNumber ten = new LottoNumber(10);
-    private static final LottoNumber eleven = new LottoNumber(11);
-    private static final LottoNumber twelve = new LottoNumber(12);
-    private static final List<LottoNumber> LottoNumbers = List.of(one, two, three, four, five, six);
-    private static final Lotto allMatchLotto = new Lotto(List.of(one, two, three, four, five, six));
-    private static final Lotto fiveMatchLotto = new Lotto(List.of(one, two, three, four, five, seven));
-    private static final Lotto fourMatchLotto = new Lotto(List.of(one, two, three, four, seven, eight));
-    private static final Lotto threeMatchLotto = new Lotto(List.of(one, two, three, seven, eight, nine));
-    private static final Lotto twoMatchLotto = new Lotto(List.of(one, two, seven, eight, nine, ten));
-    private static final Lotto oneMatchLotto = new Lotto(List.of(one, seven, eight, nine, ten, eleven));
-    private static final Lotto zeroMatchLotto = new Lotto(List.of(seven, eight, nine, ten, eleven, twelve));
-
     @Test
     @DisplayName("중복이 없으며 범위가 1 이상 45 이하인 6개의 로또 번호 리스트를 전달받을 때 로또 객체를 생성할 수 있다.")
     void canCreateLotto() {
         // when, then
-        assertThatCode(() -> new Lotto(LottoNumbers)).doesNotThrowAnyException();
+        assertThatCode(() -> new Lotto(createLottoNumbers(1, 2, 3, 4, 5, 6))).doesNotThrowAnyException();
     }
 
     @Test
     @DisplayName("중복이 있는 로또 번호 리스트를 전달받을 때 예외를 발생시킨다.")
     void canThrowExceptionWhenLottoOverlap() {
         // given
-        final List<LottoNumber> input = Arrays.asList(one, two, three, four, five, five);
+        final List<LottoNumber> input = createLottoNumbers(1, 2, 3, 4, 5, 5);
 
         // when, then
         assertThatThrownBy(() -> new Lotto(input))
@@ -66,8 +46,8 @@ class LottoTest {
 
     private static Stream<Arguments> provideLargeLottoAndSmallLotto() {
         return Stream.of(
-                Arguments.of(List.of(one, two, three, four, five, six, seven)),
-                Arguments.of(List.of(one, two, three, four, five))
+                Arguments.of(createLottoNumbers(1, 2, 3, 4, 5, 6, 7)),
+                Arguments.of(createLottoNumbers(1, 2, 3, 4, 5))
         );
     }
 
@@ -76,7 +56,7 @@ class LottoTest {
     @MethodSource("provideAllCasesLottos")
     void canDrawLottoWithWinningNumbers(Lotto lottoNumbers, int expectedResult) {
         // given
-        final Lotto winningNumbers = new Lotto(LottoNumbers);
+        final Lotto winningNumbers = new Lotto(createLottoNumbers(1, 2, 3, 4, 5, 6));
 
         // when
         final int result = lottoNumbers.getMatchCountOfWinningNumbers(winningNumbers);
@@ -87,13 +67,13 @@ class LottoTest {
 
     private static Stream<Arguments> provideAllCasesLottos() {
         return Stream.of(
-            Arguments.of(allMatchLotto, 6),
-            Arguments.of(fiveMatchLotto, 5),
-            Arguments.of(fourMatchLotto, 4),
-            Arguments.of(threeMatchLotto, 3),
-            Arguments.of(twoMatchLotto, 2),
-            Arguments.of(oneMatchLotto, 1),
-            Arguments.of(zeroMatchLotto, 0)
+            Arguments.of(new Lotto(createLottoNumbers(1, 2, 3, 4, 5, 6)), 6),
+            Arguments.of(new Lotto(createLottoNumbers(1, 2, 3, 4, 5, 7)), 5),
+            Arguments.of(new Lotto(createLottoNumbers(1, 2, 3, 4, 7, 8)), 4),
+            Arguments.of(new Lotto(createLottoNumbers(1, 2, 3, 7, 8, 9)), 3),
+            Arguments.of(new Lotto(createLottoNumbers(1, 2, 7, 8, 9, 10)), 2),
+            Arguments.of(new Lotto(createLottoNumbers(1, 7, 8, 9, 10, 11)), 1),
+            Arguments.of(new Lotto(createLottoNumbers(7, 8, 9, 10, 11, 12)), 0)
         );
     }
 
@@ -102,7 +82,7 @@ class LottoTest {
     @MethodSource("provideSameBonusNumberAndDifferentBonusNumber")
     void canDrawLottoWithBonusNumber(LottoNumber bonusNumber, boolean expectedResult) {
         // given
-        final Lotto lotto = new Lotto(LottoNumbers);
+        final Lotto lotto = new Lotto(createLottoNumbers(1, 2, 3, 4, 5, 6));
 
         // when
         final boolean result = lotto.drawLottoWithBonusNumber(bonusNumber);
@@ -113,8 +93,14 @@ class LottoTest {
 
     private static Stream<Arguments> provideSameBonusNumberAndDifferentBonusNumber() {
         return Stream.of(
-                Arguments.of(one, true),
-                Arguments.of(seven, false)
+                Arguments.of(new LottoNumber(1), true),
+                Arguments.of(new LottoNumber(7), false)
         );
+    }
+
+    private static List<LottoNumber> createLottoNumbers(int... numbers) {
+        return Arrays.stream(numbers)
+                .mapToObj(LottoNumber::new)
+                .collect(Collectors.toUnmodifiableList());
     }
 }
