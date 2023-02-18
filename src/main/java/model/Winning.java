@@ -1,7 +1,6 @@
 package model;
 
 import java.util.Arrays;
-import java.util.Optional;
 
 public enum Winning {
     FAIL(0, 0, false, ""),
@@ -45,9 +44,10 @@ public enum Winning {
     }
 
     public static String outputDescription(Winning winning) {
-        final Optional<Winning> target = Arrays.stream(Winning.values()).filter(w -> w.equals(winning)).findFirst();
-
-        return target.map(value -> value.description).orElse(null);
+        return Arrays.stream(Winning.values())
+                .filter(w -> w.equals(winning))
+                .findFirst().map(value -> value.description)
+                .orElse(null);
 
     }
 }
