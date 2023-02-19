@@ -8,6 +8,16 @@ public class Lottery {
 
     private final List<Lotto> lottos;
 
+    public static Lottery createLottery(int count) {
+        List<Lotto> lottos = new ArrayList<>();
+
+        while (count-- != 0) {
+            lottos.add(Lotto.createRandomLotto());
+        }
+
+        return new Lottery(lottos);
+    }
+
     public Lottery(List<Lotto> lottos) {
         this.lottos = lottos;
     }

@@ -3,7 +3,6 @@ package controller;
 import model.*;
 import view.*;
 
-import java.util.List;
 import java.util.Map;
 
 public class LotteryGame {
@@ -13,7 +12,7 @@ public class LotteryGame {
 
     public void lotteryGame() {
         final Money money = createMoney();
-        final Lottery lottery = createLottery(createLotto(money.getCount()));
+        final Lottery lottery = Lottery.createLottery(money.getCount());
         output.outputLotto(money.getCount(), lottery);
         final WinningLotto winningLotto = new WinningLotto(createWinningNumber());
         createBonusNumber(winningLotto);
@@ -28,15 +27,6 @@ public class LotteryGame {
             output.outputError(e.getMessage());
             return createMoney();
         }
-    }
-
-    private List<Lotto> createLotto(int number) {
-        final LottoCreation lottoCreation = new LottoCreation();
-        return lottoCreation.createLotto(number);
-    }
-
-    private Lottery createLottery(List<Lotto> lotto) {
-        return new Lottery(lotto);
     }
 
     private Lotto createWinningNumber() {

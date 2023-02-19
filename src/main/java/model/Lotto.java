@@ -2,12 +2,23 @@ package model;
 
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
+import static model.LottoNumber.lottoNumbersCache;
 
 public class Lotto {
 
     private static final int LOTTO_COUNT = 6;
 
     private final List<LottoNumber> lottoNumbers;
+
+    public static Lotto createRandomLotto() {
+        Collections.shuffle(lottoNumbersCache);
+        return new Lotto(lottoNumbersCache.stream()
+                .limit(LOTTO_COUNT)
+                .sorted(Comparator.comparing(LottoNumber::getLottoNumber))
+                .collect(Collectors.toUnmodifiableList()));
+    }
 
     public Lotto(List<LottoNumber> lottoNumbers) {
         checkLotteryCount(lottoNumbers);
@@ -38,7 +49,8 @@ public class Lotto {
     }
 
     private Predicate<LottoNumber> getLottoNumberPredicate(List<LottoNumber> lottoNumbers) {
-        return lottoNumber -> lottoNumbers.stream().anyMatch(Predicate.isEqual(lottoNumber));
+        return lottoNumber -> lottoNumbers.stream()
+                .anyMatch(Predicate.isEqual(lottoNumber));
     }
 
     public boolean drawLottoWithBonusNumber(LottoNumber bonusNumber) {
