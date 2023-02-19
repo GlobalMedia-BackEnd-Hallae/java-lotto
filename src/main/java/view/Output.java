@@ -57,7 +57,7 @@ public class Output {
         }
 
         System.out.print(stringBuilder);
-        System.out.println(String.format("총 수익률은 %.2f%%입니다.", earningsRateCalculator.getEarningsRate()));
+        System.out.printf("총 수익률은 %.2f%%입니다.%n", earningsRateCalculator.getEarningsRate());
     }
 
     private int winningCount(Winning winning, Map<Winning, Integer> winningResult) {
