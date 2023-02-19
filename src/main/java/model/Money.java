@@ -6,13 +6,13 @@ public class Money {
 
     private static final String REGEX = "\\d+";
     private static final int MIN_MONEY_VALUE = 1000;
-    private final int cost;
+    private final int value;
 
     public Money(String input) {
         checkDigit(input);
         checkRange(Integer.parseInt(input));
         checkRest(Integer.parseInt(input));
-        this.cost = Integer.parseInt(input);
+        this.value = Integer.parseInt(input);
     }
 
     private void checkDigit(String input) {
@@ -34,11 +34,11 @@ public class Money {
     }
 
     public int getCount() {
-        return this.cost / MIN_MONEY_VALUE;
+        return this.value / MIN_MONEY_VALUE;
     }
 
     public int getMoney() {
-        return this.cost;
+        return this.value;
     }
 
     @Override
@@ -46,11 +46,11 @@ public class Money {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Money money1 = (Money) o;
-        return cost == money1.cost;
+        return value == money1.value;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cost);
+        return Objects.hash(value);
     }
 }

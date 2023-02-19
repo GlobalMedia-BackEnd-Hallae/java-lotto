@@ -18,11 +18,11 @@ public class LottoNumber {
                 .collect(Collectors.toList());
     }
 
-    private final int number;
+    private final int value;
 
-    public LottoNumber(int number) {
-        checkNumberRange(number);
-        this.number = number;
+    public LottoNumber(int value) {
+        checkNumberRange(value);
+        this.value = value;
     }
 
     private void checkNumberRange(int number) {
@@ -32,7 +32,7 @@ public class LottoNumber {
     }
 
     public int getLottoNumber() {
-        return number;
+        return value;
     }
 
     @Override
@@ -40,11 +40,11 @@ public class LottoNumber {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         LottoNumber that = (LottoNumber) o;
-        return number == that.number;
+        return value == that.value;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(number);
+        return Objects.hash(value);
     }
 }
