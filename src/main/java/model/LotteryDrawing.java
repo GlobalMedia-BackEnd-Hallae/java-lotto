@@ -1,13 +1,12 @@
 package model;
 
-import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
 public class LotteryDrawing {
 
     public Map<Winning, Integer> drawLottery(Lotto winningNumbers, LottoNumber bonusNumber, Lottery lottery) {
-        Map<Winning, Integer> winningResult = new EnumMap<>(Winning.class);
+        Map<Winning, Integer> winningResult = Winning.initialSetting();
         List<Integer> matchWithWinningNumbersResult = lottery.drawLottosWithWinningNumbers(winningNumbers);
         List<Boolean> matchWithBonusNumberResult = lottery.drawLottosWithBonusNumber(bonusNumber);
 

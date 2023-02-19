@@ -1,6 +1,8 @@
 package model;
 
 import java.util.Arrays;
+import java.util.EnumMap;
+import java.util.Map;
 
 public enum Winning {
     FAIL(0, 0, false),
@@ -18,6 +20,16 @@ public enum Winning {
         this.count = count;
         this.prize = prize;
         this.hasBonusNumber = hasBonusNumber;
+    }
+
+    public static Map<Winning, Integer> initialSetting() {
+        Map<Winning, Integer> winningResult = new EnumMap<>(Winning.class);
+
+        for (Winning winning : Winning.values()) {
+            winningResult.put(winning, 0);
+        }
+
+        return winningResult;
     }
 
     public static Winning matchWinning(int count, boolean hasBonusNumber) {

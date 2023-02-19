@@ -17,7 +17,9 @@ public class LotteryGame {
         WinningLotto winningLotto = new WinningLotto(createWinningNumber());
         createBonusNumber(winningLotto);
         Map<Winning, Integer> winningResult = createWinningResult(winningLotto.getWinningNumber(), winningLotto.getBonusNumber(), lottery);
-        output.outputResult(winningResult, new EarningsRateCalculator(money.getMoney(), winningResult));
+        sendWinningInformationToOutput(winningResult);
+        EarningsRateCalculator earningsRateCalculator = new EarningsRateCalculator(money.getMoney(), winningResult);
+        output.outputProfit(earningsRateCalculator.getEarningsRate());
     }
 
     private Money createMoney() {
@@ -50,5 +52,11 @@ public class LotteryGame {
     private Map<Winning, Integer> createWinningResult(Lotto winningNumber, LottoNumber bonusNumber, Lottery lottery) {
         LotteryDrawing lotteryDrawing = new LotteryDrawing();
         return lotteryDrawing.drawLottery(winningNumber, bonusNumber, lottery);
+    }
+
+    private void sendWinningInformationToOutput(Map<Winning, Integer> winningResult) {
+        for (Winning winning : Winning.values()) {
+            output.outputResult(winning, winningResult.get(winning));
+        }
     }
 }
