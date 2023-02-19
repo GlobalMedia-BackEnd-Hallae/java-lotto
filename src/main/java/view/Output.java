@@ -2,6 +2,7 @@ package view;
 
 import model.*;
 
+import java.text.DecimalFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -16,6 +17,7 @@ public class Output {
     private static final int NONE = 0;
 
     private final StringBuilder stringBuilder = new StringBuilder();
+    private final DecimalFormat decimalFormat = new DecimalFormat("###,###");
 
     public void outputError(String errorMessage) {
         System.out.println(errorMessage);
@@ -44,13 +46,20 @@ public class Output {
     }
 
     public void outputResult(Map<Winning, Integer> winningResult, EarningsRateCalculator earningsRateCalculator) {
-        List<Winning> winnings = Arrays.stream(Winning.values()).filter(w -> w != Winning.FAIL).collect(Collectors.toUnmodifiableList());
+        List<Winning> winnings = Arrays.stream(Winning.values())
+                .filter(w -> w != Winning.FAIL)
+                .collect(Collectors.toUnmodifiableList());
 
         stringBuilder.setLength(NONE);
         stringBuilder.append(START_COMMENT);
 
         for (Winning winning : winnings) {
-            stringBuilder.append(Winning.outputDescription(winning));
+            stringBuilder.append(winning.getCount());
+            stringBuilder.append("개 일치");
+            stringBuilder.append(isSecond(winning));
+            stringBuilder.append(" (");
+            stringBuilder.append(decimalFormat.format(winning.getPrize()));
+            stringBuilder.append("원)");
             stringBuilder.append(CONNECTION);
             stringBuilder.append(winningCount(winning, winningResult));
             stringBuilder.append(COUNT_AND_ENTER);
@@ -58,6 +67,14 @@ public class Output {
 
         System.out.print(stringBuilder);
         System.out.printf("총 수익률은 %.2f%%입니다.%n", earningsRateCalculator.getEarningsRate());
+    }
+
+    private String isSecond(Winning winning) {
+        if (winning == Winning.SECOND) {
+            return ", 보너스 볼 일치";
+        }
+
+        return "";
     }
 
     private int winningCount(Winning winning, Map<Winning, Integer> winningResult) {
