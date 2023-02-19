@@ -3,7 +3,6 @@ package view;
 import model.LottoNumber;
 import model.Money;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -28,18 +27,17 @@ public class Input {
     }
 
     private List<Integer> convertInput(String input) {
-        Stream<Integer> lotto = Arrays.stream(Arrays.stream(input.split(COMMA)).mapToInt(Integer::parseInt).toArray()).boxed();
+        Stream<Integer> lotto = Arrays.stream(Arrays.stream(input.split(COMMA))
+                .mapToInt(Integer::parseInt)
+                .toArray())
+                .boxed();
         return lotto.collect(Collectors.toUnmodifiableList());
     }
 
     private List<LottoNumber> convertNumbersToLotto(List<Integer> randomNumbers) {
-        List<LottoNumber> lotto = new ArrayList<>();
-
-        for (int randomNumber : randomNumbers) {
-            lotto.add(new LottoNumber(randomNumber));
-        }
-
-        return lotto;
+        return randomNumbers.stream()
+                .map(LottoNumber::new)
+                .collect(Collectors.toUnmodifiableList());
     }
 
     public LottoNumber inputBonusNumber() {
