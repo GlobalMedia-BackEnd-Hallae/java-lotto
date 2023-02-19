@@ -33,7 +33,7 @@ public class Input {
     }
 
     private List<LottoNumber> convertNumbersToLotto(List<Integer> randomNumbers) {
-        final List<LottoNumber> lotto = new ArrayList<>();
+        List<LottoNumber> lotto = new ArrayList<>();
 
         for (int randomNumber : randomNumbers) {
             lotto.add(new LottoNumber(randomNumber));

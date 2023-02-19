@@ -34,7 +34,7 @@ public class Output {
     }
 
     private StringJoiner addLotto(List<LottoNumber> numbers) {
-        final StringJoiner stringJoiner = new StringJoiner(COMMA_AND_BLANK);
+        StringJoiner stringJoiner = new StringJoiner(COMMA_AND_BLANK);
 
         for (LottoNumber number : numbers) {
             stringJoiner.add(Integer.toString(number.getLottoNumber()));
@@ -44,7 +44,7 @@ public class Output {
     }
 
     public void outputResult(Map<Winning, Integer> winningResult, EarningsRateCalculator earningsRateCalculator) {
-        final List<Winning> winnings = Arrays.stream(Winning.values()).filter(w -> w != Winning.FAIL).collect(Collectors.toUnmodifiableList());
+        List<Winning> winnings = Arrays.stream(Winning.values()).filter(w -> w != Winning.FAIL).collect(Collectors.toUnmodifiableList());
 
         stringBuilder.setLength(NONE);
         stringBuilder.append(START_COMMENT);

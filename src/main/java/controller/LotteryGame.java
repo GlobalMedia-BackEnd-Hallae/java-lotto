@@ -11,12 +11,12 @@ public class LotteryGame {
     private final Output output = new Output();
 
     public void lotteryGame() {
-        final Money money = createMoney();
-        final Lottery lottery = Lottery.createLottery(money.getCount());
+        Money money = createMoney();
+        Lottery lottery = Lottery.createLottery(money.getCount());
         output.outputLotto(money.getCount(), lottery);
-        final WinningLotto winningLotto = new WinningLotto(createWinningNumber());
+        WinningLotto winningLotto = new WinningLotto(createWinningNumber());
         createBonusNumber(winningLotto);
-        final Map<Winning, Integer> winningResult = createWinningResult(winningLotto.getWinningNumber(), winningLotto.getBonusNumber(), lottery);
+        Map<Winning, Integer> winningResult = createWinningResult(winningLotto.getWinningNumber(), winningLotto.getBonusNumber(), lottery);
         output.outputResult(winningResult, new EarningsRateCalculator(money.getMoney(), winningResult));
     }
 
@@ -48,7 +48,7 @@ public class LotteryGame {
     }
 
     private Map<Winning, Integer> createWinningResult(Lotto winningNumber, LottoNumber bonusNumber, Lottery lottery) {
-        final LotteryDrawing lotteryDrawing = new LotteryDrawing();
+        LotteryDrawing lotteryDrawing = new LotteryDrawing();
         return lotteryDrawing.drawLottery(winningNumber, bonusNumber, lottery);
     }
 }

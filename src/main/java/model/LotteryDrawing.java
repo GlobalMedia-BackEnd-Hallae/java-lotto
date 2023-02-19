@@ -7,9 +7,9 @@ import java.util.Map;
 public class LotteryDrawing {
 
     public Map<Winning, Integer> drawLottery(Lotto winningNumbers, LottoNumber bonusNumber, Lottery lottery) {
-        final Map<Winning, Integer> winningResult = new EnumMap<>(Winning.class);
-        final List<Integer> matchWithWinningNumbersResult = lottery.drawLottosWithWinningNumbers(winningNumbers);
-        final List<Boolean> matchWithBonusNumberResult = lottery.drawLottosWithBonusNumber(bonusNumber);
+        Map<Winning, Integer> winningResult = new EnumMap<>(Winning.class);
+        List<Integer> matchWithWinningNumbersResult = lottery.drawLottosWithWinningNumbers(winningNumbers);
+        List<Boolean> matchWithBonusNumberResult = lottery.drawLottosWithBonusNumber(bonusNumber);
 
         for (int index = 0; index < matchWithWinningNumbersResult.size(); index++) {
             winningResult.put(addResult(matchWithWinningNumbersResult.get(index), matchWithBonusNumberResult.get(index)), 1);
