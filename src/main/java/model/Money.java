@@ -10,9 +10,10 @@ public class Money {
 
     public Money(String input) {
         checkDigit(input);
-        checkRange(Integer.parseInt(input));
-        checkRest(Integer.parseInt(input));
-        this.value = Integer.parseInt(input);
+        int money = Integer.parseInt(input);
+        checkRange(money);
+        checkRest(money);
+        this.value = money;
     }
 
     private void checkDigit(String input) {
