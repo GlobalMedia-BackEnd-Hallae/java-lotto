@@ -26,7 +26,7 @@ public class Lottery {
         List<Integer> matchWithWinningNumbersResult = new ArrayList<>();
 
         for (Lotto lotto : this.lottos) {
-            matchWithWinningNumbersResult.add(lotto.getMatchCountOfWinningNumbers(winningNumbers));
+            matchWithWinningNumbersResult.add(lotto.drawLottoWithWinningNumbers(winningNumbers));
         }
 
         return matchWithWinningNumbersResult;

@@ -59,7 +59,7 @@ class LottoTest {
         final Lotto winningNumbers = new Lotto(createLottoNumbers(1, 2, 3, 4, 5, 6));
 
         // when
-        final int result = lottoNumbers.getMatchCountOfWinningNumbers(winningNumbers);
+        final int result = lottoNumbers.drawLottoWithWinningNumbers(winningNumbers);
 
         // then
         assertThat(result).isEqualTo(expectedResult);

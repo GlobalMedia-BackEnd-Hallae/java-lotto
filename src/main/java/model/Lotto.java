@@ -38,11 +38,11 @@ public class Lotto {
         }
     }
 
-    public int getMatchCountOfWinningNumbers(Lotto winningNumbers) {
-        return winningNumbers.drawLottoWithWinningNumbers(this.lottoNumbers);
+    public int drawLottoWithWinningNumbers(Lotto winningNumbers) {
+        return winningNumbers.getMatchCountOfWinningNumbers(this.lottoNumbers);
     }
 
-    private int drawLottoWithWinningNumbers(List<LottoNumber> lottoNumbers) {
+    private int getMatchCountOfWinningNumbers(List<LottoNumber> lottoNumbers) {
         return (int) this.lottoNumbers.stream()
                 .filter(getLottoNumberPredicate(lottoNumbers))
                 .count();
