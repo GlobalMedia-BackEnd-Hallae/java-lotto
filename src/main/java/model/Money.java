@@ -46,8 +46,8 @@ public class Money {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Money money1 = (Money) o;
-        return value == money1.value;
+        Money money = (Money) o;
+        return value == money.value;
     }
 
     @Override
