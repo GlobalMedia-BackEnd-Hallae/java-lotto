@@ -34,7 +34,7 @@ public enum Winning {
 
     public static Winning matchWinning(int count, boolean hasBonusNumber) {
         Winning result = Arrays.stream(Winning.values())
-                .filter(w -> w.count == count)
+                .filter(winning -> winning.count == count)
                 .findFirst()
                 .orElse(Winning.FAIL);
 
@@ -47,7 +47,7 @@ public enum Winning {
 
     public static long calculatePrize(Winning winning, int count) {
         return Arrays.stream(Winning.values())
-                .filter(w -> w.equals(winning))
+                .filter(win -> win.equals(winning))
                 .findFirst()
                 .map(value -> value.prize * count)
                 .orElse(0L);
