@@ -1,5 +1,6 @@
 package model;
 
+import model.lotto.LottoNumber;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -13,7 +14,7 @@ class LottoNumberTest {
     @ValueSource(ints = {0, 46})
     void canThrowException(int number) {
         // when, then
-        assertThatThrownBy(() -> new LottoNumber(number))
+        assertThatThrownBy(() -> LottoNumber.of(number))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[Error] 1 이상 45 이하의 번호를 입력해 주세요.");
     }
@@ -23,6 +24,6 @@ class LottoNumberTest {
     @ValueSource(ints = {1, 45})
     void canCreateLottoNumber(int number) {
         // when, then
-        assertThatCode(() -> new LottoNumber(number)).doesNotThrowAnyException();
+        assertThatCode(() -> LottoNumber.of(number)).doesNotThrowAnyException();
     }
 }
