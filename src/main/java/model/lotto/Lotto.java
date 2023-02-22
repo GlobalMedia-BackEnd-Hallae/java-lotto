@@ -1,24 +1,14 @@
-package model;
+package model.lotto;
 
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import static model.LottoNumber.lottoNumbersCache;
-
 public class Lotto {
 
-    private static final int LOTTO_COUNT = 6;
+    private static final int LOTTO_SIZE = 6;
 
     private final List<LottoNumber> lottoNumbers;
-
-    public static Lotto createRandomLotto() {
-        Collections.shuffle(lottoNumbersCache);
-        return new Lotto(lottoNumbersCache.stream()
-                .limit(LOTTO_COUNT)
-                .sorted(Comparator.comparing(LottoNumber::getLottoNumber))
-                .collect(Collectors.toUnmodifiableList()));
-    }
 
     public Lotto(List<LottoNumber> lottoNumbers) {
         checkLotteryCount(lottoNumbers);
@@ -26,14 +16,23 @@ public class Lotto {
         this.lottoNumbers = lottoNumbers;
     }
 
+    public static Lotto createRandomLotto() {
+        List<LottoNumber> lottoNumbers = new ArrayList<>(LottoNumber.getLottoNumbers().values());
+        Collections.shuffle(lottoNumbers);
+        return new Lotto(lottoNumbers.stream()
+                .limit(LOTTO_SIZE)
+                .sorted(Comparator.comparing(LottoNumber::getLottoNumber))
+                .collect(Collectors.toUnmodifiableList()));
+    }
+
     private void checkLotteryCount(List<LottoNumber> lottoNumbers) {
-        if (lottoNumbers.size() != LOTTO_COUNT) {
+        if (lottoNumbers.size() != LOTTO_SIZE) {
             throw new IllegalArgumentException("[ERROR] 6개의 숫자를 입력해주세요.");
         }
     }
 
     private void checkLotteryOverlap(List<LottoNumber> lottoNumbers) {
-        if (lottoNumbers.stream().distinct().count() != LOTTO_COUNT) {
+        if (lottoNumbers.stream().distinct().count() != LOTTO_SIZE) {
             throw new IllegalArgumentException("[ERROR] 중복이 아닌 숫자를 입력해주세요.");
         }
     }
@@ -44,11 +43,11 @@ public class Lotto {
 
     private int getMatchCountOfWinningNumbers(List<LottoNumber> lottoNumbers) {
         return (int) this.lottoNumbers.stream()
-                .filter(getLottoNumberPredicate(lottoNumbers))
+                .filter(getMatchingLottoNumber(lottoNumbers))
                 .count();
     }
 
-    private Predicate<LottoNumber> getLottoNumberPredicate(List<LottoNumber> lottoNumbers) {
+    private Predicate<LottoNumber> getMatchingLottoNumber(List<LottoNumber> lottoNumbers) {
         return lottoNumber -> lottoNumbers.stream()
                 .anyMatch(Predicate.isEqual(lottoNumber));
     }
