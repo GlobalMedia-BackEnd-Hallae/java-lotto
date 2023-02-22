@@ -1,5 +1,8 @@
 package model;
 
+import model.lotto.Lotto;
+import model.lotto.LottoNumber;
+import model.lotto.WinningLotto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +18,7 @@ class WinningLottoTest {
     void canThrowExceptionWhenBonusNumberOverlap() {
         // given
         final WinningLotto winningLotto = new WinningLotto(createLotto(1, 2, 3, 4, 5, 6));
-        final LottoNumber bonusNumber = new LottoNumber(6);
+        final LottoNumber bonusNumber = LottoNumber.of(6);
 
         // when, then
         assertThatThrownBy(() -> winningLotto.checkBonusNumberOverlap(bonusNumber))
@@ -25,7 +28,7 @@ class WinningLottoTest {
 
     private Lotto createLotto(int... numbers) {
         return new Lotto(Arrays.stream(numbers)
-                .mapToObj(LottoNumber::new)
+                .mapToObj(LottoNumber::of)
                 .collect(Collectors.toUnmodifiableList()));
     }
 }
