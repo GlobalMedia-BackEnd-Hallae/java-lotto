@@ -1,8 +1,8 @@
-package model;
+package model.lotto;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class LottoNumber {
@@ -10,25 +10,33 @@ public class LottoNumber {
     private static final int LOTTO_NUMBER_MIN_VALUE = 1;
     private static final int LOTTO_NUMBER_MAX_VALUE = 45;
 
-    protected static List<LottoNumber> lottoNumbersCache;
+    private static final Map<Integer, LottoNumber> LOTTO_NUMBER_CACHE = new HashMap<>();
 
     static {
-        lottoNumbersCache = IntStream.rangeClosed(LOTTO_NUMBER_MIN_VALUE, LOTTO_NUMBER_MAX_VALUE)
-                .mapToObj(LottoNumber::new)
-                .collect(Collectors.toList());
+        IntStream.rangeClosed(LOTTO_NUMBER_MIN_VALUE, LOTTO_NUMBER_MAX_VALUE)
+                .forEach(index -> LOTTO_NUMBER_CACHE.put(index, new LottoNumber(index)));
     }
 
     private final int value;
 
-    public LottoNumber(int value) {
+    private LottoNumber(int value) {
         checkNumberRange(value);
         this.value = value;
     }
 
-    private void checkNumberRange(int number) {
+    public static LottoNumber of(int number) {
+        checkNumberRange(number);
+        return LOTTO_NUMBER_CACHE.get(number);
+    }
+
+    private static void checkNumberRange(int number) {
         if (number < LOTTO_NUMBER_MIN_VALUE || number > LOTTO_NUMBER_MAX_VALUE) {
             throw new IllegalArgumentException("[Error] 1 이상 45 이하의 번호를 입력해 주세요.");
         }
+    }
+
+    public static Map<Integer, LottoNumber> getLottoNumbers() {
+        return LOTTO_NUMBER_CACHE;
     }
 
     public int getLottoNumber() {
