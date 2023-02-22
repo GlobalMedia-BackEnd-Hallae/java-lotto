@@ -1,7 +1,7 @@
 package view;
 
-import model.LottoNumber;
-import model.Money;
+import model.lotto.LottoNumber;
+import model.vo.Money;
 
 import java.util.Arrays;
 import java.util.List;
@@ -36,12 +36,12 @@ public class Input {
 
     private List<LottoNumber> convertNumbersToLotto(List<Integer> randomNumbers) {
         return randomNumbers.stream()
-                .map(LottoNumber::new)
+                .map(LottoNumber::of)
                 .collect(Collectors.toUnmodifiableList());
     }
 
     public LottoNumber inputBonusNumber() {
         System.out.println(ENTER + "보너스 번호를 입력해 주세요.");
-        return new LottoNumber(scanner.nextInt());
+        return LottoNumber.of(scanner.nextInt());
     }
 }
