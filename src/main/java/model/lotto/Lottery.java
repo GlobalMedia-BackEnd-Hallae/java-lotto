@@ -1,11 +1,12 @@
-package model.vo;
+package model.lotto;
 
-import model.Winning;
+import model.result.Winning;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.IntStream;
 
 public class Lottery {
 
@@ -13,6 +14,12 @@ public class Lottery {
 
     public Lottery(List<Lotto> lottos) {
         this.lottos = lottos;
+    }
+
+    public static Lottery createRandomLottery(int count) {
+        List<Lotto> lottos = new ArrayList<>();
+        IntStream.range(0, count).forEach(index -> lottos.add(Lotto.createRandomLotto()));
+        return new Lottery(lottos);
     }
 
     public Map<Winning, Integer> drawLottery(Lotto winningNumbers, LottoNumber bonusNumber) {
