@@ -1,6 +1,11 @@
 package controller;
 
-import model.*;
+import model.result.EarningsRateCalculator;
+import model.result.Winning;
+import model.lotto.Lottery;
+import model.lotto.Lotto;
+import model.lotto.WinningLotto;
+import model.vo.Money;
 import view.*;
 
 import java.util.Map;
@@ -12,11 +17,11 @@ public class LotteryGame {
 
     public void lotteryGame() {
         Money money = createMoney();
-        Lottery lottery = Lottery.createLottery(money.getCount());
+        Lottery lottery = Lottery.createRandomLottery(money.getCount());
         output.outputLotto(money.getCount(), lottery);
         WinningLotto winningLotto = new WinningLotto(createWinningNumber());
         createBonusNumber(winningLotto);
-        Map<Winning, Integer> winningResult = createWinningResult(winningLotto.getWinningNumber(), winningLotto.getBonusNumber(), lottery);
+        Map<Winning, Integer> winningResult = lottery.drawLottery(winningLotto.getWinningNumber(), winningLotto.getBonusNumber());
         sendWinningInformationToOutput(winningResult);
         EarningsRateCalculator earningsRateCalculator = new EarningsRateCalculator(money.getMoney(), winningResult);
         output.outputProfit(earningsRateCalculator.getEarningsRate());
@@ -47,11 +52,6 @@ public class LotteryGame {
             output.outputError(e.getMessage());
             createBonusNumber(winningNumbers);
         }
-    }
-
-    private Map<Winning, Integer> createWinningResult(Lotto winningNumber, LottoNumber bonusNumber, Lottery lottery) {
-        LotteryDrawing lotteryDrawing = new LotteryDrawing();
-        return lotteryDrawing.drawLottery(winningNumber, bonusNumber, lottery);
     }
 
     private void sendWinningInformationToOutput(Map<Winning, Integer> winningResult) {

@@ -1,5 +1,7 @@
 package model;
 
+import model.lotto.Lotto;
+import model.lotto.LottoNumber;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -93,14 +95,14 @@ class LottoTest {
 
     private static Stream<Arguments> provideSameBonusNumberAndDifferentBonusNumber() {
         return Stream.of(
-                Arguments.of(new LottoNumber(1), true),
-                Arguments.of(new LottoNumber(7), false)
+                Arguments.of(LottoNumber.of(1), true),
+                Arguments.of(LottoNumber.of(7), false)
         );
     }
 
     private static List<LottoNumber> createLottoNumbers(int... numbers) {
         return Arrays.stream(numbers)
-                .mapToObj(LottoNumber::new)
+                .mapToObj(LottoNumber::of)
                 .collect(Collectors.toUnmodifiableList());
     }
 }
