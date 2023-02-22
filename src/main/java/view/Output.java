@@ -1,6 +1,9 @@
 package view;
 
-import model.*;
+import model.result.Winning;
+import model.lotto.Lottery;
+import model.lotto.Lotto;
+import model.lotto.LottoNumber;
 
 import java.text.DecimalFormat;
 import java.util.*;
