@@ -1,4 +1,4 @@
-package model;
+package model.lotto;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -13,7 +13,9 @@ public class WinningLotto {
     }
 
     public void checkBonusNumberOverlap(LottoNumber bonusNumber) {
-        final Optional<LottoNumber> overlapNumber = winningNumbers.getLotto().stream().filter(lottoNumber -> lottoNumber.equals(bonusNumber)).findAny();
+        final Optional<LottoNumber> overlapNumber = winningNumbers.getLotto().stream()
+                .filter(lottoNumber -> lottoNumber.equals(bonusNumber))
+                .findAny();
 
         if (overlapNumber.isPresent()) {
             throw new IllegalArgumentException("[ERROR] 중복이 아닌 보너스 번호를 입력해주세요.");
