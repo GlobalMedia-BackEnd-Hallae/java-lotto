@@ -33,7 +33,7 @@ public class LottoNumber {
         }
     }
 
-    public static List<LottoNumber> getRandomLottoNumbers() {
+    public static List<LottoNumber> getRandomLottoNumberCache() {
         List<LottoNumber> lottoNumbers = new ArrayList<>(LOTTO_NUMBER_CACHE.values());
         Collections.shuffle(lottoNumbers);
         return lottoNumbers;

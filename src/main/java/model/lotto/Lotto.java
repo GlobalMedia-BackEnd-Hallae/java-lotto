@@ -17,7 +17,7 @@ public class Lotto {
     }
 
     public static Lotto createRandomLotto() {
-        return new Lotto(LottoNumber.getRandomLottoNumbers()
+        return new Lotto(LottoNumber.getRandomLottoNumberCache()
                 .stream()
                 .limit(LOTTO_SIZE)
                 .sorted(Comparator.comparing(LottoNumber::getLottoNumber))
