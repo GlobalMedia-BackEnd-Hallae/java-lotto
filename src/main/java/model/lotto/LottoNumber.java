@@ -19,14 +19,14 @@ public class LottoNumber {
 
     private final int value;
 
-    private LottoNumber(int value) {
-        checkNumberRange(value);
-        this.value = value;
-    }
-
     public static LottoNumber of(int number) {
         checkNumberRange(number);
         return LOTTO_NUMBER_CACHE.get(number);
+    }
+
+    private LottoNumber(int value) {
+        checkNumberRange(value);
+        this.value = value;
     }
 
     private static void checkNumberRange(int number) {
