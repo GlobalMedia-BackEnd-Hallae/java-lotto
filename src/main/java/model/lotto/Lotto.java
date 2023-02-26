@@ -17,9 +17,8 @@ public class Lotto {
     }
 
     public static Lotto createRandomLotto() {
-        List<LottoNumber> lottoNumbers = new ArrayList<>(LottoNumber.getLottoNumbers().values());
-        Collections.shuffle(lottoNumbers);
-        return new Lotto(lottoNumbers.stream()
+        return new Lotto(LottoNumber.getRandomLottoNumbers()
+                .stream()
                 .limit(LOTTO_SIZE)
                 .sorted(Comparator.comparing(LottoNumber::getLottoNumber))
                 .collect(Collectors.toUnmodifiableList()));

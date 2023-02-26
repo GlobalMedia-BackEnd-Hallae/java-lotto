@@ -1,8 +1,6 @@
 package model.lotto;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.IntStream;
 
 public class LottoNumber {
@@ -35,8 +33,10 @@ public class LottoNumber {
         }
     }
 
-    public static Map<Integer, LottoNumber> getLottoNumbers() {
-        return LOTTO_NUMBER_CACHE;
+    public static List<LottoNumber> getRandomLottoNumbers() {
+        List<LottoNumber> lottoNumbers = new ArrayList<>(LOTTO_NUMBER_CACHE.values());
+        Collections.shuffle(lottoNumbers);
+        return lottoNumbers;
     }
 
     public int getLottoNumber() {
