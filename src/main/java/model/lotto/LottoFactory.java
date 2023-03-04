@@ -9,11 +9,15 @@ public class LottoFactory {
     private static final int LOTTO_SIZE = 6;
 
     public static Lotto createRandomLotto() {
-        return new Lotto(LottoNumber.getRandomLottoNumberCache()
+        return new Lotto(LottoFactory.getRandomLotto());
+    }
+
+    private static List<LottoNumber> getRandomLotto() {
+        return LottoNumber.getRandomLottoNumberCache()
                 .stream()
                 .limit(LOTTO_SIZE)
                 .sorted(Comparator.comparing(LottoNumber::getLottoNumber))
-                .collect(Collectors.toUnmodifiableList()));
+                .collect(Collectors.toUnmodifiableList());
     }
 
     public static WinningLotto createWinningLotto(List<LottoNumber> winningLotto) {
