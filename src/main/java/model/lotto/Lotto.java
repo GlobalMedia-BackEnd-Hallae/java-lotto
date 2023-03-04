@@ -2,38 +2,13 @@ package model.lotto;
 
 import java.util.*;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public class Lotto {
-
-    private static final int LOTTO_SIZE = 6;
 
     private final List<LottoNumber> lottoNumbers;
 
     public Lotto(List<LottoNumber> lottoNumbers) {
-        checkLotteryCount(lottoNumbers);
-        checkLotteryOverlap(lottoNumbers);
         this.lottoNumbers = lottoNumbers;
-    }
-
-    public static Lotto createRandomLotto() {
-        return new Lotto(LottoNumber.getRandomLottoNumberCache()
-                .stream()
-                .limit(LOTTO_SIZE)
-                .sorted(Comparator.comparing(LottoNumber::getLottoNumber))
-                .collect(Collectors.toUnmodifiableList()));
-    }
-
-    private void checkLotteryCount(List<LottoNumber> lottoNumbers) {
-        if (lottoNumbers.size() != LOTTO_SIZE) {
-            throw new IllegalArgumentException("[ERROR] 6개의 숫자를 입력해주세요.");
-        }
-    }
-
-    private void checkLotteryOverlap(List<LottoNumber> lottoNumbers) {
-        if (lottoNumbers.stream().distinct().count() != LOTTO_SIZE) {
-            throw new IllegalArgumentException("[ERROR] 중복이 아닌 숫자를 입력해주세요.");
-        }
     }
 
     public int drawLottoWithWinningNumbers(Lotto winningNumbers) {

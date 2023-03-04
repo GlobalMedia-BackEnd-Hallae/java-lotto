@@ -18,7 +18,7 @@ public class Lottery {
 
     public static Lottery createRandomLottery(int count) {
         List<Lotto> lottos = new ArrayList<>();
-        IntStream.range(0, count).forEach(index -> lottos.add(Lotto.createRandomLotto()));
+        IntStream.range(0, count).forEach(index -> lottos.add(LottoFactory.createRandomLotto()));
         return new Lottery(lottos);
     }
 

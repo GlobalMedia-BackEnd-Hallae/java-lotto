@@ -1,13 +1,12 @@
 package controller;
 
+import model.lotto.*;
 import model.result.EarningsRateCalculator;
 import model.result.Winning;
-import model.lotto.Lottery;
-import model.lotto.Lotto;
-import model.lotto.WinningLotto;
 import model.vo.Money;
 import view.*;
 
+import java.util.List;
 import java.util.Map;
 
 public class LotteryGame {
@@ -19,7 +18,7 @@ public class LotteryGame {
         Money money = createMoney();
         Lottery lottery = Lottery.createRandomLottery(money.getCount());
         output.outputLotto(money.getCount(), lottery);
-        WinningLotto winningLotto = new WinningLotto(createWinningNumber());
+        WinningLotto winningLotto = LottoFactory.createWinningLotto(createWinningNumber());
         createBonusNumber(winningLotto);
         Map<Winning, Integer> winningResult = lottery.drawLottery(winningLotto.getWinningNumber(), winningLotto.getBonusNumber());
         sendWinningInformationToOutput(winningResult);
@@ -36,9 +35,9 @@ public class LotteryGame {
         }
     }
 
-    private Lotto createWinningNumber() {
+    private List<LottoNumber> createWinningNumber() {
         try {
-            return new Lotto(input.inputWinningNumber());
+            return input.inputWinningNumber();
         } catch (IllegalArgumentException e) {
             output.outputError(e.getMessage());
             return createWinningNumber();
