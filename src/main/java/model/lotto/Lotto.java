@@ -17,13 +17,8 @@ public class Lotto {
 
     private int getMatchCountOfWinningNumbers(List<LottoNumber> lottoNumbers) {
         return (int) this.lottoNumbers.stream()
-                .filter(getMatchingLottoNumber(lottoNumbers))
+                .filter(lottoNumber -> lottoNumbers.stream().anyMatch(Predicate.isEqual(lottoNumber)))
                 .count();
-    }
-
-    private Predicate<LottoNumber> getMatchingLottoNumber(List<LottoNumber> lottoNumbers) {
-        return lottoNumber -> lottoNumbers.stream()
-                .anyMatch(Predicate.isEqual(lottoNumber));
     }
 
     public boolean drawLottoWithBonusNumber(LottoNumber bonusNumber) {
